@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ui-universe Component Descriptor",
+  "description": "Machine-readable descriptor for a ui-universe component. Used by AI agents, the docs site, and Lab Mode.",
+  "type": "object",
+  "required": ["name", "slug", "description", "category", "props"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "PascalCase component name (e.g., FadeUp)"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "URL-safe kebab-case identifier (e.g., fade-up)"
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line description of what the component does"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["animations", "backgrounds", "sections", "text"],
+      "description": "Component category"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Search and discovery tags"
+    },
+    "since": {
+      "type": "string",
+      "description": "Version when component was added"
+    },
+    "props": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type", "description"],
+        "properties": {
+          "type": { "type": "string" },
+          "required": { "type": "boolean" },
+          "default": {},
+          "description": { "type": "string" },
+          "enum": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "min": { "type": "number" },
+          "max": { "type": "number" }
+        }
+      },
+      "description": "Props schema — AI agents use this to generate correct code"
+    },
+    "variants": {
+      "type": "object",
+      "description": "Named visual or behavioral variants"
+    },
+    "motionPreset": {
+      "type": "string",
+      "description": "Default motion preset name from @ui-universe/tokens"
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "runtime": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "peer": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "optional": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "recommendedWith": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Component names that pair well with this one"
+    },
+    "aiPromptHint": {
+      "type": "string",
+      "description": "Guidance for AI agents on when and how to use this component"
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "code"],
+        "properties": {
+          "title": { "type": "string" },
+          "code": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
+      "description": "Usage examples with code snippets"
+    }
+  }
+}

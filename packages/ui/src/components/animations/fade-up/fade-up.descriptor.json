@@ -1,0 +1,89 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "FadeUp",
+  "slug": "fade-up",
+  "description": "Animates children with a fade + upward translate on mount or viewport entry.",
+  "category": "animations",
+  "tags": ["entrance", "scroll", "fade", "translate", "reveal"],
+  "since": "0.1.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content to animate"
+    },
+    "preset": {
+      "type": "MotionPresetName",
+      "required": false,
+      "default": "fadeUp",
+      "description": "Motion preset from the token system",
+      "enum": [
+        "fadeUp",
+        "fadeDown",
+        "fadeLeft",
+        "fadeRight",
+        "scaleIn",
+        "popIn",
+        "blur",
+        "slideUp",
+        "slideDown"
+      ]
+    },
+    "delay": {
+      "type": "number",
+      "required": false,
+      "description": "Custom delay in milliseconds"
+    },
+    "triggerOnView": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Animate when element enters viewport"
+    },
+    "viewThreshold": {
+      "type": "number",
+      "required": false,
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "description": "Fraction of element visible before triggering"
+    },
+    "once": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Only animate once (don't re-trigger on scroll back)"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    }
+  },
+  "variants": {},
+  "motionPreset": "fadeUp",
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["StaggerGroup", "GradientBackground"],
+  "aiPromptHint": "Use FadeUp to reveal content sections on scroll. Wrap multiple FadeUp components inside a StaggerGroup for cascading entrance effects. Works well for hero text, feature cards, testimonial sections, and any content that should appear as the user scrolls. Supports all motion presets from the token system via the 'preset' prop.",
+  "examples": [
+    {
+      "title": "Basic usage",
+      "code": "<FadeUp>\n  <h1 className=\"text-4xl font-bold\">Hello World</h1>\n</FadeUp>"
+    },
+    {
+      "title": "With custom delay",
+      "code": "<FadeUp delay={200}>\n  <p className=\"text-lg text-neutral-400\">Appears after 200ms</p>\n</FadeUp>"
+    },
+    {
+      "title": "Staggered group",
+      "code": "<StaggerGroup stagger=\"normal\">\n  <FadeUp><Card title=\"Feature 1\" /></FadeUp>\n  <FadeUp><Card title=\"Feature 2\" /></FadeUp>\n  <FadeUp><Card title=\"Feature 3\" /></FadeUp>\n</StaggerGroup>"
+    },
+    {
+      "title": "Different preset",
+      "code": "<FadeUp preset=\"scaleIn\">\n  <div className=\"rounded-xl bg-neutral-900 p-8\">Scales in instead of sliding up</div>\n</FadeUp>"
+    }
+  ]
+}

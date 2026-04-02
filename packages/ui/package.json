@@ -1,0 +1,96 @@
+{
+  "name": "@ui-universe/ui",
+  "version": "0.1.0",
+  "description": "AI-native motion UI components for React and Next.js",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./animations": {
+      "import": {
+        "types": "./dist/animations.d.ts",
+        "default": "./dist/animations.js"
+      },
+      "require": {
+        "types": "./dist/animations.d.cts",
+        "default": "./dist/animations.cjs"
+      }
+    },
+    "./backgrounds": {
+      "import": {
+        "types": "./dist/backgrounds.d.ts",
+        "default": "./dist/backgrounds.js"
+      },
+      "require": {
+        "types": "./dist/backgrounds.d.cts",
+        "default": "./dist/backgrounds.cjs"
+      }
+    },
+    "./sections": {
+      "import": {
+        "types": "./dist/sections.d.ts",
+        "default": "./dist/sections.js"
+      },
+      "require": {
+        "types": "./dist/sections.d.cts",
+        "default": "./dist/sections.cjs"
+      }
+    },
+    "./text": {
+      "import": {
+        "types": "./dist/text.d.ts",
+        "default": "./dist/text.js"
+      },
+      "require": {
+        "types": "./dist/text.d.cts",
+        "default": "./dist/text.cjs"
+      }
+    }
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ui-universe/tokens": "workspace:*",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "peerDependencies": {
+    "motion": ">=12.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "tailwindcss": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^19.0.3",
+    "@types/react-dom": "^19.0.2",
+    "jsdom": "^25.0.1",
+    "motion": "^12.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  },
+  "license": "SEE LICENSE IN LICENSE"
+}
