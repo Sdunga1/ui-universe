@@ -2,7 +2,7 @@
 
 <br />
 
-<img alt="ui-universe" src="./uiUniverse.svg" width="48" height="48">
+<img alt="ui-universe" src="./.github/logo-readme.svg" width="120" height="120">
 
 # ui-universe
 
