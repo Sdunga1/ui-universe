@@ -1,32 +1,29 @@
-<div align="center">
+<h1 style="display: flex; align-items: center; gap: 12px;">
+  <svg viewBox="8 5 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 60px; height: 60px; flex-shrink: 0;">
+    <g transform="translate(6,6)" stroke="#ee502c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 4,4 A 12,12 0 0 0 28,4 L 28,16 A 12,12 0 0 1 4,16 Z"></path>
+      <circle cx="28" cy="16" r="2.5" fill="#ee502c" stroke="none"></circle>
+    </g>
+  </svg>
+  uiUniverse
+</h1>
 
-<br />
-
-<img alt="ui-universe" src="./.github/logo-readme.svg" width="120" height="120">
-
-# ui-universe
-
-<br />
 <br />
 
 **Motion UI components built for the AI era.**
 
 Ship stunning landing pages in minutes — not days.
 
-[![License](https://img.shields.io/badge/license-MIT%20%2B%20Commons%20Clause-blue)](#license)
+[![License](https://img.shields.io/badge/license-MIT%20%2B%20Commons%20Clause-ee502c)](#license)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178c6?logo=typescript&logoColor=white)](#)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](#)
 [![Tailwind](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss&logoColor=white)](#)
 
 [Explore Components](https://uiuniverse.dev) · [Get Started](#get-started) · [AI Integration](#ai-native-by-design)
 
-<br />
-
-</div>
-
 ---
 
-## What is ui-universe?
+## What is uiUniverse?
 
 A focused library of animated React components, backgrounds, and full page sections — powered by a coherent motion system and designed from the ground up for AI coding tools.
 
@@ -53,7 +50,7 @@ Every component uses the same motion system. Same easings. Same timing. Your pag
 
 ---
 
-## Why ui-universe?
+## Why uiUniverse?
 
 ### AI-Native by Design
 
@@ -127,7 +124,7 @@ import { FadeUp } from "@ui-universe/ui/animations";
 ## Architecture
 
 ```
-ui-universe/
+uiUniverse/
 ├── packages/
 │   ├── ui/             → @ui-universe/ui        Components + hooks + primitives
 │   └── tokens/         → @ui-universe/tokens     Motion system + design tokens

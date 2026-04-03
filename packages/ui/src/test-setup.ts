@@ -6,7 +6,6 @@ class MockIntersectionObserver implements IntersectionObserver {
   readonly rootMargin: string = "";
   readonly thresholds: ReadonlyArray<number> = [];
 
-  // biome-ignore lint: test mock, callback stored for potential future use
   constructor(callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {
     void callback;
   }
