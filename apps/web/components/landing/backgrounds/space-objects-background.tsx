@@ -50,10 +50,13 @@ export function SpaceObjectsBackground({ reducedMotion }: Props) {
     const timeouts: ReturnType<typeof setTimeout>[] = [];
     const createSpawner = (initialDelay: number) => {
       const scheduleNext = () => {
-        const t = setTimeout(() => {
-          spawn();
-          scheduleNext();
-        }, 2000 + Math.random() * 4000);
+        const t = setTimeout(
+          () => {
+            spawn();
+            scheduleNext();
+          },
+          2000 + Math.random() * 4000,
+        );
         timeouts.push(t);
       };
       const t = setTimeout(() => {

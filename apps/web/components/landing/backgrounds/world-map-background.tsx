@@ -90,10 +90,7 @@ export function WorldMapBackground({ reducedMotion }: Props) {
     }
 
     // Group dots by continent
-    const continentDots: number[][] = Array.from(
-      { length: CONTINENT_COUNT },
-      () => [],
-    );
+    const continentDots: number[][] = Array.from({ length: CONTINENT_COUNT }, () => []);
     for (let i = 0; i < dots.length; i++) {
       continentDots[dots[i].continent].push(i);
     }
@@ -208,11 +205,5 @@ export function WorldMapBackground({ reducedMotion }: Props) {
     };
   }, [reducedMotion]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      aria-hidden="true"
-    />
-  );
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 }

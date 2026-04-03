@@ -34,7 +34,7 @@ export default async function ComponentPage({ params }: PageProps) {
             {descriptor.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-[var(--border)] px-3 py-1 text-xs text-[var(--muted)]"
+                className="rounded-none border border-[var(--border)] px-3 py-1 text-xs text-[var(--muted)]"
               >
                 {tag}
               </span>
@@ -52,7 +52,7 @@ export default async function ComponentPage({ params }: PageProps) {
       {/* Props Table */}
       <section className="mb-10">
         <h2 className="mb-4 text-xl font-semibold">Props</h2>
-        <div className="overflow-x-auto rounded-lg border border-[var(--border)]">
+        <div className="overflow-x-auto rounded-none border border-[var(--border)]">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--border)] text-left">
@@ -66,7 +66,7 @@ export default async function ComponentPage({ params }: PageProps) {
               {Object.entries(descriptor.props).map(([name, prop]) => (
                 <tr key={name} className="border-b border-[var(--border)] last:border-0">
                   <td className="px-4 py-3">
-                    <code className="rounded bg-[var(--card)] px-1.5 py-0.5 text-xs">
+                    <code className="rounded-none bg-[var(--card)] px-1.5 py-0.5 text-xs">
                       {name}
                       {prop.required && <span className="text-red-400">*</span>}
                     </code>
@@ -95,7 +95,7 @@ export default async function ComponentPage({ params }: PageProps) {
             {descriptor.examples.map((example) => (
               <div key={example.title}>
                 <h3 className="mb-2 text-sm font-medium text-[var(--muted)]">{example.title}</h3>
-                <pre className="overflow-x-auto rounded-lg border border-[var(--border)] bg-[var(--card)] p-4">
+                <pre className="overflow-x-auto rounded-none border border-[var(--border)] bg-[var(--card)] p-4">
                   <code className="text-sm">{example.code}</code>
                 </pre>
               </div>
@@ -108,7 +108,7 @@ export default async function ComponentPage({ params }: PageProps) {
       {descriptor.aiPromptHint && (
         <section className="mb-10">
           <h2 className="mb-4 text-xl font-semibold">AI Usage Hint</h2>
-          <div className="rounded-lg border border-[var(--border)] bg-[var(--card)] p-4 text-sm text-[var(--muted)]">
+          <div className="rounded-none border border-[var(--border)] bg-[var(--card)] p-4 text-sm text-[var(--muted)]">
             {descriptor.aiPromptHint}
           </div>
         </section>
@@ -122,7 +122,7 @@ export default async function ComponentPage({ params }: PageProps) {
             {descriptor.recommendedWith.map((name) => (
               <span
                 key={name}
-                className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-sm"
+                className="rounded-none border border-[var(--border)] px-3 py-1.5 text-sm"
               >
                 {name}
               </span>

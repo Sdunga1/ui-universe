@@ -1,5 +1,5 @@
-import { AnimatedBackground } from "../components/landing/backgrounds/animated-background";
 import { AIIntegration } from "../components/landing/ai-integration";
+import { AnimatedBackground } from "../components/landing/backgrounds/animated-background";
 import { CodeShowcase } from "../components/landing/code-showcase";
 import { ComponentGrid } from "../components/landing/component-grid";
 import { CTAFooter } from "../components/landing/cta-footer";

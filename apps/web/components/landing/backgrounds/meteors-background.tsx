@@ -103,20 +103,22 @@ export function MeteorsBackground({ reducedMotion }: MeteorsBackgroundProps) {
           key={m.id}
           onAnimationEnd={() => removeMeteor(m.id)}
           className="absolute"
-          style={{
-            left: m.x,
-            top: m.y,
-            width: m.length,
-            height: 2,
-            background: "linear-gradient(to right, transparent, #ee502c)",
-            transform: `rotate(${m.angle}deg)`,
-            animation: `meteorFly ${m.duration}s linear forwards`,
-            "--meteor-dx": `${m.dx}px`,
-            "--meteor-dy": `${m.dy}px`,
-            opacity: 0.7,
-            filter: "blur(0.3px)",
-            boxShadow: "0 0 6px rgba(238, 80, 44, 0.4)",
-          } as React.CSSProperties}
+          style={
+            {
+              left: m.x,
+              top: m.y,
+              width: m.length,
+              height: 2,
+              background: "linear-gradient(to right, transparent, #ee502c)",
+              transform: `rotate(${m.angle}deg)`,
+              animation: `meteorFly ${m.duration}s linear forwards`,
+              "--meteor-dx": `${m.dx}px`,
+              "--meteor-dy": `${m.dy}px`,
+              opacity: 0.7,
+              filter: "blur(0.3px)",
+              boxShadow: "0 0 6px rgba(238, 80, 44, 0.4)",
+            } as React.CSSProperties
+          }
         />
       ))}
     </div>

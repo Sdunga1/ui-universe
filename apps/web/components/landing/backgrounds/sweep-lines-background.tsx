@@ -33,8 +33,7 @@ export function SweepLinesBackground({ reducedMotion }: Props) {
             style={{
               width: 300,
               height: 1,
-              background:
-                "linear-gradient(90deg, transparent, rgba(238,80,44,0.15), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(238,80,44,0.15), transparent)",
               animation: `sweepRight ${line.duration}s linear ${line.delay}s infinite`,
             }}
           />
@@ -51,8 +50,7 @@ export function SweepLinesBackground({ reducedMotion }: Props) {
             style={{
               width: 1,
               height: 300,
-              background:
-                "linear-gradient(transparent, rgba(238,80,44,0.15), transparent)",
+              background: "linear-gradient(transparent, rgba(238,80,44,0.15), transparent)",
               animation: `sweepDown ${line.duration}s linear ${line.delay}s infinite`,
             }}
           />

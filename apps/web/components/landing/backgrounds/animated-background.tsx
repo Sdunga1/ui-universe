@@ -19,11 +19,7 @@ export function AnimatedBackground() {
   }, []);
 
   return (
-    <div
-      className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0 }}
-      aria-hidden="true"
-    >
+    <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }} aria-hidden="true">
       <WorldMapBackground reducedMotion={reducedMotion} />
       <SweepLinesBackground reducedMotion={reducedMotion} />
       <SpaceObjectsBackground reducedMotion={reducedMotion} />
