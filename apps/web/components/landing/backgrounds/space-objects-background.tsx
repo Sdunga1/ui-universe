@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const SOURCES = ["/bg/astronaut.svg", "/bg/rover.svg", "/bg/saturn.svg"];
+const SOURCES: [string, ...string[]] = ["/bg/astronaut.svg", "/bg/rover.svg", "/bg/saturn.svg"];
 const DURATION = 3; // seconds
 
 interface FloatingObject {
@@ -32,18 +32,17 @@ export function SpaceObjectsBackground({ reducedMotion }: Props) {
       const angle = Math.random() * Math.PI * 2;
       const dist = 50 + Math.random() * 100;
 
-      setObjects((prev) => [
-        ...prev.slice(-7),
-        {
-          id: idRef.current,
-          src: SOURCES[Math.floor(Math.random() * SOURCES.length)] ?? SOURCES[0],
-          x: 10 + Math.random() * 80,
-          y: 10 + Math.random() * 80,
-          size: 60 + Math.random() * 50,
-          dx: Math.cos(angle) * dist,
-          dy: Math.sin(angle) * dist,
-        },
-      ]);
+      const src = SOURCES[Math.floor(Math.random() * SOURCES.length)] ?? SOURCES[0];
+      const obj: FloatingObject = {
+        id: idRef.current,
+        src,
+        x: 10 + Math.random() * 80,
+        y: 10 + Math.random() * 80,
+        size: 60 + Math.random() * 50,
+        dx: Math.cos(angle) * dist,
+        dy: Math.sin(angle) * dist,
+      };
+      setObjects((prev) => [...prev.slice(-7), obj]);
     };
 
     // Spawn multiple objects on independent random timers
