@@ -36,7 +36,7 @@ export function SpaceObjectsBackground({ reducedMotion }: Props) {
         ...prev.slice(-7),
         {
           id: idRef.current,
-          src: SOURCES[Math.floor(Math.random() * SOURCES.length)],
+          src: SOURCES[Math.floor(Math.random() * SOURCES.length)] ?? SOURCES[0],
           x: 10 + Math.random() * 80,
           y: 10 + Math.random() * 80,
           size: 60 + Math.random() * 50,

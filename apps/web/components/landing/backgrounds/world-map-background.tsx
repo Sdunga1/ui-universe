@@ -84,15 +84,16 @@ export function WorldMapBackground({ reducedMotion }: Props) {
     // Parse flat array into dot objects with continent classification
     const dots: Dot[] = [];
     for (let i = 0; i < LAND_DOTS.length; i += 2) {
-      const nx = LAND_DOTS[i];
-      const ny = LAND_DOTS[i + 1];
+      const nx = LAND_DOTS[i] ?? 0;
+      const ny = LAND_DOTS[i + 1] ?? 0;
       dots.push({ nx, ny, continent: classifyContinent(nx, ny) });
     }
 
     // Group dots by continent
     const continentDots: number[][] = Array.from({ length: CONTINENT_COUNT }, () => []);
     for (let i = 0; i < dots.length; i++) {
-      continentDots[dots[i].continent].push(i);
+      const d = dots[i];
+      if (d) continentDots[d.continent]?.push(i);
     }
 
     let offscreen: HTMLCanvasElement | null = null;
@@ -139,7 +140,7 @@ export function WorldMapBackground({ reducedMotion }: Props) {
     const spawnContinentHighlight = (now: number) => {
       let next: number;
       do {
-        next = HIGHLIGHTABLE[Math.floor(Math.random() * HIGHLIGHTABLE.length)];
+        next = HIGHLIGHTABLE[Math.floor(Math.random() * HIGHLIGHTABLE.length)] ?? C_NA;
       } while (next === lastContinent && HIGHLIGHTABLE.length > 1);
       lastContinent = next;
 
@@ -175,12 +176,13 @@ export function WorldMapBackground({ reducedMotion }: Props) {
         if (intensity <= 0) return true;
 
         const extra = intensity * HIGHLIGHT_EXTRA;
-        const indices = continentDots[hl.continentIndex];
+        const indices = continentDots[hl.continentIndex] ?? [];
 
         ctx.fillStyle = `rgba(${ACCENT_RGB}, ${extra})`;
         ctx.beginPath();
         for (const idx of indices) {
           const dot = dots[idx];
+          if (!dot) continue;
           const x = (dot.nx / 10000) * cssW;
           const y = (dot.ny / 10000) * cssH;
           ctx.moveTo(x + dotSize, y);
