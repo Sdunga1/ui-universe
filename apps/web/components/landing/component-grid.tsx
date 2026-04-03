@@ -56,6 +56,7 @@ export function ComponentGrid() {
                     <h3 className="text-3xl font-azeret font-bold">
                       {(demo.content ?? "").split("").map((char, i) => (
                         <span
+                          // biome-ignore lint/suspicious/noArrayIndexKey: static char animation, index is the only stable key
                           key={i}
                           className={`inline-block transition-all duration-500 ${hoveredIndex === index ? "text-[var(--accent)]" : ""}`}
                           style={{
@@ -134,6 +135,7 @@ export function ComponentGrid() {
                   <div className="grid grid-cols-3 gap-2 w-full">
                     {Array.from({ length: 9 }).map((_, i) => (
                       <div
+                        // biome-ignore lint/suspicious/noArrayIndexKey: generated grid cells have no other identifier
                         key={i}
                         className="aspect-square bg-[var(--accent)] rounded-none transition-all duration-500"
                         style={{

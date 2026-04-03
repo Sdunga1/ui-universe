@@ -79,9 +79,9 @@ export function AIIntegration() {
                       animations:
                     </p>
                     <div className="bg-[var(--card)] rounded-none border border-[#2a2a2a] p-4 font-mono text-xs overflow-x-auto">
-                      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static syntax-highlighted code string, no user input */}
                       <pre
                         className="text-[var(--muted)]"
+                        // biome-ignore lint/security/noDangerouslySetInnerHtml: static syntax-highlighted string, no user input
                         dangerouslySetInnerHTML={{ __html: generatedCodeHtml }}
                       />
                     </div>

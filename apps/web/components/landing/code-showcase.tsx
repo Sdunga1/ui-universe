@@ -105,9 +105,9 @@ export function CodeShowcase() {
                 </button>
               </div>
               <div className="p-6 font-mono text-sm overflow-x-auto">
-                {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static syntax-highlighted code string, no user input */}
                 <pre
                   className="text-[var(--muted)]"
+                  // biome-ignore lint/security/noDangerouslySetInnerHtml: static syntax-highlighted string, no user input
                   dangerouslySetInnerHTML={{ __html: codeHtml }}
                 />
               </div>
