@@ -33,7 +33,7 @@
     }
 }
 
-/* Custom animations for landing page */
+/* Custom animations for landing page - Framer Motion style */
 @keyframes marquee {
     0% {
         transform: translateX(0);
@@ -52,10 +52,10 @@
     }
 }
 
-@keyframes fadeIn {
+@keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(40px);
     }
     to {
         opacity: 1;
@@ -63,12 +63,34 @@
     }
 }
 
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 @keyframes pulseGlow {
     0%, 100% {
-        opacity: 0.5;
+        opacity: 0.3;
     }
     50% {
-        opacity: 1;
+        opacity: 0.8;
     }
 }
 
@@ -78,8 +100,26 @@
         opacity: 1;
     }
     100% {
-        transform: translateY(8px);
+        transform: translateY(12px);
         opacity: 0;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
     }
 }
 
@@ -89,48 +129,56 @@
 }
 
 .animate-wave {
-    animation: wave 0.6s ease-in-out;
+    animation: wave 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in-delay-1 {
-    animation: fadeIn 0.8s ease-out 0.2s forwards;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
     opacity: 0;
 }
 
 .animate-fade-in-delay-2 {
-    animation: fadeIn 0.8s ease-out 0.4s forwards;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
     opacity: 0;
 }
 
 .animate-fade-in-delay-3 {
-    animation: fadeIn 0.8s ease-out 0.6s forwards;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
     opacity: 0;
 }
 
 .animate-fade-in-delay-4 {
-    animation: fadeIn 0.8s ease-out 0.8s forwards;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
     opacity: 0;
 }
 
 .animate-fade-in-delay-5 {
-    animation: fadeIn 0.8s ease-out 1s forwards;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards;
     opacity: 0;
 }
 
 .animate-pulse-slow {
-    animation: pulseGlow 4s ease-in-out infinite;
+    animation: pulseGlow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .animate-bounce-slow {
-    animation: bounce 3s ease-in-out infinite;
+    animation: float 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .animate-scroll-indicator {
-    animation: scrollIndicator 2s ease-in-out infinite;
+    animation: scrollIndicator 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-float {
+    animation: float 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-shimmer {
+    animation: shimmer 3s linear infinite;
 }
 
 /* Grid background pattern */
@@ -144,8 +192,9 @@
 /* Scroll reveal animations */
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(60px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .scroll-reveal.animate-in {
@@ -155,16 +204,38 @@
 
 /* Feature card animations */
 .feature-card {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
 }
 
 .component-demo-card {
-    animation: fadeIn 0.5s ease-out forwards;
+    animation: fadeInScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.component-demo-card:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+/* Smooth transitions for all interactive elements */
+button, a {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Prevent default centering */
 .App {
     text-align: left;
+}
+
+/* Parallax container */
+.parallax-container {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }

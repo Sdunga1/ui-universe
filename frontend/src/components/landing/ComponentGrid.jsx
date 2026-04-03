@@ -8,7 +8,7 @@ const ComponentGrid = () => {
     <section className="py-32 px-6 scroll-reveal">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-5xl font-azeret font-bold mb-6">
+          <h2 className="text-5xl font-azeret font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400">
             50+ components that feel alive
           </h2>
           <p className="text-xl text-[#a0a0a0] max-w-2xl mx-auto">
@@ -20,7 +20,7 @@ const ComponentGrid = () => {
           {componentDemos.map((demo, index) => (
             <div
               key={index}
-              className="component-demo-card group relative aspect-square rounded-2xl border border-[#1a1a1a] bg-[#0a0a0a] overflow-hidden cursor-pointer hover:border-[#ee502c]/50 transition-all duration-500"
+              className="component-demo-card group relative aspect-square rounded-2xl border border-[#1a1a1a] bg-gradient-to-br from-[#0a0a0a] to-[#050505] overflow-hidden cursor-pointer hover:border-[#ee502c]/50"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
@@ -35,7 +35,8 @@ const ComponentGrid = () => {
                       hoveredIndex === index ? 'scale-110 rotate-6' : 'scale-100 rotate-0'
                     }`}
                     style={{
-                      background: demo.content
+                      background: demo.content,
+                      filter: hoveredIndex === index ? 'brightness(1.2)' : 'brightness(1)'
                     }}
                   ></div>
                 )}
@@ -46,11 +47,12 @@ const ComponentGrid = () => {
                       {demo.content.split('').map((char, i) => (
                         <span
                           key={i}
-                          className={`inline-block transition-all duration-300 ${
+                          className={`inline-block transition-all duration-500 ${
                             hoveredIndex === index ? 'animate-wave text-[#ee502c]' : ''
                           }`}
                           style={{
-                            animationDelay: `${i * 50}ms`
+                            animationDelay: `${i * 50}ms`,
+                            transform: hoveredIndex === index ? `translateY(${Math.sin(i * 0.5) * 10}px)` : 'translateY(0)'
                           }}
                         >
                           {char === ' ' ? '\u00A0' : char}
@@ -65,12 +67,13 @@ const ComponentGrid = () => {
                     {[0, 1, 2].map((i) => (
                       <div
                         key={i}
-                        className={`absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] rounded-lg border border-[#2a2a2a] transition-all duration-500`}
+                        className={`absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] rounded-lg border border-[#2a2a2a] transition-all duration-700`}
                         style={{
                           transform: hoveredIndex === index 
-                            ? `translateY(${i * -20}px) rotate(${i * 3}deg)` 
-                            : `translateY(${i * 10}px) rotate(0deg)`,
-                          zIndex: 3 - i
+                            ? `translateY(${i * -25}px) rotate(${i * 4}deg) scale(${1 - i * 0.05})` 
+                            : `translateY(${i * 10}px) rotate(0deg) scale(1)`,
+                          zIndex: 3 - i,
+                          opacity: hoveredIndex === index ? 1 - i * 0.2 : 1
                         }}
                       ></div>
                     ))}
@@ -79,8 +82,15 @@ const ComponentGrid = () => {
 
                 {demo.type === 'pulse-ring' && (
                   <div className="relative">
-                    <div className={`w-24 h-24 rounded-full bg-[#ee502c] ${hoveredIndex === index ? 'animate-ping' : ''}`}></div>
-                    <div className="absolute inset-0 w-24 h-24 rounded-full bg-[#ee502c]"></div>
+                    {hoveredIndex === index && (
+                      <>
+                        <div className="absolute inset-0 w-24 h-24 rounded-full bg-[#ee502c] animate-ping opacity-75"></div>
+                        <div className="absolute inset-0 w-24 h-24 rounded-full bg-[#ee502c] animate-ping opacity-50" style={{ animationDelay: '0.5s' }}></div>
+                      </>
+                    )}
+                    <div className="w-24 h-24 rounded-full bg-[#ee502c] transition-all duration-500" style={{
+                      boxShadow: hoveredIndex === index ? '0 0 60px rgba(238,80,44,0.6)' : '0 0 20px rgba(238,80,44,0.3)'
+                    }}></div>
                   </div>
                 )}
 
@@ -89,10 +99,11 @@ const ComponentGrid = () => {
                     {[0, 1, 2].map((i) => (
                       <div
                         key={i}
-                        className={`absolute inset-0 rounded-lg transition-transform duration-700`}
+                        className={`absolute inset-0 rounded-lg transition-all duration-700`}
                         style={{
-                          background: `linear-gradient(135deg, rgba(238,80,44,${0.3 - i * 0.1}) 0%, transparent 100%)`,
-                          transform: hoveredIndex === index ? `translateX(${i * 15}px) translateY(${i * -10}px)` : 'translateX(0) translateY(0)'
+                          background: `linear-gradient(135deg, rgba(238,80,44,${0.4 - i * 0.1}) 0%, transparent 100%)`,
+                          transform: hoveredIndex === index ? `translateX(${i * 20}px) translateY(${i * -15}px)` : 'translateX(0) translateY(0)',
+                          transitionDelay: `${i * 50}ms`
                         }}
                       ></div>
                     ))}
@@ -107,7 +118,7 @@ const ComponentGrid = () => {
                         className={`aspect-square bg-[#ee502c] rounded transition-all duration-500`}
                         style={{
                           opacity: hoveredIndex === index ? 1 : 0.2,
-                          transform: hoveredIndex === index ? 'scale(1)' : 'scale(0.8)',
+                          transform: hoveredIndex === index ? 'scale(1) rotate(0deg)' : 'scale(0.8) rotate(-180deg)',
                           transitionDelay: `${i * 50}ms`
                         }}
                       ></div>
@@ -117,10 +128,11 @@ const ComponentGrid = () => {
 
                 {demo.type === 'morphing-shape' && (
                   <div
-                    className={`w-32 h-32 bg-gradient-to-br from-[#ee502c] to-[#ff6b4a] transition-all duration-700`}
+                    className={`w-32 h-32 bg-gradient-to-br from-[#ee502c] to-[#ff6b4a] transition-all duration-1000`}
                     style={{
                       borderRadius: hoveredIndex === index ? '50%' : '20%',
-                      transform: hoveredIndex === index ? 'rotate(180deg) scale(1.1)' : 'rotate(0deg) scale(1)'
+                      transform: hoveredIndex === index ? 'rotate(180deg) scale(1.1)' : 'rotate(0deg) scale(1)',
+                      boxShadow: hoveredIndex === index ? '0 0 60px rgba(238,80,44,0.6)' : '0 0 20px rgba(238,80,44,0.2)'
                     }}
                   ></div>
                 )}
@@ -130,10 +142,11 @@ const ComponentGrid = () => {
                     {[0, 1, 2, 3, 4].map((i) => (
                       <div
                         key={i}
-                        className={`w-8 bg-[#ee502c] rounded-t transition-all duration-500`}
+                        className={`w-8 bg-[#ee502c] rounded-t transition-all duration-700`}
                         style={{
                           height: hoveredIndex === index ? `${100 - i * 15}%` : '30%',
-                          transitionDelay: `${i * 50}ms`
+                          transitionDelay: `${i * 80}ms`,
+                          opacity: hoveredIndex === index ? 1 : 0.5
                         }}
                       ></div>
                     ))}
@@ -141,16 +154,21 @@ const ComponentGrid = () => {
                 )}
               </div>
 
-              {/* Label */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#050505] to-transparent">
-                <p className="text-sm font-medium text-white group-hover:text-[#ee502c] transition-colors">
+              {/* Label with fade */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent">
+                <p className="text-sm font-medium text-white group-hover:text-[#ee502c] transition-colors duration-500">
                   {demo.name}
                 </p>
               </div>
 
               {/* Hover glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#ee502c] opacity-10 blur-[40px]"></div>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#ee502c] opacity-20 blur-[60px]"></div>
+              </div>
+
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               </div>
             </div>
           ))}
@@ -158,8 +176,9 @@ const ComponentGrid = () => {
 
         {/* View all CTA */}
         <div className="text-center mt-16">
-          <button className="px-8 py-4 border border-[#ee502c] text-[#ee502c] rounded-lg font-medium hover:bg-[#ee502c] hover:text-white transition-all hover:scale-105">
-            View All Components
+          <button className="group relative px-8 py-4 border-2 border-[#ee502c] text-[#ee502c] rounded-xl font-medium hover:bg-[#ee502c] hover:text-white transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(238,80,44,0.4)] overflow-hidden">
+            <span className="relative z-10">View All Components</span>
+            <div className="absolute inset-0 bg-[#ee502c] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
           </button>
         </div>
       </div>
