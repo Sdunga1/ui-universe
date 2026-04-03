@@ -16,7 +16,7 @@ export function SidebarNav() {
           <li>
             <Link
               href="/"
-              className="block rounded-md px-3 py-1.5 text-sm text-[var(--muted)] transition-colors hover:text-white"
+              className="block rounded-none px-3 py-1.5 text-sm text-[var(--muted)] transition-colors hover:text-white"
             >
               Introduction
             </Link>
@@ -38,7 +38,7 @@ export function SidebarNav() {
                 <li key={comp.slug}>
                   <Link
                     href={`/${comp.category}/${comp.slug}`}
-                    className="block rounded-md px-3 py-1.5 text-sm text-[var(--muted)] transition-colors hover:text-white"
+                    className="block rounded-none px-3 py-1.5 text-sm text-[var(--muted)] transition-colors hover:text-white"
                   >
                     {comp.name}
                   </Link>

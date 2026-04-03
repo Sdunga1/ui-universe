@@ -1,4 +1,5 @@
 import { AIIntegration } from "../components/landing/ai-integration";
+import { AnimatedBackground } from "../components/landing/backgrounds/animated-background";
 import { CodeShowcase } from "../components/landing/code-showcase";
 import { ComponentGrid } from "../components/landing/component-grid";
 import { CTAFooter } from "../components/landing/cta-footer";
@@ -11,8 +12,7 @@ import { ScrollObserver } from "../components/landing/scroll-observer";
 export default function HomePage() {
   return (
     <div className="bg-[var(--background)] text-white min-h-screen overflow-hidden">
-      {/* Subtle grid background */}
-      <div className="fixed inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none" />
+      <AnimatedBackground />
 
       <ScrollObserver />
       <HeroSection />

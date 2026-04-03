@@ -45,8 +45,8 @@ export function LogoMarquee() {
               className="flex items-center justify-center min-w-[200px] mx-8 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110"
             >
               <div className="flex items-center gap-3">
-                <Icon className="w-6 h-6 text-neutral-600 group-hover:text-neutral-400 transition-colors" />
-                <span className="font-mono text-neutral-600 hover:text-neutral-400 transition-colors">
+                <Icon className="w-8 h-8 text-neutral-600 group-hover:text-neutral-400 transition-colors" />
+                <span className="font-mono text-lg text-neutral-600 hover:text-neutral-400 transition-colors">
                   {logo.name}
                 </span>
               </div>
