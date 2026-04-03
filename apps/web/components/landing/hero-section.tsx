@@ -49,12 +49,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-slow">
-        <div className="w-5 h-8 border border-neutral-700 flex justify-center pt-1.5 hover:border-[var(--accent)] transition-colors duration-300 cursor-pointer">
-          <div className="w-0.5 h-1.5 bg-[var(--accent)] animate-scroll-indicator" />
-        </div>
-      </div>
     </section>
   );
 }

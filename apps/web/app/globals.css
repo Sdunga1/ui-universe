@@ -92,6 +92,68 @@ body {
   }
 }
 
+@keyframes spaceObjectFade {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.12;
+  }
+  75% {
+    opacity: 0.12;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes flyAcross {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100vw + 400px));
+  }
+}
+
+@keyframes flyUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100vh - 400px));
+  }
+}
+
+@keyframes sweepRight {
+  from {
+    transform: translateX(-300px);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes sweepDown {
+  from {
+    transform: translateY(-300px);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes meteorFly {
+  from {
+    translate: 0 0;
+    opacity: 0.7;
+  }
+  to {
+    translate: var(--meteor-dx) var(--meteor-dy);
+    opacity: 0;
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;
