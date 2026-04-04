@@ -1,0 +1,709 @@
+{
+  "timestamp": "2026-04-04T21:06:29.811Z",
+  "model": "claude-sonnet-4-20250514",
+  "results": [
+    {
+      "component": "FadeUp",
+      "prompt": "basic-usage",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { FadeUp } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <FadeUp>\n      <div>\n        <h2>Welcome to Our Platform</h2>\n        <p>\n          This content will fade up into view with a smooth animation. \n          The FadeUp component provides an elegant way to reveal content \n          as users interact with your application.\n        </p>\n        <button>Get Started</button>\n      </div>\n    </FadeUp>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 87,
+      "outputTokens": 143
+    },
+    {
+      "component": "FadeUp",
+      "prompt": "basic-usage",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { FadeUp } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <FadeUp>\n      <div className=\"max-w-2xl mx-auto p-8\">\n        <h1 className=\"text-4xl font-bold text-neutral-900 mb-4\">\n          Welcome to Our Platform\n        </h1>\n        <p className=\"text-lg text-neutral-600 mb-6\">\n          Experience seamless animations as content gracefully fades up into view when you scroll through the page.\n        </p>\n        <button className=\"bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors\">\n          Get Started\n        </button>\n      </div>\n    </FadeUp>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 1889,
+      "outputTokens": 209
+    },
+    {
+      "component": "FadeUp",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { FadeUp } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <FadeUp>\n      <div className=\"max-w-2xl mx-auto p-8\">\n        <h1 className=\"text-4xl font-bold text-white mb-4\">\n          Welcome to Our Platform\n        </h1>\n        <p className=\"text-lg text-neutral-400 leading-relaxed\">\n          Experience smooth animations as content elegantly fades up into view \n          when you scroll down the page. This creates an engaging and modern \n          user experience.\n        </p>\n      </div>\n    </FadeUp>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 1259,
+      "outputTokens": 171
+    },
+    {
+      "component": "FadeUp",
+      "prompt": "prop-customization",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { FadeUp } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div style={{ padding: '2rem', minHeight: '150vh' }}>\n      <h1>Scroll down to see the FadeUp animation</h1>\n      \n      <div style={{ marginTop: '100vh' }}>\n        <FadeUp\n          preset=\"slideInLeft\"\n          triggerOnView={false}\n          viewThreshold={0.8}\n        >\n          <div style={{\n            padding: '2rem',\n            backgroundColor: '#f0f8ff',\n            borderRadius: '8px',\n            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'\n          }}>\n            <h2>Custom FadeUp Animation</h2>\n            <p>\n              This content uses a custom preset \"slideInLeft\" instead of the default \"fadeUp\",\n              has triggerOnView set to false instead of true, and uses a viewThreshold of 0.8\n              instead of the default 0.2.\n            </p>\n            <button style={{\n              padding: '0.5rem 1rem',\n              backgroundColor: '#007bff',\n              color: 'white',\n              border: 'none',\n              borderRadius: '4px',\n              cursor: 'pointer'\n            }}>\n              Click me!\n            </button>\n          </div>\n        </FadeUp>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.75
+      },
+      "inputTokens": 145,
+      "outputTokens": 387
+    },
+    {
+      "component": "FadeUp",
+      "prompt": "prop-customization",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { FadeUp } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-neutral-950 p-8\">\n      <div className=\"max-w-4xl mx-auto space-y-16\">\n        {/* Hero section that animates immediately on mount */}\n        <FadeUp \n          preset=\"scaleIn\" \n          triggerOnView={false} \n          viewThreshold={0.8}\n          className=\"text-center\"\n        >\n          <h1 className=\"text-6xl font-bold text-white mb-4\">\n            Welcome to Our Platform\n          </h1>\n          <p className=\"text-xl text-neutral-400\">\n            This content scales in immediately without waiting for scroll\n          </p>\n        </FadeUp>\n\n        {/* Content that requires more visibility to trigger */}\n        <div className=\"grid grid-cols-1 md:grid-cols-2 gap-8 mt-32\">\n          <FadeUp \n            preset=\"slideDown\" \n            triggerOnView={true} \n            viewThreshold={0.8}\n            delay={100}\n          >\n            <div className=\"bg-neutral-900 p-8 rounded-xl\">\n              <h2 className=\"text-2xl font-semibold text-white mb-4\">\n                High Threshold Animation\n              </h2>\n              <p className=\"text-neutral-400\">\n                This card only animates when 80% of it is visible in the viewport, \n                using a slide down effect instead of the default fade up.\n              </p>\n            </div>\n          </FadeUp>\n\n          <FadeUp \n            preset=\"popIn\" \n            triggerOnView={true} \n            viewThreshold={0.9}\n            delay={200}\n          >\n            <div className=\"bg-neutral-900 p-8 rounded-xl\">\n              <h2 className=\"text-2xl font-semibold text-white mb-4\">\n                Even Higher Threshold\n              </h2>\n              <p className=\"text-neutral-400\">\n                This card waits until 90% is visible and uses a pop-in animation \n                with a 200ms delay for a dramatic entrance effect.\n              </p>\n            </div>\n          </FadeUp>\n        </div>\n\n        {/* More content to enable scrolling */}\n        <div className=\"mt-32 space-y-8\">\n          <FadeUp \n            preset=\"blur\" \n            triggerOnView={true} \n            viewThreshold={0.6}\n          >\n            <div className=\"bg-gradient-to-r from-blue-900/50 to-purple-900/50 p-12 rounded-2xl text-center\">\n              <h3 className=\"text-3xl font-bold text-white mb-4\">\n                Blur Effect Animation\n              </h3>\n              <p className=\"text-lg text-neutral-300\">\n                This section uses a blur preset and triggers when 60% visible\n              </p>\n            </div>\n          </FadeUp>\n        </div>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.75
+      },
+      "inputTokens": 1947,
+      "outputTokens": 788
+    },
+    {
+      "component": "FadeUp",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport { FadeUp } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-neutral-950 p-8\">\n      <div className=\"max-w-4xl mx-auto space-y-16\">\n        {/* Hero section that animates immediately on mount */}\n        <FadeUp \n          preset=\"scaleIn\" \n          triggerOnView={false} \n          viewThreshold={0.5}\n        >\n          <div className=\"text-center\">\n            <h1 className=\"text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent mb-4\">\n              Welcome to Our Platform\n            </h1>\n            <p className=\"text-xl text-neutral-400 max-w-2xl mx-auto\">\n              Experience the future of digital innovation with our cutting-edge solutions\n              that transform the way you work and create.\n            </p>\n          </div>\n        </FadeUp>\n\n        {/* Feature cards that require more visibility before animating */}\n        <div className=\"grid md:grid-cols-3 gap-8\">\n          <FadeUp \n            preset=\"popIn\" \n            triggerOnView={false} \n            viewThreshold={0.8}\n          >\n            <div className=\"bg-neutral-900 rounded-xl p-8 border border-neutral-800\">\n              <div className=\"w-12 h-12 bg-blue-500 rounded-lg mb-6 flex items-center justify-center\">\n                <span className=\"text-white font-bold text-xl\">⚡</span>\n              </div>\n              <h3 className=\"text-xl font-semibold text-white mb-3\">Lightning Fast</h3>\n              <p className=\"text-neutral-400\">\n                Built with performance in mind, delivering exceptional speed and efficiency.\n              </p>\n            </div>\n          </FadeUp>\n\n          <FadeUp \n            preset=\"fadeRight\" \n            triggerOnView={false} \n            viewThreshold={0.7}\n          >\n            <div className=\"bg-neutral-900 rounded-xl p-8 border border-neutral-800\">\n              <div className=\"w-12 h-12 bg-purple-500 rounded-lg mb-6 flex items-center justify-center\">\n                <span className=\"text-white font-bold text-xl\">🎨</span>\n              </div>\n              <h3 className=\"text-xl font-semibold text-white mb-3\">Beautiful Design</h3>\n              <p className=\"text-neutral-400\">\n                Carefully crafted interfaces that delight users and enhance productivity.\n              </p>\n            </div>\n          </FadeUp>\n\n          <FadeUp \n            preset=\"blur\" \n            triggerOnView={false} \n            viewThreshold={0.6}\n          >\n            <div className=\"bg-neutral-900 rounded-xl p-8 border border-neutral-800\">\n              <div className=\"w-12 h-12 bg-green-500 rounded-lg mb-6 flex items-center justify-center\">\n                <span className=\"text-white font-bold text-xl\">🚀</span>\n              </div>\n              <h3 className=\"text-xl font-semibold text-white mb-3\">Easy to Use</h3>\n              <p className=\"text-neutral-400\">\n                Intuitive workflows that get you up and running in minutes, not hours.\n              </p>\n            </div>\n          </FadeUp>\n        </div>\n\n        {/* Bottom CTA section */}\n        <FadeUp \n          preset=\"slideUp\" \n          triggerOnView={false} \n          viewThreshold={0.9}\n        >\n          <div className=\"text-center bg-gradient-to-r from-neutral-900 to-neutral-800 rounded-2xl p-12 border border-neutral-700\">\n            <h2 className=\"text-3xl font-bold text-white mb-4\">Ready to Get Started?</h2>\n            <p className=\"",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.75
+      },
+      "inputTokens": 1317,
+      "outputTokens": 1024
+    },
+    {
+      "component": "FadeUp",
+      "prompt": "composition",
+      "condition": "blind",
+      "output": "```jsx\nimport { FadeUp, StaggerGroup } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <section className=\"py-16 px-6 max-w-4xl mx-auto\">\n      <StaggerGroup>\n        <FadeUp>\n          <h2 className=\"text-4xl font-bold text-center mb-8 text-gray-900\">\n            Our Features\n          </h2>\n        </FadeUp>\n        \n        <FadeUp>\n          <p className=\"text-lg text-center mb-12 text-gray-600 max-w-2xl mx-auto\">\n            Discover the powerful features that make our platform stand out from the rest.\n          </p>\n        </FadeUp>\n\n        <div className=\"grid md:grid-cols-3 gap-8\">\n          <FadeUp>\n            <div className=\"text-center p-6 bg-white rounded-lg shadow-md\">\n              <div className=\"w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4\">\n                <span className=\"text-2xl\">🚀</span>\n              </div>\n              <h3 className=\"text-xl font-semibold mb-3\">Fast Performance</h3>\n              <p className=\"text-gray-600\">Lightning-fast loading times and optimized user experience.</p>\n            </div>\n          </FadeUp>\n\n          <FadeUp>\n            <div className=\"text-center p-6 bg-white rounded-lg shadow-md\">\n              <div className=\"w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4\">\n                <span className=\"text-2xl\">🛡️</span>\n              </div>\n              <h3 className=\"text-xl font-semibold mb-3\">Secure</h3>\n              <p className=\"text-gray-600\">Enterprise-grade security to protect your data and privacy.</p>\n            </div>\n          </FadeUp>\n\n          <FadeUp>\n            <div className=\"text-center p-6 bg-white rounded-lg shadow-md\">\n              <div className=\"w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4\">\n                <span className=\"text-2xl\">📊</span>\n              </div>\n              <h3 className=\"text-xl font-semibold mb-3\">Analytics</h3>\n              <p className=\"text-gray-600\">Comprehensive insights and analytics to drive growth.</p>\n            </div>\n          </FadeUp>\n        </div>\n\n        <FadeUp>\n          <div className=\"text-center mt-12\">\n            <button className=\"bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors\">\n              Get Started Today\n            </button>\n          </div>\n        </FadeUp>\n      </StaggerGroup>\n    </section>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 88,
+      "outputTokens": 769
+    },
+    {
+      "component": "FadeUp",
+      "prompt": "composition",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { FadeUp, StaggerGroup } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <section className=\"max-w-4xl mx-auto px-6 py-16\">\n      <div className=\"text-center mb-16\">\n        <FadeUp>\n          <h2 className=\"text-4xl font-bold text-white mb-4\">\n            Our Key Features\n          </h2>\n        </FadeUp>\n        <FadeUp delay={200}>\n          <p className=\"text-lg text-neutral-400 max-w-2xl mx-auto\">\n            Discover the powerful capabilities that make our platform stand out\n            from the competition.\n          </p>\n        </FadeUp>\n      </div>\n\n      <StaggerGroup stagger=\"normal\">\n        <div className=\"grid md:grid-cols-3 gap-8\">\n          <FadeUp>\n            <div className=\"bg-neutral-900 rounded-xl p-8 border border-neutral-800\">\n              <div className=\"w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-6\">\n                <svg className=\"w-6 h-6 text-white\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n                  <path fillRule=\"evenodd\" d=\"M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clipRule=\"evenodd\" />\n                </svg>\n              </div>\n              <h3 className=\"text-xl font-semibold text-white mb-3\">\n                Lightning Fast\n              </h3>\n              <p className=\"text-neutral-400\">\n                Experience blazing fast performance with our optimized infrastructure\n                and cutting-edge technology stack.\n              </p>\n            </div>\n          </FadeUp>\n\n          <FadeUp>\n            <div className=\"bg-neutral-900 rounded-xl p-8 border border-neutral-800\">\n              <div className=\"w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-6\">\n                <svg className=\"w-6 h-6 text-white\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n                  <path fillRule=\"evenodd\" d=\"M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clipRule=\"evenodd\" />\n                </svg>\n              </div>\n              <h3 className=\"text-xl font-semibold text-white mb-3\">\n                Secure & Reliable\n              </h3>\n              <p className=\"text-neutral-400\">\n                Your data is protected with enterprise-grade security measures\n                and 99.9% uptime guarantee.\n              </p>\n            </div",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1890,
+      "outputTokens": 1024
+    },
+    {
+      "component": "FadeUp",
+      "prompt": "composition",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport { FadeUp, StaggerGroup } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <section className=\"py-16 px-8\">\n      <div className=\"max-w-4xl mx-auto\">\n        {/* Hero content with individual FadeUp */}\n        <FadeUp>\n          <h1 className=\"text-5xl font-bold text-center mb-6\">\n            Welcome to Our Platform\n          </h1>\n        </FadeUp>\n        \n        <FadeUp delay={200}>\n          <p className=\"text-xl text-neutral-400 text-center mb-16 max-w-2xl mx-auto\">\n            Discover amazing features that will transform how you work and create incredible experiences.\n          </p>\n        </FadeUp>\n\n        {/* Feature cards with staggered animation */}\n        <StaggerGroup stagger=\"normal\">\n          <div className=\"grid md:grid-cols-3 gap-8\">\n            <FadeUp>\n              <div className=\"bg-neutral-900 rounded-xl p-8 border border-neutral-800\">\n                <div className=\"w-12 h-12 bg-blue-500 rounded-lg mb-6\"></div>\n                <h3 className=\"text-2xl font-semibold mb-4\">Fast Performance</h3>\n                <p className=\"text-neutral-400\">\n                  Lightning-fast load times and smooth interactions for the best user experience.\n                </p>\n              </div>\n            </FadeUp>\n\n            <FadeUp>\n              <div className=\"bg-neutral-900 rounded-xl p-8 border border-neutral-800\">\n                <div className=\"w-12 h-12 bg-green-500 rounded-lg mb-6\"></div>\n                <h3 className=\"text-2xl font-semibold mb-4\">Secure by Design</h3>\n                <p className=\"text-neutral-400\">\n                  Enterprise-grade security with end-to-end encryption and advanced protection.\n                </p>\n              </div>\n            </FadeUp>\n\n            <FadeUp>\n              <div className=\"bg-neutral-900 rounded-xl p-8 border border-neutral-800\">\n                <div className=\"w-12 h-12 bg-purple-500 rounded-lg mb-6\"></div>\n                <h3 className=\"text-2xl font-semibold mb-4\">Easy Integration</h3>\n                <p className=\"text-neutral-400\">\n                  Simple APIs and comprehensive documentation to get you started quickly.\n                </p>\n              </div>\n            </FadeUp>\n          </div>\n        </StaggerGroup>\n\n        {/* Call-to-action with different preset */}\n        <FadeUp preset=\"scaleIn\" delay={600}>\n          <div className=\"text-center mt-16\">\n            <button className=\"bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors\">\n              Get Started Today\n            </button>\n          </div>\n        </FadeUp>\n      </div>\n    </section>\n  );\n}\n```\n\nThis component demonstrates:\n\n1. **Individual FadeUp animations** for the hero title and description with custom delays\n2. **StaggerGroup with FadeUp** for the feature cards that animate in sequence\n3. **Different motion preset** (`scaleIn`) for the call-to-action button\n4. **Responsive grid layout** that works well with the staggered animations\n5. **Semantic structure** with proper spacing and visual hierarchy\n\nThe animations will trigger as the user scrolls the section into view, creating a smooth and engaging reveal effect for the content.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.75
+      },
+      "inputTokens": 1260,
+      "outputTokens": 910
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "basic-usage",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { TypeWriter } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div>\n      <TypeWriter>\n        Welcome to our amazing application! This text will appear with a typewriter effect.\n      </TypeWriter>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 85,
+      "outputTokens": 85
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "basic-usage",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { TypeWriter } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <div className=\"p-8\">\n      <h1 className=\"text-4xl font-bold mb-4\">\n        <TypeWriter text=\"Welcome to the future of UI development\" />\n      </h1>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 2073,
+      "outputTokens": 93
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport { TypeWriter } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"p-8\">\n      <h1 className=\"text-4xl font-bold text-gray-900\">\n        <TypeWriter text=\"Welcome to UI Universe\" />\n      </h1>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1130,
+      "outputTokens": 92
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "prop-customization",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { TypeWriter } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div style={{ padding: '20px', fontFamily: 'monospace' }}>\n      <h1>TypeWriter Demo</h1>\n      <TypeWriter\n        speed={80}\n        cursor={true}\n        cursorChar=\"▋\"\n        text=\"Hello! I'm a TypeWriter component with custom settings. Watch as each character appears with a unique cursor style and faster typing speed.\"\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 137,
+      "outputTokens": 145
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "prop-customization",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { TypeWriter } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <div className=\"p-8 bg-gray-900 text-green-400 font-mono\">\n      <div className=\"mb-6\">\n        <h1 className=\"text-2xl mb-4\">Terminal Session</h1>\n        <TypeWriter\n          text=\"$ sudo apt update && sudo apt upgrade -y\"\n          speed={80}\n          cursor={true}\n          cursorChar=\"_\"\n          className=\"text-lg\"\n        />\n      </div>\n      \n      <div className=\"mb-6\">\n        <TypeWriter\n          text=\"Installing packages... [████████████████████] 100% Complete\"\n          speed={25}\n          cursor={false}\n          cursorChar=\"\"\n          className=\"text-yellow-300\"\n          delay={2000}\n        />\n      </div>\n      \n      <div>\n        <TypeWriter\n          text=\"System ready. Welcome to the matrix.\"\n          speed={120}\n          cursor={true}\n          cursorChar=\"█\"\n          className=\"text-cyan-300 text-xl font-bold\"\n          delay={4000}\n        />\n      </div>\n    </div>\n  );\n}\n```\n\nThis example creates a terminal-style interface with three TypeWriter components, each using different customizations:\n\n1. **First TypeWriter**: Uses `speed={80}` (slower than default 50ms), keeps `cursor={true}`, and uses `cursorChar=\"_\"` (underscore instead of default \"|\")\n\n2. **Second TypeWriter**: Uses `speed={25}` (faster), `cursor={false}` to hide the cursor completely, and shows a progress bar-style message\n\n3. **Third TypeWriter**: Uses `speed={120}` (much slower for dramatic effect), `cursor={true}`, and `cursorChar=\"█\"` (solid block character) for a retro computer feel\n\nThe component creates a cohesive terminal/matrix theme with staggered delays to simulate a real command-line session.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 2125,
+      "outputTokens": 491
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { TypeWriter } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"p-8 bg-gray-900 text-green-400 font-mono\">\n      <h1 className=\"text-2xl mb-4\">\n        <TypeWriter \n          text=\"Initializing system...\" \n          speed={80}\n          cursor={true}\n          cursorChar=\"_\"\n        />\n      </h1>\n      \n      <div className=\"mt-6\">\n        <TypeWriter \n          text=\"Loading modules: [████████████] 100%\" \n          speed={25}\n          cursor={false}\n          cursorChar=\"█\"\n          className=\"text-cyan-300\"\n        />\n      </div>\n      \n      <div className=\"mt-4\">\n        <TypeWriter \n          text=\"Ready to proceed >\" \n          speed={120}\n          cursor={true}\n          cursorChar=\"▋\"\n          delay={2000}\n          className=\"text-yellow-300\"\n        />\n      </div>\n    </div>\n  );\n}\n```\n\nThis example creates a terminal-style interface with three TypeWriter components, each using non-default values:\n\n1. **First TypeWriter**: `speed={80}` (vs default 50), `cursor={true}` (same as default but explicitly set), `cursorChar=\"_\"` (vs default \"|\")\n\n2. **Second TypeWriter**: `speed={25}` (faster than default), `cursor={false}` (vs default true), `cursorChar=\"█\"` (block character vs default \"|\")\n\n3. **Third TypeWriter**: `speed={120}` (slower than default), `cursor={true}` (explicitly set), `cursorChar=\"▋\"` (half block vs default \"|\")\n\nThe styling creates a retro terminal aesthetic with different colored text for each line.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1182,
+      "outputTokens": 452
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "composition",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { TypeWriter, GradientText } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"flex items-center justify-center min-h-screen bg-gray-50\">\n      <div className=\"text-center space-y-6 max-w-4xl px-6\">\n        <GradientText\n          as=\"h1\"\n          className=\"text-5xl font-bold mb-4\"\n          gradient=\"from-purple-500 via-pink-500 to-red-500\"\n        >\n          Welcome to the Future\n        </GradientText>\n        \n        <div className=\"text-2xl text-gray-700\">\n          <TypeWriter\n            text=\"Discover amazing possibilities with our innovative platform that transforms ideas into reality.\"\n            speed={50}\n            delay={1000}\n            cursor={true}\n            cursorColor=\"rgb(168, 85, 247)\"\n          />\n        </div>\n        \n        <div className=\"mt-8\">\n          <GradientText\n            as=\"p\"\n            className=\"text-lg font-medium\"\n            gradient=\"from-blue-400 to-purple-600\"\n          >\n            <TypeWriter\n              text=\"Start your journey today\"\n              speed={80}\n              delay={4000}\n              cursor={false}\n            />\n          </GradientText>\n        </div>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 0.875
+      },
+      "inputTokens": 87,
+      "outputTokens": 365
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "composition",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { TypeWriter, GradientText } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-slate-900 flex items-center justify-center p-8\">\n      <div className=\"text-center max-w-4xl mx-auto space-y-8\">\n        {/* Main Hero Headline */}\n        <h1 className=\"text-6xl md:text-8xl font-bold leading-tight\">\n          <GradientText\n            colors={[\"#3B82F6\", \"#8B5CF6\", \"#EC4899\"]}\n            className=\"block mb-4\"\n          >\n            Build the Future\n          </GradientText>\n          <TypeWriter\n            text=\"with Beautiful Code\"\n            speed={80}\n            delay={1000}\n            className=\"text-white\"\n          />\n        </h1>\n\n        {/* Subheading */}\n        <div className=\"text-xl md:text-2xl text-slate-300 mt-8\">\n          <TypeWriter\n            text=\"Create stunning user interfaces that users will love\"\n            speed={40}\n            delay={3500}\n            cursor={false}\n          />\n        </div>\n\n        {/* Terminal-style command */}\n        <div className=\"bg-black/50 rounded-lg p-6 font-mono text-left max-w-2xl mx-auto mt-12\">\n          <div className=\"text-green-400 mb-2\">\n            <TypeWriter\n              text=\"$ npm install @ui-universe/ui\"\n              speed={50}\n              delay={6000}\n              cursorChar=\"_\"\n              className=\"text-green-400\"\n            />\n          </div>\n          <div className=\"text-slate-400\">\n            <TypeWriter\n              text=\"✓ Package installed successfully\"\n              speed={30}\n              delay={8500}\n              cursor={false}\n            />\n          </div>\n        </div>\n\n        {/* Looping tagline */}\n        <div className=\"mt-16\">\n          <p className=\"text-lg text-slate-400 mb-4\">Our mission:</p>\n          <div className=\"text-3xl font-semibold\">\n            <GradientText\n              colors={[\"#06B6D4\", \"#10B981\", \"#3B82F6\"]}\n              className=\"inline\"\n            >\n              <TypeWriter\n                text=\"Design. Build. Ship. Repeat.\"\n                speed={100}\n                delay={10000}\n                loop\n                cursorChar=\"●\"\n              />\n            </GradientText>\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n}\n```\n\nThis example demonstrates several powerful combinations of TypeWriter and GradientText:\n\n1. **Hero Headline**: Uses GradientText for \"Build the Future\" with a colorful gradient, followed by TypeWriter for the second line\n2. **Staggered Timing**: Each TypeWriter starts at different delays to create a choreographed reveal\n3. **Terminal Style**: Mimics a code terminal with monospace font and custom cursor character\n4. **Looping Effect**: The bottom tagline continuously loops with gradient colors\n5. **Mixed Cursors**: Different sections use different cursor styles (default, none, underscore, bullet)\n\nThe layout uses a dark theme with proper spacing and responsive text sizing, creating an engaging landing page section that would work well for developer tools, design systems, or tech products.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 2075,
+      "outputTokens": 839
+    },
+    {
+      "component": "TypeWriter",
+      "prompt": "composition",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { TypeWriter, GradientText } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <section className=\"min-h-screen flex items-center justify-center bg-slate-900 px-4\">\n      <div className=\"text-center max-w-4xl\">\n        <h1 className=\"text-5xl md:text-7xl font-bold mb-6\">\n          <GradientText\n            from=\"blue-400\"\n            to=\"purple-600\"\n            className=\"block mb-2\"\n          >\n            <TypeWriter \n              text=\"Build the Future\" \n              speed={80}\n              delay={500}\n            />\n          </GradientText>\n        </h1>\n        \n        <div className=\"text-xl md:text-2xl text-slate-300 mb-8\">\n          <TypeWriter\n            text=\"Create stunning interfaces with modern React components\"\n            speed={40}\n            delay={2500}\n          />\n        </div>\n        \n        <div className=\"font-mono text-green-400 text-lg\">\n          <TypeWriter\n            text=\"$ npm install @ui-universe/ui\"\n            speed={50}\n            cursorChar=\"_\"\n            delay={5000}\n            className=\"bg-slate-800 px-4 py-2 rounded-lg inline-block\"\n          />\n        </div>\n        \n        <div className=\"mt-12 text-slate-400\">\n          <TypeWriter\n            text=\"Ready to get started?\"\n            speed={60}\n            delay={8000}\n            loop\n          />\n        </div>\n      </div>\n    </section>\n  );\n}\n```\n\nThis component creates a compelling hero section that demonstrates the powerful combination of TypeWriter and GradientText:\n\n- **Hero headline**: Uses GradientText with a blue-to-purple gradient wrapping a TypeWriter for \"Build the Future\"\n- **Subtitle**: A longer descriptive text that types out after the headline\n- **Terminal command**: Styled like a code block with a custom underscore cursor\n- **Call-to-action**: A looping question that continuously repeats\n\nThe staggered delays create a natural sequence where each text element appears after the previous one completes, building up the entire message progressively for maximum impact.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1132,
+      "outputTokens": 551
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "basic-usage",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { TiltCard } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <TiltCard>\n      <div style={{ padding: '2rem', textAlign: 'center' }}>\n        <h2>Tilt Card Example</h2>\n        <p>This is an example of the TiltCard component with default settings.</p>\n        <button style={{ \n          padding: '0.5rem 1rem', \n          marginTop: '1rem',\n          backgroundColor: '#007bff',\n          color: 'white',\n          border: 'none',\n          borderRadius: '4px',\n          cursor: 'pointer'\n        }}>\n          Click me\n        </button>\n      </div>\n    </TiltCard>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 87,
+      "outputTokens": 207
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "basic-usage",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { TiltCard } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <TiltCard>\n      <div className=\"rounded-xl bg-neutral-900 p-8\">\n        <h3 className=\"text-xl font-bold text-white\">Feature Card</h3>\n        <p className=\"text-neutral-400 mt-2\">\n          Hover over this card to see the 3D tilt effect in action\n        </p>\n        <div className=\"mt-4 flex items-center gap-2\">\n          <div className=\"h-2 w-2 rounded-full bg-green-500\"></div>\n          <span className=\"text-sm text-neutral-300\">Interactive</span>\n        </div>\n      </div>\n    </TiltCard>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 2302,
+      "outputTokens": 206
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { TiltCard } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <TiltCard>\n      <div className=\"rounded-xl bg-neutral-900 p-8\">\n        <h3 className=\"text-xl font-bold text-white\">Interactive Card</h3>\n        <p className=\"text-neutral-400 mt-2\">Hover over this card to see the 3D tilt effect in action</p>\n        <div className=\"mt-4 flex items-center gap-2\">\n          <div className=\"h-2 w-2 rounded-full bg-blue-500\"></div>\n          <span className=\"text-sm text-neutral-300\">Default settings applied</span>\n        </div>\n      </div>\n    </TiltCard>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 1372,
+      "outputTokens": 204
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "prop-customization",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { TiltCard } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div style={{ padding: '2rem', display: 'flex', justifyContent: 'center' }}>\n      <TiltCard\n        maxTilt={25}\n        perspective={1500}\n        scale={1.08}\n        style={{\n          width: '300px',\n          height: '400px',\n          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',\n          borderRadius: '16px',\n          padding: '2rem',\n          color: 'white',\n          display: 'flex',\n          flexDirection: 'column',\n          justifyContent: 'center',\n          alignItems: 'center',\n          textAlign: 'center',\n          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',\n        }}\n      >\n        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🚀</div>\n        <h2 style={{ margin: '0 0 1rem 0', fontSize: '1.5rem', fontWeight: 'bold' }}>\n          Interactive Card\n        </h2>\n        <p style={{ margin: '0', opacity: 0.9, lineHeight: '1.5' }}>\n          Hover over this card to see the enhanced tilt effect with custom settings.\n        </p>\n        <div style={{ \n          marginTop: '1.5rem', \n          padding: '0.5rem 1rem', \n          backgroundColor: 'rgba(255, 255, 255, 0.2)', \n          borderRadius: '8px',\n          fontSize: '0.9rem'\n        }}>\n          Max Tilt: 25° | Perspective: 1500px | Scale: 1.08x\n        </div>\n      </TiltCard>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.75
+      },
+      "inputTokens": 143,
+      "outputTokens": 503
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "prop-customization",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { TiltCard } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <div className=\"flex items-center justify-center min-h-screen bg-neutral-950 p-8\">\n      <TiltCard \n        maxTilt={25} \n        perspective={1500} \n        scale={1.08}\n        className=\"w-80\"\n      >\n        <div className=\"rounded-2xl bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-8 border border-neutral-700\">\n          <div className=\"text-center\">\n            <div className=\"mx-auto mb-6 h-16 w-16 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 flex items-center justify-center\">\n              <svg className=\"h-8 w-8 text-white\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\">\n                <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M13 10V3L4 14h7v7l9-11h-7z\" />\n              </svg>\n            </div>\n            <h3 className=\"text-2xl font-bold text-white mb-2\">\n              Pro Plan\n            </h3>\n            <p className=\"text-neutral-300 mb-6\">\n              Enhanced 3D tilt effect with deep perspective\n            </p>\n            <div className=\"text-4xl font-bold text-white mb-4\">\n              $99<span className=\"text-lg text-neutral-400\">/month</span>\n            </div>\n            <button className=\"w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-colors\">\n              Get Started\n            </button>\n          </div>\n        </div>\n      </TiltCard>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 2358,
+      "outputTokens": 524
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { TiltCard } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"p-8 bg-neutral-950 min-h-screen flex items-center justify-center\">\n      <TiltCard \n        maxTilt={25} \n        perspective={1500} \n        scale={1.08}\n        className=\"max-w-sm\"\n      >\n        <div className=\"rounded-2xl bg-gradient-to-br from-blue-900 to-purple-900 p-8 shadow-2xl\">\n          <div className=\"text-center\">\n            <div className=\"mx-auto h-16 w-16 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center mb-6\">\n              <svg className=\"h-8 w-8 text-white\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\">\n                <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M13 10V3L4 14h7v7l9-11h-7z\" />\n              </svg>\n            </div>\n            <h3 className=\"text-2xl font-bold text-white mb-2\">Pro Plan</h3>\n            <p className=\"text-blue-200 mb-6\">Everything you need to scale</p>\n            <div className=\"text-4xl font-bold text-white mb-6\">\n              $99\n              <span className=\"text-lg font-normal text-blue-200\">/month</span>\n            </div>\n            <ul className=\"text-left space-y-3 mb-8\">\n              <li className=\"flex items-center text-blue-100\">\n                <svg className=\"h-5 w-5 text-green-400 mr-3\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n                  <path fillRule=\"evenodd\" d=\"M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z\" clipRule=\"evenodd\" />\n                </svg>\n                Unlimited projects\n              </li>\n              <li className=\"flex items-center text-blue-100\">\n                <svg className=\"h-5 w-5 text-green-400 mr-3\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n                  <path fillRule=\"evenodd\" d=\"M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z\" clipRule=\"evenodd\" />\n                </svg>\n                Advanced analytics\n              </li>\n              <li className=\"flex items-center text-blue-100\">\n                <svg className=\"h-5 w-5 text-green-400 mr-3\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n                  <path fillRule=\"evenodd\" d=\"M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z\" clipRule=\"evenodd\" />\n                </svg>\n                Priority support\n              </li>\n            </ul>\n            <button className=\"w-full bg-white text-blue-900 font-semibold py-3 px-6 rounded-lg hover:bg-blue-50 transition-colors\">\n              Get Started\n            </button>\n          </div>\n        </div",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1428,
+      "outputTokens": 1024
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "composition",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { TiltCard, GlowCard } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"flex items-center justify-center min-h-screen bg-gray-900 p-8\">\n      <TiltCard className=\"max-w-md\">\n        <GlowCard className=\"p-6 bg-gradient-to-br from-purple-900 to-blue-900 rounded-lg\">\n          <div className=\"text-center\">\n            <h2 className=\"text-2xl font-bold text-white mb-4\">\n              Enhanced Card\n            </h2>\n            <p className=\"text-gray-300 mb-6\">\n              This card combines the interactive tilt effect with a beautiful glow,\n              creating an engaging user experience.\n            </p>\n            <button className=\"px-6 py-2 bg-white text-purple-900 rounded-full font-semibold hover:bg-gray-100 transition-colors\">\n              Learn More\n            </button>\n          </div>\n        </GlowCard>\n      </TiltCard>\n    </div>\n  );\n}\n```\n\nThis component creates a visually appealing section by:\n\n1. **Nesting** the `GlowCard` inside the `TiltCard` to combine both effects\n2. **Styling** with a dark background and gradient colors to make the glow effect more prominent\n3. **Centering** the card on the page with flexbox\n4. **Adding content** including a title, description, and call-to-action button\n5. **Using responsive design** with proper spacing and max-width constraints\n\nThe result is an interactive card that tilts on hover/mouse movement while also displaying a glowing effect, creating a premium, modern UI component.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.75
+      },
+      "inputTokens": 89,
+      "outputTokens": 436
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "composition",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { TiltCard } from \"@ui-universe/ui/animations/tilt-card\";\nimport { GlowCard } from \"@ui-universe/ui/animations/glow-card\";\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-black p-8\">\n      <div className=\"mx-auto max-w-6xl\">\n        <div className=\"mb-12 text-center\">\n          <h1 className=\"mb-4 text-4xl font-bold text-white\">\n            Our Premium Features\n          </h1>\n          <p className=\"text-lg text-neutral-400\">\n            Experience the perfect blend of interaction and visual appeal\n          </p>\n        </div>\n\n        <div className=\"grid gap-8 md:grid-cols-2 lg:grid-cols-3\">\n          {/* Feature Card 1 */}\n          <TiltCard maxTilt={12} glare scale={1.03}>\n            <GlowCard\n              glowColor=\"blue\"\n              intensity=\"medium\"\n              className=\"h-full\"\n            >\n              <div className=\"rounded-xl bg-gradient-to-br from-neutral-900 to-neutral-800 p-8\">\n                <div className=\"mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500/20\">\n                  <svg className=\"h-6 w-6 text-blue-400\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n                    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M13 10V3L4 14h7v7l9-11h-7z\" />\n                  </svg>\n                </div>\n                <h3 className=\"mb-3 text-xl font-bold text-white\">\n                  Lightning Fast\n                </h3>\n                <p className=\"text-neutral-400\">\n                  Experience blazing fast performance with our optimized architecture and cutting-edge technology.\n                </p>\n                <div className=\"mt-6\">\n                  <span className=\"text-2xl font-bold text-blue-400\">99.9%</span>\n                  <span className=\"ml-2 text-sm text-neutral-500\">uptime</span>\n                </div>\n              </div>\n            </GlowCard>\n          </TiltCard>\n\n          {/* Feature Card 2 */}\n          <TiltCard maxTilt={15} glare scale={1.02}>\n            <GlowCard\n              glowColor=\"purple\"\n              intensity=\"high\"\n              className=\"h-full\"\n            >\n              <div className=\"rounded-xl bg-gradient-to-br from-neutral-900 to-purple-900/20 p-8\">\n                <div className=\"mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-purple-500/20\">\n                  <svg className=\"h-6 w-6 text-purple-400\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n                    <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z\" />\n                  </svg>\n                </div>\n                <h3 className=\"mb-3 text-xl font-bold text-white\">\n                  Secure & Reliable\n                </h3>\n                <p className=\"text-neutral-400\">\n                  Bank-level security with end-to-end encryption and regular security audits to keep your data safe.\n                </p>\n                <div className=\"mt-6 flex items-center space-x-4\">\n                  <span className=\"text-2xl font-bold text-purple-400\">256-bit</span>\n                  <span className=\"text-sm text-neutral-500\">encryption</span>\n                </div>\n              </div>\n            </GlowCard>\n          </TiltCard>\n\n          {/* Feature Card 3 */",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 2304,
+      "outputTokens": 1024
+    },
+    {
+      "component": "TiltCard",
+      "prompt": "composition",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport { TiltCard, GlowCard } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-black p-8\">\n      <div className=\"mx-auto max-w-6xl\">\n        <h1 className=\"mb-12 text-center text-4xl font-bold text-white\">\n          Choose Your Plan\n        </h1>\n        \n        <div className=\"grid gap-8 md:grid-cols-3\">\n          {/* Basic Plan */}\n          <TiltCard maxTilt={10} scale={1.02}>\n            <GlowCard className=\"h-full\">\n              <div className=\"rounded-xl bg-neutral-900 p-8 text-center h-full flex flex-col\">\n                <h3 className=\"text-2xl font-bold text-white\">Basic</h3>\n                <div className=\"my-6\">\n                  <span className=\"text-4xl font-bold text-white\">$9</span>\n                  <span className=\"text-neutral-400\">/month</span>\n                </div>\n                <ul className=\"flex-1 space-y-3 text-left\">\n                  <li className=\"flex items-center text-neutral-300\">\n                    <span className=\"mr-3 text-green-400\">✓</span>\n                    Up to 5 projects\n                  </li>\n                  <li className=\"flex items-center text-neutral-300\">\n                    <span className=\"mr-3 text-green-400\">✓</span>\n                    Basic support\n                  </li>\n                  <li className=\"flex items-center text-neutral-300\">\n                    <span className=\"mr-3 text-green-400\">✓</span>\n                    1GB storage\n                  </li>\n                </ul>\n                <button className=\"mt-6 w-full rounded-lg bg-neutral-800 py-3 font-semibold text-white hover:bg-neutral-700\">\n                  Get Started\n                </button>\n              </div>\n            </GlowCard>\n          </TiltCard>\n\n          {/* Pro Plan - Featured */}\n          <TiltCard maxTilt={15} scale={1.05} glare>\n            <GlowCard glowColor=\"rgb(59, 130, 246)\" intensity={0.6} className=\"h-full\">\n              <div className=\"rounded-xl bg-gradient-to-br from-blue-900/20 to-neutral-900 p-8 text-center h-full flex flex-col border border-blue-500/20\">\n                <div className=\"mb-4\">\n                  <span className=\"rounded-full bg-blue-500 px-3 py-1 text-xs font-semibold text-white\">\n                    POPULAR\n                  </span>\n                </div>\n                <h3 className=\"text-2xl font-bold text-white\">Pro</h3>\n                <div className=\"my-6\">\n                  <span className=\"text-4xl font-bold text-white\">$29</span>\n                  <span className=\"text-neutral-400\">/month</span>\n                </div>\n                <ul className=\"flex-1 space-y-3 text-left\">\n                  <li className=\"flex items-center text-neutral-300\">\n                    <span className=\"mr-3 text-green-400\">✓</span>\n                    Unlimited projects\n                  </li>\n                  <li className=\"flex items-center text-neutral-300\">\n                    <span className=\"mr-3 text-green-400\">✓</span>\n                    Priority support\n                  </li>\n                  <li className=\"flex items-center text-neutral-300\">\n                    <span className=\"mr-3 text-green-400\">✓</span>\n                    10GB storage\n                  </li>\n                  <li className=\"flex items-center text-neutral-300\">\n                    <span className=\"mr-3 text-green-400\">✓</span>\n                    Advanced analytics\n                  </li>\n                </ul>\n                <button className=\"mt-6 w-",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.75
+      },
+      "inputTokens": 1374,
+      "outputTokens": 1024
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "basic-usage",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { DotGrid } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <DotGrid>\n      <div style={{ padding: '2rem', textAlign: 'center' }}>\n        <h2>Example Content</h2>\n        <p>This is some example content rendered inside the DotGrid component.</p>\n        <div style={{ \n          display: 'grid', \n          gridTemplateColumns: 'repeat(3, 1fr)', \n          gap: '1rem', \n          marginTop: '1rem' \n        }}>\n          <div style={{ \n            padding: '1rem', \n            backgroundColor: '#f0f0f0', \n            borderRadius: '8px' \n          }}>\n            Item 1\n          </div>\n          <div style={{ \n            padding: '1rem', \n            backgroundColor: '#f0f0f0', \n            borderRadius: '8px' \n          }}>\n            Item 2\n          </div>\n          <div style={{ \n            padding: '1rem', \n            backgroundColor: '#f0f0f0', \n            borderRadius: '8px' \n          }}>\n            Item 3\n          </div>\n        </div>\n      </div>\n    </DotGrid>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 87,
+      "outputTokens": 339
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "basic-usage",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { DotGrid } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <div className=\"relative h-96 bg-black\">\n      <DotGrid />\n      <div className=\"relative z-10 flex h-full items-center justify-center p-8\">\n        <div className=\"text-center\">\n          <h1 className=\"text-4xl font-bold text-white mb-4\">\n            Beautiful Dot Grid Background\n          </h1>\n          <p className=\"text-gray-300 text-lg\">\n            This content sits above the animated dot pattern\n          </p>\n        </div>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 0.875
+      },
+      "inputTokens": 1763,
+      "outputTokens": 176
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { DotGrid } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"relative h-96 bg-black\">\n      <DotGrid />\n      <div className=\"relative z-10 flex items-center justify-center h-full p-8\">\n        <div className=\"text-center\">\n          <h1 className=\"text-4xl font-bold text-white mb-4\">\n            Welcome to DotGrid\n          </h1>\n          <p className=\"text-lg text-gray-300 max-w-md\">\n            This content is layered above the animated dot pattern background.\n          </p>\n        </div>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 0.875
+      },
+      "inputTokens": 1000,
+      "outputTokens": 185
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "prop-customization",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { DotGrid } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div style={{ position: 'relative', minHeight: '400px', backgroundColor: '#1a1a2e' }}>\n      <DotGrid\n        dotSize={3}\n        gap={16}\n        color=\"rgba(100, 200, 255, 0.3)\"\n      />\n      <div style={{\n        position: 'relative',\n        zIndex: 1,\n        padding: '40px',\n        textAlign: 'center',\n        color: 'white'\n      }}>\n        <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>\n          Welcome to Our Platform\n        </h1>\n        <p style={{ fontSize: '1.2rem', opacity: 0.8, maxWidth: '600px', margin: '0 auto' }}>\n          This is an example of content overlaid on a custom DotGrid background. \n          The dots are larger, closer together, and have a blue tint.\n        </p>\n        <button style={{\n          marginTop: '2rem',\n          padding: '12px 24px',\n          backgroundColor: '#4a90e2',\n          color: 'white',\n          border: 'none',\n          borderRadius: '8px',\n          fontSize: '1rem',\n          cursor: 'pointer'\n        }}>\n          Get Started\n        </button>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 149,
+      "outputTokens": 385
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "prop-customization",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { DotGrid } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <div className=\"relative min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900\">\n      <DotGrid \n        dotSize={2}\n        gap={32}\n        color=\"rgba(139, 92, 246, 0.25)\"\n      />\n      \n      <div className=\"relative z-10 flex items-center justify-center min-h-screen p-8\">\n        <div className=\"max-w-4xl mx-auto text-center space-y-8\">\n          <h1 className=\"text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent\">\n            Beautiful Dot Pattern\n          </h1>\n          \n          <p className=\"text-xl md:text-2xl text-purple-100 leading-relaxed\">\n            This example showcases a custom dot grid with larger dots, increased spacing, \n            and a purple tint that complements the dark gradient background.\n          </p>\n          \n          <div className=\"grid grid-cols-1 md:grid-cols-3 gap-6 mt-12\">\n            <div className=\"bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6\">\n              <h3 className=\"text-lg font-semibold text-white mb-2\">Dot Size</h3>\n              <p className=\"text-purple-200\">2px radius dots for better visibility</p>\n            </div>\n            \n            <div className=\"bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6\">\n              <h3 className=\"text-lg font-semibold text-white mb-2\">Spacing</h3>\n              <p className=\"text-purple-200\">32px gap creates an open, airy feel</p>\n            </div>\n            \n            <div className=\"bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6\">\n              <h3 className=\"text-lg font-semibold text-white mb-2\">Color</h3>\n              <p className=\"text-purple-200\">Purple tint matches the theme</p>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1825,
+      "outputTokens": 618
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { DotGrid } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"relative h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900\">\n      <DotGrid \n        dotSize={2}\n        gap={32}\n        color=\"rgba(236,72,153,0.25)\"\n      />\n      \n      {/* Example content above the dot grid */}\n      <div className=\"relative z-10 flex items-center justify-center h-full\">\n        <div className=\"text-center space-y-6 p-8\">\n          <h1 className=\"text-5xl font-bold text-white mb-4\">\n            Welcome to the Future\n          </h1>\n          <p className=\"text-xl text-pink-200 max-w-2xl mx-auto leading-relaxed\">\n            Experience the perfect blend of modern design and cutting-edge technology \n            with our innovative platform built for tomorrow's challenges.\n          </p>\n          <div className=\"flex gap-4 justify-center mt-8\">\n            <button className=\"px-8 py-3 bg-pink-500 text-white rounded-lg font-semibold hover:bg-pink-400 transition-colors\">\n              Get Started\n            </button>\n            <button className=\"px-8 py-3 border border-pink-300 text-pink-200 rounded-lg font-semibold hover:bg-pink-500/20 transition-colors\">\n              Learn More\n            </button>\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n}\n```\n\nThis component creates a full-screen hero section with:\n- **dotSize: 2** (larger than default 1px dots)\n- **gap: 32** (more spaced out than default 24px)\n- **color: \"rgba(236,72,153,0.25)\"** (pink dots with transparency instead of the default white)\n\nThe dots are layered behind content using the relative positioning pattern, with a gradient background and centered hero content on top.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1062,
+      "outputTokens": 515
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "composition",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { DotGrid, Aurora } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <section className=\"relative min-h-screen overflow-hidden\">\n      {/* Aurora background effect */}\n      <Aurora className=\"absolute inset-0 z-0\" />\n      \n      {/* DotGrid overlay */}\n      <DotGrid \n        className=\"absolute inset-0 z-10 opacity-30\" \n        spacing={40}\n        dotSize={2}\n      />\n      \n      {/* Content layer */}\n      <div className=\"relative z-20 flex items-center justify-center min-h-screen\">\n        <div className=\"text-center space-y-6 p-8\">\n          <h1 className=\"text-4xl md:text-6xl font-bold text-white\">\n            Beautiful UI Components\n          </h1>\n          <p className=\"text-lg md:text-xl text-white/80 max-w-2xl mx-auto\">\n            Experience the perfect blend of Aurora effects and DotGrid patterns \n            for stunning visual experiences.\n          </p>\n          <button className=\"px-8 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-all duration-300\">\n            Get Started\n          </button>\n        </div>\n      </div>\n    </section>\n  );\n}\n```\n\nThis component creates a layered visual effect by:\n\n1. **Aurora** as the background (z-0) providing animated color effects\n2. **DotGrid** as an overlay (z-10) with reduced opacity to create a subtle pattern\n3. **Content layer** (z-20) with text and a button that sits above both effects\n\nThe relative positioning and z-index layering ensures proper stacking, while the styling creates a modern, visually appealing section that showcases both components working together harmoniously.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 86,
+      "outputTokens": 479
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "composition",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { Aurora, DotGrid } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <section className=\"relative min-h-screen bg-black overflow-hidden\">\n      {/* Aurora background layer */}\n      <Aurora \n        className=\"opacity-40\"\n        colors={['#8B5CF6', '#06B6D4', '#10B981']}\n        animate={true}\n      />\n      \n      {/* DotGrid overlay */}\n      <DotGrid \n        dotSize={1}\n        gap={32}\n        color=\"rgba(255,255,255,0.1)\"\n        animate={true}\n        fade={true}\n      />\n      \n      {/* Content layer */}\n      <div className=\"relative z-10 flex items-center justify-center min-h-screen p-8\">\n        <div className=\"text-center max-w-4xl\">\n          <h1 className=\"text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight\">\n            Beautiful\n            <span className=\"block bg-gradient-to-r from-violet-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent\">\n              Backgrounds\n            </span>\n          </h1>\n          <p className=\"text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed\">\n            Combining Aurora and DotGrid creates stunning layered effects \n            perfect for hero sections and landing pages.\n          </p>\n          <div className=\"flex flex-col sm:flex-row gap-4 justify-center\">\n            <button className=\"px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/20 transition-colors duration-200\">\n              Get Started\n            </button>\n            <button className=\"px-8 py-4 bg-violet-600 hover:bg-violet-700 rounded-lg text-white font-medium transition-colors duration-200\">\n              Learn More\n            </button>\n          </div>\n        </div>\n      </div>\n      \n      {/* Optional: Additional decorative elements */}\n      <div className=\"absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10\">\n        <div className=\"animate-bounce\">\n          <div className=\"w-6 h-10 border-2 border-white/30 rounded-full flex justify-center\">\n            <div className=\"w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse\" />\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n}\n```\n\nThis component creates a visually striking section that combines both Aurora and DotGrid:\n\n1. **Aurora** provides the animated gradient background with purple, cyan, and emerald colors\n2. **DotGrid** adds a subtle dot pattern overlay with a vignette fade effect\n3. The content is positioned with proper z-index stacking\n4. Includes a hero section with gradient text and call-to-action buttons\n5. Features a scroll indicator at the bottom\n6. Uses proper accessibility considerations with relative positioning and z-index layers\n\nThe combination creates a modern, animated background perfect for landing pages, hero sections, or feature highlights.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1762,
+      "outputTokens": 812
+    },
+    {
+      "component": "DotGrid",
+      "prompt": "composition",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport { DotGrid, Aurora } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <section className=\"relative h-screen bg-black overflow-hidden\">\n      {/* Aurora background layer */}\n      <Aurora \n        className=\"opacity-60\"\n        colors={['#6366f1', '#8b5cf6', '#ec4899']}\n        animate={true}\n      />\n      \n      {/* DotGrid overlay */}\n      <DotGrid \n        gap={20}\n        dotSize={1}\n        color=\"rgba(255,255,255,0.1)\"\n        animate={true}\n        fade={true}\n      />\n      \n      {/* Content layer */}\n      <div className=\"relative z-10 flex items-center justify-center h-full\">\n        <div className=\"text-center space-y-6 px-6\">\n          <h1 className=\"text-4xl md:text-6xl font-bold text-white\">\n            Beautiful Backgrounds\n          </h1>\n          <p className=\"text-lg md:text-xl text-gray-300 max-w-2xl\">\n            Experience the perfect combination of aurora effects and dot patterns\n            creating depth and visual interest.\n          </p>\n          <button className=\"bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-3 rounded-lg hover:bg-white/20 transition-colors\">\n            Get Started\n          </button>\n        </div>\n      </div>\n    </section>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 999,
+      "outputTokens": 388
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "basic-usage",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { HeroSection } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <HeroSection>\n      <h1>Welcome to Our Platform</h1>\n      <p>\n        Discover amazing features and unleash your potential with our \n        cutting-edge solutions designed to help you succeed.\n      </p>\n      <button>Get Started</button>\n    </HeroSection>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": false,
+        "overall": 0.625
+      },
+      "inputTokens": 87,
+      "outputTokens": 120
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "basic-usage",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { HeroSection } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <HeroSection\n      heading={\n        <h1 className=\"text-5xl font-bold text-white\">\n          Build faster with AI\n        </h1>\n      }\n      subheading={\n        <p className=\"text-lg text-neutral-400 max-w-2xl\">\n          Ship beautiful interfaces in minutes with our comprehensive component library and design system\n        </p>\n      }\n      cta={\n        <button className=\"rounded-full bg-white px-8 py-3 text-black font-medium hover:bg-neutral-100 transition-colors\">\n          Get Started\n        </button>\n      }\n    />\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 2188,
+      "outputTokens": 191
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { HeroSection } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <HeroSection\n      heading={<h1 className=\"text-5xl font-bold\">Build faster with AI</h1>}\n      subheading={<p className=\"text-lg text-neutral-400\">Ship beautiful interfaces in minutes, not hours</p>}\n      cta={<button className=\"rounded-full bg-white px-8 py-3 text-black font-medium\">Get Started</button>}\n    />\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1457,
+      "outputTokens": 141
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "prop-customization",
+      "condition": "blind",
+      "output": "```jsx\nimport { HeroSection } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <HeroSection\n      align=\"left\"\n      title=\"Transform Your Business Today\"\n      subtitle=\"Discover innovative solutions that drive growth and success for your company\"\n      description=\"Join thousands of satisfied customers who have revolutionized their operations with our cutting-edge platform. Get started in minutes and see results immediately.\"\n      primaryAction={{\n        label: \"Get Started Free\",\n        onClick: () => console.log(\"Primary action clicked\")\n      }}\n      secondaryAction={{\n        label: \"Learn More\",\n        onClick: () => console.log(\"Secondary action clicked\")\n      }}\n      backgroundImage=\"/hero-bg.jpg\"\n    />\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 0.75
+      },
+      "inputTokens": 102,
+      "outputTokens": 184
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "prop-customization",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { HeroSection } from \"@ui-universe/ui\";\n\nexport default function Example() {\n  return (\n    <HeroSection\n      align=\"left\"\n      heading={\n        <h1 className=\"text-5xl font-bold leading-tight text-white lg:text-6xl\">\n          Design meets\n          <span className=\"bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent\">\n            {\" \"}innovation\n          </span>\n        </h1>\n      }\n      subheading={\n        <p className=\"text-lg text-neutral-400 md:text-xl\">\n          Create stunning interfaces with our collection of animated components.\n          Built for modern web applications with performance in mind.\n        </p>\n      }\n      cta={\n        <div className=\"flex flex-col gap-4 sm:flex-row\">\n          <button className=\"rounded-full bg-white px-8 py-3 text-black font-medium transition-all hover:bg-neutral-100\">\n            Get Started\n          </button>\n          <button className=\"rounded-full border border-neutral-600 px-8 py-3 text-white transition-all hover:border-neutral-400\">\n            View Documentation\n          </button>\n        </div>\n      }\n      visual={\n        <div className=\"relative\">\n          <div className=\"aspect-square w-full max-w-md rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10\">\n            <div className=\"flex h-full items-center justify-center\">\n              <div className=\"h-32 w-32 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-80 blur-xl\"></div>\n              <div className=\"absolute h-24 w-24 rounded-full bg-white/20 backdrop-blur-sm\"></div>\n            </div>\n          </div>\n        </div>\n      }\n      className=\"min-h-screen\"\n    />\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 2203,
+      "outputTokens": 520
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { HeroSection } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <HeroSection\n      align=\"left\"\n      heading={\n        <h1 className=\"text-5xl font-bold text-white\">\n          Design meets motion\n        </h1>\n      }\n      subheading={\n        <p className=\"text-lg text-neutral-400 max-w-lg\">\n          Create stunning animated interfaces with our comprehensive component library. \n          Built for modern React applications with performance in mind.\n        </p>\n      }\n      cta={\n        <div className=\"flex gap-4\">\n          <button className=\"rounded-full bg-white px-8 py-3 text-black font-medium hover:bg-neutral-100 transition-colors\">\n            Get Started\n          </button>\n          <button className=\"rounded-full border border-neutral-600 px-8 py-3 text-white hover:border-neutral-400 transition-colors\">\n            View Docs\n          </button>\n        </div>\n      }\n      visual={\n        <div className=\"relative\">\n          <img \n            src=\"/api/placeholder/600/400\" \n            alt=\"Hero illustration\" \n            className=\"rounded-2xl shadow-2xl\"\n          />\n          <div className=\"absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl\" />\n        </div>\n      }\n    />\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1472,
+      "outputTokens": 366
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "composition",
+      "condition": "blind",
+      "output": "```jsx\nimport React from 'react';\nimport { HeroSection, GradientMesh } from '@ui-universe/ui';\n\nexport default function Example() {\n  return (\n    <div className=\"relative min-h-screen overflow-hidden\">\n      {/* Background gradient mesh */}\n      <div className=\"absolute inset-0 z-0\">\n        <GradientMesh\n          colors={['#667eea', '#764ba2', '#f093fb']}\n          animate={true}\n          intensity={0.7}\n        />\n      </div>\n      \n      {/* Hero content */}\n      <div className=\"relative z-10\">\n        <HeroSection\n          title=\"Welcome to the Future\"\n          subtitle=\"Experience the next generation of digital innovation with our cutting-edge platform\"\n          primaryButton={{\n            text: \"Get Started\",\n            onClick: () => console.log(\"Primary action clicked\")\n          }}\n          secondaryButton={{\n            text: \"Learn More\",\n            onClick: () => console.log(\"Secondary action clicked\")\n          }}\n          textAlign=\"center\"\n          variant=\"large\"\n        />\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 0.75
+      },
+      "inputTokens": 90,
+      "outputTokens": 285
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "composition",
+      "condition": "descriptor+source",
+      "output": "```tsx\nimport { HeroSection } from \"@ui-universe/ui/hero-section\";\nimport { GradientMesh } from \"@ui-universe/ui/gradient-mesh\";\n\nexport default function Example() {\n  return (\n    <div className=\"relative min-h-screen overflow-hidden\">\n      {/* Background gradient mesh */}\n      <GradientMesh\n        className=\"absolute inset-0 -z-10\"\n        colors={[\"#3b82f6\", \"#8b5cf6\", \"#ec4899\", \"#f59e0b\"]}\n        speed=\"slow\"\n        opacity={0.3}\n      />\n      \n      {/* Hero section content */}\n      <HeroSection\n        heading={\n          <h1 className=\"text-5xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl\">\n            Build the future with{\" \"}\n            <span className=\"bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent\">\n              AI-powered\n            </span>{\" \"}\n            components\n          </h1>\n        }\n        subheading={\n          <p className=\"max-w-2xl text-lg text-neutral-300 md:text-xl\">\n            Create stunning interfaces in minutes with our collection of animated,\n            accessible, and customizable React components.\n          </p>\n        }\n        cta={\n          <div className=\"flex flex-col gap-4 sm:flex-row\">\n            <button className=\"rounded-full bg-white px-8 py-3 font-semibold text-black transition-all hover:bg-neutral-100 hover:scale-105\">\n              Get Started\n            </button>\n            <button className=\"rounded-full border border-white/20 px-8 py-3 font-semibold text-white backdrop-blur transition-all hover:bg-white/10\">\n              View Components\n            </button>\n          </div>\n        }\n        className=\"relative z-10\"\n      />\n    </div>\n  );\n}\n```\n\nThis component creates a visually appealing hero section by:\n\n1. **Layered Background**: Uses `GradientMesh` as an animated background with a colorful gradient\n2. **Proper Z-indexing**: GradientMesh is positioned behind (`-z-10`) with HeroSection on top (`z-10`)\n3. **Visual Hierarchy**: Large, gradient-accented heading with supporting subheading\n4. **Call-to-Action**: Two-button layout with primary and secondary actions\n5. **Responsive Design**: Adapts text sizes and button layout across screen sizes\n6. **Smooth Interactions**: Hover effects on buttons with scale and background transitions\n\nThe combination creates a modern, engaging hero section perfect for landing pages or product showcases.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 2191,
+      "outputTokens": 678
+    },
+    {
+      "component": "HeroSection",
+      "prompt": "composition",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport { HeroSection, GradientMesh } from '@ui-universe/ui'\n\nexport default function Example() {\n  return (\n    <div className=\"relative min-h-screen\">\n      <GradientMesh className=\"absolute inset-0\" />\n      <HeroSection\n        heading={\n          <h1 className=\"text-6xl font-bold text-white\">\n            Build the future with{' '}\n            <span className=\"bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent\">\n              beautiful design\n            </span>\n          </h1>\n        }\n        subheading={\n          <p className=\"text-xl text-neutral-300 max-w-2xl\">\n            Create stunning interfaces with our collection of animated components\n            and design primitives built for modern web applications.\n          </p>\n        }\n        cta={\n          <div className=\"flex flex-col sm:flex-row gap-4\">\n            <button className=\"rounded-full bg-white px-8 py-3 text-black font-medium hover:bg-neutral-100 transition-colors\">\n              Get Started\n            </button>\n            <button className=\"rounded-full border border-white/20 px-8 py-3 text-white hover:bg-white/10 transition-colors\">\n              View Components\n            </button>\n          </div>\n        }\n        className=\"relative z-10\"\n      />\n    </div>\n  )\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "motionTokenized": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1460,
+      "outputTokens": 368
+    }
+  ],
+  "summary": {
+    "byCondition": {
+      "blind": {
+        "avgOverall": 0.7583333333333333,
+        "avgPropCorrectness": 0.6333333333333333,
+        "importRate": 1,
+        "tokenRate": 1,
+        "tsRate": 0.4,
+        "avgInputTokens": 103.26666666666667
+      },
+      "descriptor+source": {
+        "avgOverall": 0.925,
+        "avgPropCorrectness": 0.9,
+        "importRate": 1,
+        "tokenRate": 1,
+        "tsRate": 0.8,
+        "avgInputTokens": 2059.6666666666665
+      },
+      "descriptor-only": {
+        "avgOverall": 0.8916666666666667,
+        "avgPropCorrectness": 0.9,
+        "importRate": 1,
+        "tokenRate": 1,
+        "tsRate": 0.6666666666666666,
+        "avgInputTokens": 1260.2666666666667
+      }
+    }
+  }
+}
