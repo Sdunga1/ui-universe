@@ -10,7 +10,6 @@ interface SidebarNavClientProps {
   byCategory: Record<string, ComponentDescriptor[]>;
 }
 
-const RAIL_LEFT = 0;
 const RAIL_INDENT = 12;
 const CURVE_SIZE = 10;
 
