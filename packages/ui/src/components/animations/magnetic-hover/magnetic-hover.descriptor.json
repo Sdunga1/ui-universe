@@ -1,0 +1,91 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "MagneticHover",
+  "slug": "magnetic-hover",
+  "description": "Makes child elements subtly follow the cursor within bounds, creating a magnetic pull effect on hover.",
+  "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["hover", "cursor", "magnetic", "interactive", "micro-interaction"],
+  "since": "0.2.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content to apply the magnetic effect to"
+    },
+    "strength": {
+      "type": "number",
+      "required": false,
+      "default": 0.3,
+      "min": 0,
+      "max": 1,
+      "description": "Pull strength toward cursor (0-1)"
+    },
+    "radius": {
+      "type": "number",
+      "required": false,
+      "default": 200,
+      "description": "Activation radius in pixels"
+    },
+    "disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Disable the magnetic effect"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "The element that will magnetically follow the cursor on hover",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "inline-block",
+    "responsive": false,
+    "description": "Wraps children in an inline-block animated div. The element moves within its bounding box without affecting document flow."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": ["motion/react"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["ShimmerButton", "GlowCard"],
+  "aiPromptHint": "Use MagneticHover to make buttons, icons, or cards subtly follow the cursor. Great for CTAs and interactive elements. Set strength (0-1) to control pull intensity.",
+  "examples": [
+    {
+      "title": "Basic magnetic button",
+      "code": "<MagneticHover>\n  <button className=\"rounded-lg bg-white px-6 py-3 text-black font-semibold\">\n    Get Started\n  </button>\n</MagneticHover>"
+    },
+    {
+      "title": "Strong pull on an icon",
+      "code": "<MagneticHover strength={0.6}>\n  <div className=\"flex h-16 w-16 items-center justify-center rounded-full bg-neutral-800\">\n    <ArrowIcon />\n  </div>\n</MagneticHover>"
+    },
+    {
+      "title": "Subtle nav link",
+      "code": "<MagneticHover strength={0.15}>\n  <a href=\"/docs\" className=\"text-neutral-400 hover:text-white transition-colors\">\n    Documentation\n  </a>\n</MagneticHover>"
+    },
+    {
+      "title": "Disabled state",
+      "code": "<MagneticHover disabled>\n  <button className=\"rounded-lg bg-neutral-700 px-6 py-3 text-neutral-400 cursor-not-allowed\">\n    Unavailable\n  </button>\n</MagneticHover>"
+    }
+  ]
+}

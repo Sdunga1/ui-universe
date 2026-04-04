@@ -1,0 +1,84 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "GridPattern",
+  "slug": "grid-pattern",
+  "description": "Animated grid lines background using SVG patterns with optional radial fade mask and subtle pulse animation.",
+  "category": "backgrounds",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": ["background", "grid", "lines", "svg", "pattern", "decorative", "animated"],
+  "since": "0.2.0",
+  "props": {
+    "size": {
+      "type": "number",
+      "required": false,
+      "default": 32,
+      "description": "Grid cell size in pixels"
+    },
+    "strokeColor": {
+      "type": "string",
+      "required": false,
+      "default": "rgba(255,255,255,0.08)",
+      "description": "Line color (any CSS color value)"
+    },
+    "strokeWidth": {
+      "type": "number",
+      "required": false,
+      "default": 1,
+      "description": "Line width in pixels"
+    },
+    "fade": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Apply radial fade mask (vignette effect)"
+    },
+    "animate": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Enable subtle pulse animation on stroke opacity"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Fills container with absolute positioning. SVG pattern tiles cleanly at any size. Requires a relative-positioned parent."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["DotGrid", "GradientMesh"],
+  "aiPromptHint": "Use GridPattern for a clean, technical grid background. Adjust size for cell dimensions. Enable fade for a vignette effect. Works well behind pricing sections, dashboards, or code showcases.",
+  "examples": [
+    {
+      "title": "Basic grid",
+      "code": "<div className=\"relative h-96 bg-black\">\n  <GridPattern />\n  <div className=\"relative z-10 p-8\">\n    <h2 className=\"text-white text-2xl\">Pricing</h2>\n  </div>\n</div>"
+    },
+    {
+      "title": "Large cells, no fade",
+      "code": "<div className=\"relative h-96 bg-neutral-950\">\n  <GridPattern size={64} fade={false} strokeColor=\"rgba(255,255,255,0.05)\" />\n</div>"
+    },
+    {
+      "title": "Colored grid, no animation",
+      "code": "<div className=\"relative h-96 bg-neutral-900\">\n  <GridPattern strokeColor=\"rgba(139,92,246,0.15)\" animate={false} size={48} />\n</div>"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "TextReveal",
+  "slug": "text-reveal",
+  "description": "Word-by-word, line-by-line, or character-by-character opacity reveal driven by scroll position. Creates a progressive reading effect as the user scrolls.",
+  "category": "text",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["text", "scroll", "reveal", "opacity", "progressive", "reading"],
+  "since": "0.1.0",
+  "props": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "description": "The text to progressively reveal on scroll"
+    },
+    "splitBy": {
+      "type": "string",
+      "required": false,
+      "default": "word",
+      "description": "How to split the text for staggered reveal",
+      "enum": ["word", "line", "character"]
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "text",
+      "type": "string",
+      "description": "The text content split and revealed progressively via the text prop",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Renders as a block div. Give it enough vertical height (e.g., min-h-screen) for the scroll effect to have room to progress."
+  },
+  "variants": {},
+  "motionPreset": null,
+  "dependencies": {
+    "runtime": ["motion/react"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["FadeUp", "GradientText"],
+  "aiPromptHint": "Use TextReveal for long-form text that progressively reveals as user scrolls. Split by 'word' for paragraph reveals, 'character' for dramatic single-word reveals, 'line' for section headings. Give the container enough height (min-h-[200vh]) for the scroll range to work well.",
+  "examples": [
+    {
+      "title": "Word-by-word paragraph reveal",
+      "code": "<div className=\"min-h-[200vh] flex items-center\">\n  <TextReveal\n    text=\"We believe design should be effortless, expressive, and accessible to everyone.\"\n    className=\"text-4xl font-bold leading-relaxed\"\n  />\n</div>"
+    },
+    {
+      "title": "Character-by-character dramatic reveal",
+      "code": "<TextReveal\n  text=\"WELCOME\"\n  splitBy=\"character\"\n  className=\"text-8xl font-black tracking-widest\"\n/>"
+    },
+    {
+      "title": "Line-by-line section heading",
+      "code": "<TextReveal\n  text={\"Design.\\nBuild.\\nShip.\"}\n  splitBy=\"line\"\n  className=\"text-6xl font-bold\"\n/>"
+    },
+    {
+      "title": "Paragraph with muted base opacity",
+      "code": "<TextReveal\n  text=\"Every pixel matters. Every interaction counts. Every moment is an opportunity to delight your users.\"\n  className=\"text-2xl text-neutral-300 leading-loose max-w-2xl\"\n/>"
+    }
+  ]
+}

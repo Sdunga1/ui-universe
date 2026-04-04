@@ -1,17 +1,29 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
 interface ComponentPreviewProps {
   name: string;
+  category: string;
 }
 
-export function ComponentPreview({ name }: ComponentPreviewProps) {
-  // Phase 1: Static preview placeholder
-  // Phase 2: This will dynamically render the actual component with Lab Mode controls
+function PreviewFallback() {
   return (
     <div className="flex min-h-[200px] items-center justify-center rounded-none border border-[var(--border)] bg-[var(--card)]">
-      <p className="text-sm text-[var(--muted)]">
-        Live preview for <code className="font-mono">{name}</code> — coming in Lab Mode
-      </p>
+      <p className="text-sm text-[var(--muted)]">Loading preview...</p>
+    </div>
+  );
+}
+
+const PreviewDemos = dynamic(() => import("./preview-demos"), {
+  loading: () => <PreviewFallback />,
+  ssr: false,
+});
+
+export function ComponentPreview({ name, category }: ComponentPreviewProps) {
+  return (
+    <div className="preview-ambient relative min-h-[200px] overflow-hidden rounded-none border border-[var(--border)]">
+      <PreviewDemos name={name} category={category} />
     </div>
   );
 }

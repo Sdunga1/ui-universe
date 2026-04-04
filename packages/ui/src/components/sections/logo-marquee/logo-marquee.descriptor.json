@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "LogoMarquee",
+  "slug": "logo-marquee",
+  "description": "Infinite scrolling logo/brand strip with CSS animation. Supports pause on hover and reduced motion.",
+  "category": "sections",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": ["marquee", "logos", "scroll", "brands", "partners", "infinite", "ticker"],
+  "since": "0.1.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Logo or brand elements to scroll"
+    },
+    "speed": {
+      "type": "number",
+      "required": false,
+      "default": 30,
+      "description": "Seconds for one complete scroll cycle. Lower = faster."
+    },
+    "pauseOnHover": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Pause scrolling when the user hovers"
+    },
+    "direction": {
+      "type": "string",
+      "required": false,
+      "default": "left",
+      "description": "Scroll direction",
+      "enum": ["left", "right"]
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes for the outer container"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Logo or brand elements to scroll. Automatically duplicated for seamless loop.",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "flex",
+    "responsive": true,
+    "description": "Full-width scrolling strip. Overflows hidden. Children duplicated for seamless loop."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["FadeIn"],
+  "aiPromptHint": "Use LogoMarquee for scrolling partner logos, tech stack icons, or client brands. Pass logo elements as children. Adjust speed (seconds per cycle \u2014 lower = faster). Enable pauseOnHover for accessibility. Respects prefers-reduced-motion.",
+  "examples": [
+    {
+      "title": "Basic logo strip",
+      "code": "<LogoMarquee>\n  <img src=\"/logos/a.svg\" alt=\"Company A\" className=\"h-8 mx-8\" />\n  <img src=\"/logos/b.svg\" alt=\"Company B\" className=\"h-8 mx-8\" />\n  <img src=\"/logos/c.svg\" alt=\"Company C\" className=\"h-8 mx-8\" />\n</LogoMarquee>"
+    },
+    {
+      "title": "Fast reverse scroll",
+      "code": "<LogoMarquee speed={15} direction=\"right\">\n  {techLogos.map((logo) => (\n    <img key={logo.name} src={logo.src} alt={logo.name} className=\"h-6 mx-6 opacity-50 hover:opacity-100 transition-opacity\" />\n  ))}\n</LogoMarquee>"
+    },
+    {
+      "title": "No pause on hover",
+      "code": "<LogoMarquee pauseOnHover={false} speed={40}>\n  <span className=\"mx-8 text-neutral-500\">Partner 1</span>\n  <span className=\"mx-8 text-neutral-500\">Partner 2</span>\n  <span className=\"mx-8 text-neutral-500\">Partner 3</span>\n</LogoMarquee>"
+    }
+  ]
+}

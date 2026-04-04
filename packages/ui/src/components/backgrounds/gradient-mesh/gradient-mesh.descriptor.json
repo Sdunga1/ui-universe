@@ -1,0 +1,72 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "GradientMesh",
+  "slug": "gradient-mesh",
+  "description": "Multi-color animated gradient background using CSS radial-gradient blobs with blur for a soft mesh effect.",
+  "category": "backgrounds",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": ["background", "gradient", "mesh", "blur", "decorative", "animated"],
+  "since": "0.2.0",
+  "props": {
+    "colors": {
+      "type": "string[]",
+      "required": false,
+      "default": "[\"#ee502c\", \"#f97316\", \"#8b5cf6\", \"#06b6d4\"]",
+      "description": "Array of CSS color values for gradient blobs"
+    },
+    "speed": {
+      "type": "number",
+      "required": false,
+      "default": 8,
+      "description": "Animation cycle duration in seconds"
+    },
+    "blur": {
+      "type": "number",
+      "required": false,
+      "default": 80,
+      "description": "Blur amount in pixels for the soft mesh effect"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Fills container with absolute positioning and overflow hidden. Requires a relative-positioned parent."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["DotGrid", "GridPattern"],
+  "aiPromptHint": "Use GradientMesh for rich, organic background gradients. Place behind hero sections. Pass brand colors. Adjust speed (seconds per cycle) and blur (softness). Pair with dark overlays and light text.",
+  "examples": [
+    {
+      "title": "Basic usage",
+      "code": "<div className=\"relative h-screen bg-black\">\n  <GradientMesh />\n  <div className=\"relative z-10 flex items-center justify-center h-full\">\n    <h1 className=\"text-white text-5xl font-bold\">Hero Title</h1>\n  </div>\n</div>"
+    },
+    {
+      "title": "Custom brand colors",
+      "code": "<div className=\"relative h-96 bg-neutral-950\">\n  <GradientMesh colors={[\"#3b82f6\", \"#8b5cf6\", \"#ec4899\"]} speed={12} />\n</div>"
+    },
+    {
+      "title": "Subtle, slow mesh",
+      "code": "<div className=\"relative h-96 bg-black\">\n  <GradientMesh blur={120} speed={20} colors={[\"#1e3a5f\", \"#2d1b4e\"]} />\n</div>"
+    }
+  ]
+}

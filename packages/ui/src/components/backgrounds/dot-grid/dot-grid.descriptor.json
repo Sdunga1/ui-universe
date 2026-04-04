@@ -1,0 +1,84 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "DotGrid",
+  "slug": "dot-grid",
+  "description": "Animated dot matrix background using pure CSS radial-gradient patterns with optional drift animation and radial fade mask.",
+  "category": "backgrounds",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": ["background", "dots", "pattern", "grid", "decorative"],
+  "since": "0.2.0",
+  "props": {
+    "dotSize": {
+      "type": "number",
+      "required": false,
+      "default": 1,
+      "description": "Dot radius in pixels"
+    },
+    "gap": {
+      "type": "number",
+      "required": false,
+      "default": 24,
+      "description": "Space between dots in pixels"
+    },
+    "color": {
+      "type": "string",
+      "required": false,
+      "default": "rgba(255,255,255,0.15)",
+      "description": "Dot color (any CSS color value)"
+    },
+    "animate": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Enable subtle drift animation"
+    },
+    "fade": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Apply radial fade mask (vignette effect)"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Fills container with absolute positioning. Requires a relative-positioned parent."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["Aurora", "GradientMesh"],
+  "aiPromptHint": "Use DotGrid as a subtle background pattern. Place behind hero sections or feature grids. Enable fade for a vignette effect. Adjust gap and dotSize for density. Layer with other content using absolute positioning.",
+  "examples": [
+    {
+      "title": "Basic usage",
+      "code": "<div className=\"relative h-96 bg-black\">\n  <DotGrid />\n  <div className=\"relative z-10 p-8\">\n    <h1>Content above dots</h1>\n  </div>\n</div>"
+    },
+    {
+      "title": "Dense grid without fade",
+      "code": "<div className=\"relative h-96 bg-neutral-950\">\n  <DotGrid gap={16} dotSize={1.5} fade={false} />\n</div>"
+    },
+    {
+      "title": "Custom color, no animation",
+      "code": "<div className=\"relative h-96 bg-neutral-900\">\n  <DotGrid color=\"rgba(139,92,246,0.2)\" animate={false} />\n</div>"
+    }
+  ]
+}

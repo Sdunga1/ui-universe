@@ -1,0 +1,96 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "BlurReveal",
+  "slug": "blur-reveal",
+  "description": "Animates children with a blur-to-sharp + fade reveal on mount or viewport entry.",
+  "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["entrance", "scroll", "blur", "focus", "reveal", "sharp"],
+  "since": "0.1.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content to animate"
+    },
+    "blurAmount": {
+      "type": "number",
+      "required": false,
+      "default": 12,
+      "min": 1,
+      "max": 50,
+      "description": "Initial blur amount in pixels"
+    },
+    "delay": {
+      "type": "number",
+      "required": false,
+      "description": "Custom delay in milliseconds"
+    },
+    "triggerOnView": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Animate when element enters viewport"
+    },
+    "viewThreshold": {
+      "type": "number",
+      "required": false,
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "description": "Fraction of element visible before triggering"
+    },
+    "once": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Only animate once"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Content to reveal from blur",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Wraps children in an animated div with blur + opacity transition."
+  },
+  "variants": {},
+  "motionPreset": "blur",
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["StaggerGroup", "FadeUp", "GradientMesh"],
+  "aiPromptHint": "Use BlurReveal for a dramatic focus-pulling effect. Content starts blurred and sharpens into view. Great for hero images, featured content, or creating depth-of-field effects. Adjust 'blurAmount' (default 12px) for intensity — lower for subtle, higher for dramatic. Pair with background components like GradientMesh for atmospheric reveals.",
+  "examples": [
+    {
+      "title": "Basic usage",
+      "code": "<BlurReveal>\n  <h1 className=\"text-6xl font-bold\">Welcome</h1>\n</BlurReveal>"
+    },
+    {
+      "title": "Dramatic blur",
+      "code": "<BlurReveal blurAmount={24}>\n  <img src=\"/hero.jpg\" alt=\"Hero\" className=\"w-full rounded-xl\" />\n</BlurReveal>"
+    },
+    {
+      "title": "Subtle with delay",
+      "code": "<BlurReveal blurAmount={6} delay={200}>\n  <p className=\"text-lg text-neutral-400\">Gently comes into focus</p>\n</BlurReveal>"
+    }
+  ]
+}

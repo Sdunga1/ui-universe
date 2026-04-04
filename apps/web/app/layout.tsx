@@ -4,9 +4,13 @@ import { SiteHeader } from "../components/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "uiUniverse — AI-Native Motion UI Components",
+  title: "uiUniverse - AI native components",
   description:
     "A motion-first React component library designed for AI coding tools. Ship premium landing pages in minutes.",
+  icons: {
+    icon: "/logo.svg",
+    apple: "/logo.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

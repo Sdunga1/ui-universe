@@ -1,0 +1,90 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "GradientText",
+  "slug": "gradient-text",
+  "description": "Renders text with an animated gradient sweep across the background. Great for eye-catching headlines and brand-colored accent text.",
+  "category": "text",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["text", "gradient", "color", "headline", "brand", "animated"],
+  "since": "0.1.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Text content to render with a gradient"
+    },
+    "colors": {
+      "type": "string[]",
+      "required": false,
+      "default": "[\"#ee502c\", \"#f97316\", \"#eab308\", \"#ee502c\"]",
+      "description": "Array of CSS color values for the gradient stops"
+    },
+    "speed": {
+      "type": "number",
+      "required": false,
+      "default": 3,
+      "description": "Animation cycle duration in seconds"
+    },
+    "animate": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Enable animated gradient sweep"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "The text content displayed with the gradient effect",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "inline",
+    "responsive": false,
+    "description": "Renders as an inline span. Use inside any heading, paragraph, or inline context."
+  },
+  "variants": {},
+  "motionPreset": null,
+  "dependencies": {
+    "runtime": ["motion/react"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["TypeWriter", "FadeUp", "SplitText"],
+  "aiPromptHint": "Use GradientText for eye-catching headlines. Pass brand colors via the colors prop. Works as inline text \u2014 wrap any heading or span. Combine with TypeWriter for typed gradient text. Repeat the first color at the end for seamless looping.",
+  "examples": [
+    {
+      "title": "Basic gradient headline",
+      "code": "<h1 className=\"text-5xl font-bold\">\n  <GradientText>Build the future</GradientText>\n</h1>"
+    },
+    {
+      "title": "Custom brand colors",
+      "code": "<GradientText colors={[\"#6366f1\", \"#a855f7\", \"#ec4899\", \"#6366f1\"]}>\n  Premium Plan\n</GradientText>"
+    },
+    {
+      "title": "Slow sweep with custom speed",
+      "code": "<GradientText speed={6} colors={[\"#22d3ee\", \"#3b82f6\", \"#8b5cf6\", \"#22d3ee\"]}>\n  Enterprise Grade\n</GradientText>"
+    },
+    {
+      "title": "Static gradient (no animation)",
+      "code": "<GradientText animate={false} colors={[\"#f59e0b\", \"#ef4444\"]}>\n  Hot Deal\n</GradientText>"
+    }
+  ]
+}

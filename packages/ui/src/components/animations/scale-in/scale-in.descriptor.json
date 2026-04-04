@@ -1,0 +1,101 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "ScaleIn",
+  "slug": "scale-in",
+  "description": "Animates children with a scale + fade entrance on mount or viewport entry.",
+  "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": { "react": ">=18", "next": ">=14", "tailwind": ">=4", "motion": ">=12" },
+  "tags": ["entrance", "scroll", "scale", "zoom", "reveal", "grow"],
+  "since": "0.1.0",
+  "props": {
+    "children": { "type": "ReactNode", "required": true, "description": "Content to animate" },
+    "preset": {
+      "type": "MotionPresetName",
+      "required": false,
+      "default": "scaleIn",
+      "description": "Motion preset from the token system",
+      "enum": [
+        "scaleIn",
+        "popIn",
+        "fadeIn",
+        "fadeUp",
+        "fadeDown",
+        "fadeLeft",
+        "fadeRight",
+        "blur",
+        "slideUp",
+        "slideDown"
+      ]
+    },
+    "scale": {
+      "type": "number",
+      "required": false,
+      "default": 0.92,
+      "min": 0,
+      "max": 1,
+      "description": "Initial scale value before animation (0-1)"
+    },
+    "delay": { "type": "number", "required": false, "description": "Custom delay in milliseconds" },
+    "triggerOnView": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Animate when element enters viewport"
+    },
+    "viewThreshold": {
+      "type": "number",
+      "required": false,
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "description": "Fraction of element visible before triggering"
+    },
+    "once": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Only animate once"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Content to scale in",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Wraps children in an animated div with scale + opacity transition."
+  },
+  "variants": {},
+  "motionPreset": "scaleIn",
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["StaggerGroup", "FadeUp"],
+  "aiPromptHint": "Use ScaleIn for elements that should grow into view — buttons, cards, images, modals. Use preset='popIn' for a bouncier entrance with spring physics. The 'scale' prop controls initial size (0.92 = subtle grow, 0.5 = dramatic zoom). Combine with StaggerGroup for cascading card entrances.",
+  "examples": [
+    {
+      "title": "Basic usage",
+      "code": "<ScaleIn>\n  <div className=\"rounded-xl bg-neutral-900 p-8\">Scales into view</div>\n</ScaleIn>"
+    },
+    {
+      "title": "Pop-in effect",
+      "code": "<ScaleIn preset=\"popIn\" scale={0.8}>\n  <button className=\"px-6 py-3 bg-accent text-white\">Click me</button>\n</ScaleIn>"
+    },
+    {
+      "title": "Staggered cards",
+      "code": "<StaggerGroup stagger=\"normal\">\n  <ScaleIn><Card title=\"Plan A\" /></ScaleIn>\n  <ScaleIn><Card title=\"Plan B\" /></ScaleIn>\n  <ScaleIn><Card title=\"Plan C\" /></ScaleIn>\n</StaggerGroup>"
+    }
+  ]
+}

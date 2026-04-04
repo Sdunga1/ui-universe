@@ -6,6 +6,9 @@ export { StaggerGroup, type StaggerGroupProps } from "./primitives";
 export { useMotionPreset } from "./hooks";
 export { useReducedMotion } from "./hooks";
 export { useInView } from "./hooks";
+export { useMousePosition } from "./hooks";
+export { useInterval } from "./hooks";
+export { useScrollProgress } from "./hooks";
 
 // Utilities
 export { cn } from "./lib/utils";

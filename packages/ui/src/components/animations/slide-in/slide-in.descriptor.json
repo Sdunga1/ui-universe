@@ -1,0 +1,101 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "SlideIn",
+  "slug": "slide-in",
+  "description": "Animates children with a directional slide + fade entrance from any edge.",
+  "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["entrance", "scroll", "slide", "translate", "direction", "reveal"],
+  "since": "0.1.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content to animate"
+    },
+    "direction": {
+      "type": "string",
+      "required": false,
+      "default": "left",
+      "enum": ["left", "right", "up", "down"],
+      "description": "Direction to slide in from"
+    },
+    "distance": {
+      "type": "DistanceName | number",
+      "required": false,
+      "default": "normal",
+      "description": "Slide distance — use token name ('subtle', 'normal', 'pronounced', 'dramatic') or pixel value"
+    },
+    "delay": {
+      "type": "number",
+      "required": false,
+      "description": "Custom delay in milliseconds"
+    },
+    "triggerOnView": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Animate when element enters viewport"
+    },
+    "viewThreshold": {
+      "type": "number",
+      "required": false,
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "description": "Fraction of element visible before triggering"
+    },
+    "once": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Only animate once"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Content to slide in",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Wraps children in an animated div with directional slide transition."
+  },
+  "variants": {},
+  "motionPreset": "fadeLeft",
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["StaggerGroup", "FadeUp"],
+  "aiPromptHint": "Use SlideIn for directional entrance animations. Set 'direction' to control where content slides from. Use 'distance' with token names ('subtle' for 8px, 'normal' for 24px, 'pronounced' for 48px, 'dramatic' for 80px) or raw pixel values. Works well for sidebar menus, panels, cards entering from edges. Combine with StaggerGroup for sequential reveals.",
+  "examples": [
+    {
+      "title": "From left (default)",
+      "code": "<SlideIn>\n  <nav className=\"w-64 bg-neutral-900 p-4\">Sidebar content</nav>\n</SlideIn>"
+    },
+    {
+      "title": "From right with large distance",
+      "code": "<SlideIn direction=\"right\" distance=\"dramatic\">\n  <div className=\"rounded-xl bg-neutral-900 p-8\">Panel</div>\n</SlideIn>"
+    },
+    {
+      "title": "Staggered from bottom",
+      "code": "<StaggerGroup stagger=\"relaxed\">\n  <SlideIn direction=\"up\"><Card title=\"Step 1\" /></SlideIn>\n  <SlideIn direction=\"up\"><Card title=\"Step 2\" /></SlideIn>\n</StaggerGroup>"
+    }
+  ]
+}

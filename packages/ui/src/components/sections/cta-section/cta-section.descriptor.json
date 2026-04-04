@@ -1,0 +1,100 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "CTASection",
+  "slug": "cta-section",
+  "description": "Centered call-to-action block with heading, description, and primary/secondary action buttons.",
+  "category": "sections",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["cta", "call-to-action", "conversion", "section", "landing"],
+  "since": "0.1.0",
+  "props": {
+    "heading": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Primary heading content"
+    },
+    "description": {
+      "type": "ReactNode",
+      "required": false,
+      "description": "Supporting description text"
+    },
+    "primaryAction": {
+      "type": "ReactNode",
+      "required": false,
+      "description": "Primary action element (button or link)"
+    },
+    "secondaryAction": {
+      "type": "ReactNode",
+      "required": false,
+      "description": "Secondary action element (button or link)"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes for the outer section"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "heading",
+      "type": "ReactNode",
+      "description": "Primary heading (h2 or styled text)",
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "ReactNode",
+      "description": "Supporting description paragraph",
+      "required": false
+    },
+    {
+      "name": "primaryAction",
+      "type": "ReactNode",
+      "description": "Primary action button (e.g., ShimmerButton)",
+      "required": false
+    },
+    {
+      "name": "secondaryAction",
+      "type": "ReactNode",
+      "description": "Secondary action button or link",
+      "required": false
+    }
+  ],
+  "layout": {
+    "display": "flex",
+    "responsive": true,
+    "description": "Centered CTA block with heading, description, and action buttons. Max-width constrained."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["ShimmerButton", "FadeUp", "GradientMesh"],
+  "aiPromptHint": "Use CTASection as the final conversion section on a landing page. Pass heading, description, and action buttons. Pair primaryAction with ShimmerButton for emphasis. Place over a GradientMesh background for visual impact.",
+  "examples": [
+    {
+      "title": "Basic CTA",
+      "code": "<CTASection\n  heading={<h2 className=\"text-4xl font-bold\">Ready to get started?</h2>}\n  description={<p className=\"text-lg text-neutral-400\">Join thousands of developers building with ui-universe.</p>}\n  primaryAction={<button className=\"rounded-full bg-white px-8 py-3 text-black\">Start Free</button>}\n  secondaryAction={<a href=\"/docs\" className=\"text-neutral-400 underline\">Read the docs</a>}\n/>"
+    },
+    {
+      "title": "With ShimmerButton",
+      "code": "<CTASection\n  heading={<h2 className=\"text-4xl font-bold\">Ship faster today</h2>}\n  description={<p className=\"text-lg text-neutral-400\">Beautiful, animated UI in minutes.</p>}\n  primaryAction={<ShimmerButton>Get Started</ShimmerButton>}\n/>"
+    },
+    {
+      "title": "Over background",
+      "code": "<div className=\"relative\">\n  <GradientMesh className=\"absolute inset-0\" />\n  <CTASection\n    heading={<h2 className=\"text-5xl font-bold\">Build something beautiful</h2>}\n    primaryAction={<button className=\"rounded-full bg-white px-8 py-3 text-black\">Explore Components</button>}\n  />\n</div>"
+    }
+  ]
+}

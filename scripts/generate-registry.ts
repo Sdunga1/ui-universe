@@ -7,8 +7,12 @@ interface Descriptor {
   slug: string;
   description: string;
   category: string;
+  version?: string;
+  supportedStack?: Record<string, string>;
   tags?: string[];
   props: Record<string, unknown>;
+  slots?: Array<{ name: string; type: string; description?: string; required?: boolean }>;
+  layout?: { display?: string; responsive?: boolean; description?: string };
   aiPromptHint?: string;
   examples?: Array<{ title: string; code: string }>;
   recommendedWith?: string[];
@@ -18,7 +22,7 @@ const UI_SRC = resolve(process.cwd(), "packages/ui/src");
 const OUT_DIR = resolve(process.cwd(), "apps/web/public");
 
 function main() {
-  console.log("\n  ui-universe — Registry Generator\n");
+  console.log("\n  uiUniverse — Registry Generator\n");
 
   const files = fg.sync(`${UI_SRC}/components/**/*.descriptor.json`);
   console.log(`  Found ${files.length} component descriptor(s)\n`);
@@ -34,6 +38,8 @@ function main() {
     slug: d.slug,
     description: d.description,
     category: d.category,
+    version: d.version ?? "1.0.0",
+    supportedStack: d.supportedStack ?? {},
     tags: d.tags ?? [],
   }));
 
@@ -42,15 +48,27 @@ function main() {
 
   // Generate llms.txt — optimized for LLM context windows
   const llmsLines: string[] = [
-    "# ui-universe Component Registry",
+    "# uiUniverse Component Registry",
     `# Generated: ${new Date().toISOString()}`,
     `# Components: ${descriptors.length}`,
     "",
   ];
 
   for (const d of descriptors) {
-    llmsLines.push(`## ${d.name} (${d.category}/${d.slug})`);
+    llmsLines.push(`## ${d.name} (${d.category}/${d.slug})${d.version ? ` v${d.version}` : ""}`);
     llmsLines.push(d.description);
+    if (d.supportedStack && Object.keys(d.supportedStack).length > 0) {
+      const stack = Object.entries(d.supportedStack)
+        .map(([k, v]) => `${k} ${v}`)
+        .join(", ");
+      llmsLines.push(`Stack: ${stack}`);
+    }
+    if (d.slots && d.slots.length > 0) {
+      const slotNames = d.slots
+        .map((s) => `${s.name}${s.required ? " (required)" : ""}`)
+        .join(", ");
+      llmsLines.push(`Slots: ${slotNames}`);
+    }
     if (d.aiPromptHint) {
       llmsLines.push(`AI Hint: ${d.aiPromptHint}`);
     }

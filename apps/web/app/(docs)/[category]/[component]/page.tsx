@@ -29,8 +29,26 @@ export default async function ComponentPage({ params }: PageProps) {
         </p>
         <h1 className="text-4xl font-bold tracking-tight">{descriptor.name}</h1>
         <p className="mt-3 text-lg text-[var(--muted)]">{descriptor.description}</p>
+        {/* Version & Stack */}
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          {descriptor.version && (
+            <span className="rounded-none border border-[var(--border)] px-2 py-0.5 text-xs text-[var(--muted)]">
+              v{descriptor.version}
+            </span>
+          )}
+          {descriptor.supportedStack &&
+            Object.entries(descriptor.supportedStack).map(([lib, range]) => (
+              <span
+                key={lib}
+                className="rounded-none bg-[var(--card)] px-2 py-0.5 text-xs text-[var(--muted)]"
+              >
+                {lib} {range}
+              </span>
+            ))}
+        </div>
+
         {descriptor.tags && descriptor.tags.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             {descriptor.tags.map((tag) => (
               <span
                 key={tag}
@@ -46,7 +64,7 @@ export default async function ComponentPage({ params }: PageProps) {
       {/* Preview */}
       <section className="mb-10">
         <h2 className="mb-4 text-xl font-semibold">Preview</h2>
-        <ComponentPreview name={descriptor.name} />
+        <ComponentPreview name={descriptor.name} category={descriptor.category} />
       </section>
 
       {/* Props Table */}
@@ -86,6 +104,69 @@ export default async function ComponentPage({ params }: PageProps) {
           </table>
         </div>
       </section>
+
+      {/* Slots */}
+      {descriptor.slots && descriptor.slots.length > 0 && (
+        <section className="mb-10">
+          <h2 className="mb-4 text-xl font-semibold">Slots</h2>
+          <div className="overflow-x-auto rounded-none border border-[var(--border)]">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-[var(--border)] text-left">
+                  <th className="px-4 py-3 font-medium text-[var(--muted)]">Slot</th>
+                  <th className="px-4 py-3 font-medium text-[var(--muted)]">Type</th>
+                  <th className="px-4 py-3 font-medium text-[var(--muted)]">Required</th>
+                  <th className="px-4 py-3 font-medium text-[var(--muted)]">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {descriptor.slots.map((slot) => (
+                  <tr key={slot.name} className="border-b border-[var(--border)] last:border-0">
+                    <td className="px-4 py-3">
+                      <code className="rounded-none bg-[var(--card)] px-1.5 py-0.5 text-xs">
+                        {slot.name}
+                      </code>
+                    </td>
+                    <td className="px-4 py-3 text-[var(--muted)]">
+                      <code className="text-xs">{slot.type}</code>
+                    </td>
+                    <td className="px-4 py-3 text-[var(--muted)]">
+                      {slot.required ? "Yes" : "No"}
+                    </td>
+                    <td className="px-4 py-3 text-[var(--muted)]">{slot.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {/* Layout Info */}
+      {descriptor.layout && (
+        <section className="mb-10">
+          <h2 className="mb-4 text-xl font-semibold">Layout</h2>
+          <div className="rounded-none border border-[var(--border)] bg-[var(--card)] p-4 text-sm">
+            <div className="flex flex-wrap gap-4">
+              {descriptor.layout.display && (
+                <div>
+                  <span className="text-[var(--muted)]">Display: </span>
+                  <code className="text-xs">{descriptor.layout.display}</code>
+                </div>
+              )}
+              {descriptor.layout.responsive !== undefined && (
+                <div>
+                  <span className="text-[var(--muted)]">Responsive: </span>
+                  <span>{descriptor.layout.responsive ? "Yes" : "No"}</span>
+                </div>
+              )}
+            </div>
+            {descriptor.layout.description && (
+              <p className="mt-2 text-[var(--muted)]">{descriptor.layout.description}</p>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Examples */}
       {descriptor.examples && descriptor.examples.length > 0 && (

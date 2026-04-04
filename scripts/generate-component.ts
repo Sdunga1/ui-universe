@@ -28,7 +28,7 @@ function toPascalCase(str: string): string {
 }
 
 async function main() {
-  console.log("\n  ui-universe — New Component Generator\n");
+  console.log("\n  uiUniverse — New Component Generator\n");
 
   const rawName = await ask("  Component name (PascalCase, e.g., GlowCard): ");
   const name = toPascalCase(rawName);
@@ -116,6 +116,13 @@ ${name}.displayName = "${name}";
     slug,
     description,
     category,
+    version: "1.0.0",
+    supportedStack: {
+      react: ">=18",
+      next: ">=14",
+      tailwind: ">=4",
+      motion: ">=12",
+    },
     tags: [],
     since: "0.1.0",
     props: {
@@ -154,6 +161,19 @@ ${name}.displayName = "${name}";
         required: false,
         description: "Additional Tailwind classes",
       },
+    },
+    slots: [
+      {
+        name: "children",
+        type: "ReactNode",
+        description: "Content to animate",
+        required: true,
+      },
+    ],
+    layout: {
+      display: "block",
+      responsive: false,
+      description: "Wraps children in an animated div",
     },
     variants: {},
     motionPreset: "fadeUp",

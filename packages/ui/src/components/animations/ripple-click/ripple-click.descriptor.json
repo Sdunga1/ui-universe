@@ -1,0 +1,89 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "RippleClick",
+  "slug": "ripple-click",
+  "description": "Adds a Material-style click ripple effect that emanates from the exact click position within any element.",
+  "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["click", "ripple", "feedback", "tactile", "interactive", "material"],
+  "since": "0.2.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content to wrap with the ripple effect"
+    },
+    "color": {
+      "type": "string",
+      "required": false,
+      "default": "rgba(255,255,255,0.3)",
+      "description": "Ripple color"
+    },
+    "duration": {
+      "type": "number",
+      "required": false,
+      "default": 600,
+      "description": "Ripple animation duration in milliseconds"
+    },
+    "disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Disable the ripple effect"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "The element that receives the ripple click effect",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Wraps children in a relatively-positioned div with overflow hidden. Ripple spans are absolutely positioned within."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": ["motion/react"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["ShimmerButton", "MagneticHover"],
+  "aiPromptHint": "Use RippleClick to add tactile click feedback to any element. Wrap buttons, cards, or list items. Set color to match your theme. The ripple emanates from the exact click position.",
+  "examples": [
+    {
+      "title": "Basic ripple on a button",
+      "code": "<RippleClick className=\"rounded-lg\">\n  <button className=\"w-full rounded-lg bg-neutral-800 px-6 py-3 font-semibold text-white\">\n    Click Me\n  </button>\n</RippleClick>"
+    },
+    {
+      "title": "Custom ripple color",
+      "code": "<RippleClick color=\"rgba(238,80,44,0.3)\" className=\"rounded-xl\">\n  <div className=\"rounded-xl bg-neutral-900 p-6\">\n    <h3 className=\"font-bold\">Interactive Card</h3>\n    <p className=\"text-neutral-400\">Click anywhere on this card</p>\n  </div>\n</RippleClick>"
+    },
+    {
+      "title": "Slow ripple for large surfaces",
+      "code": "<RippleClick duration={1000} className=\"rounded-2xl\">\n  <div className=\"rounded-2xl bg-gradient-to-br from-neutral-800 to-neutral-900 p-12\">\n    <p className=\"text-lg\">Large interactive area</p>\n  </div>\n</RippleClick>"
+    },
+    {
+      "title": "List item ripple",
+      "code": "<ul>\n  {items.map(item => (\n    <RippleClick key={item.id}>\n      <li className=\"border-b border-neutral-800 px-4 py-3\">{item.name}</li>\n    </RippleClick>\n  ))}\n</ul>"
+    }
+  ]
+}
