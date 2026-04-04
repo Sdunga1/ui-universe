@@ -89,10 +89,7 @@ export const GlowCard = forwardRef<HTMLDivElement, GlowCardProps>(
           aria-hidden="true"
         />
         {/* Content sits inside with solid background — glow peeks through as a 1px border */}
-        <div
-          className="relative overflow-hidden bg-[var(--card)]"
-          style={{ borderRadius }}
-        >
+        <div className="relative overflow-hidden bg-[var(--card)]" style={{ borderRadius }}>
           {children}
         </div>
       </motion.div>

@@ -17,9 +17,7 @@ export function SidebarNavClient({ byCategory }: SidebarNavClientProps) {
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href;
 
-  const categories = CATEGORY_ORDER.filter(
-    (cat) => byCategory[cat] && byCategory[cat].length > 0
-  );
+  const categories = CATEGORY_ORDER.filter((cat) => byCategory[cat] && byCategory[cat].length > 0);
 
   return (
     <nav className="relative" style={{ paddingLeft: RAIL_INDENT + 8 }}>
@@ -47,7 +45,7 @@ export function SidebarNavClient({ byCategory }: SidebarNavClientProps) {
       </div>
 
       {categories.map((category, catIdx) => {
-        const components = byCategory[category]!;
+        const components = byCategory[category] ?? [];
         const isLastCategory = catIdx === categories.length - 1;
 
         return (
@@ -76,6 +74,8 @@ export function SidebarNavClient({ byCategory }: SidebarNavClientProps) {
               }}
             >
               <svg
+                role="img"
+                aria-hidden="true"
                 width={RAIL_INDENT + 8}
                 height={CURVE_SIZE}
                 viewBox={`0 0 ${RAIL_INDENT + 8} ${CURVE_SIZE}`}
@@ -137,6 +137,8 @@ export function SidebarNavClient({ byCategory }: SidebarNavClientProps) {
                 }}
               >
                 <svg
+                  role="img"
+                  aria-hidden="true"
                   width={RAIL_INDENT + 8}
                   height={CURVE_SIZE}
                   viewBox={`0 0 ${RAIL_INDENT + 8} ${CURVE_SIZE}`}
