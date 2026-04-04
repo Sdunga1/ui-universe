@@ -1,0 +1,25 @@
+{
+  "name": "InfiniteMenu",
+  "slug": "infinite-menu",
+  "description": "A WebGL-powered 3D spherical menu where items are arranged on the surface of a rotating icosahedron. Users drag to rotate the sphere and click items to navigate. Each item displays an image, title, and description.",
+  "category": "sections",
+  "props": {
+    "items": {
+      "type": "Array<{ image: string; link: string; title: string; description: string }>",
+      "description": "Array of menu items. Each item has an image URL, navigation link, title, and description text.",
+      "default": []
+    },
+    "scale": {
+      "type": "number",
+      "default": 1,
+      "description": "Scale factor for the 3D sphere size."
+    }
+  },
+  "examples": [
+    {
+      "title": "Basic menu",
+      "code": "<div style={{ height: '600px', position: 'relative' }}>\n  <InfiniteMenu items={[\n    { image: '/img1.jpg', link: '/page1', title: 'Item 1', description: 'Description' },\n    { image: '/img2.jpg', link: '/page2', title: 'Item 2', description: 'Description' }\n  ]} />\n</div>"
+    }
+  ],
+  "aiPromptHint": "InfiniteMenu MUST be wrapped in a container with explicit height and position:relative. Items are displayed on a 3D sphere that the user can drag to rotate. Each item needs image, link, title, and description fields."
+}

@@ -15,7 +15,11 @@
     "clean": "turbo clean && rm -rf node_modules",
     "format": "biome format --write .",
     "new:component": "tsx scripts/generate-component.ts",
-    "eval": "tsx scripts/eval/run-eval.ts"
+    "eval": "tsx scripts/eval/run-eval.ts",
+    "eval:report": "tsx scripts/eval/generate-report.ts",
+    "eval:comparative": "tsx scripts/eval/run-comparative.ts",
+    "eval:comparative:gemini": "tsx scripts/eval/run-comparative.ts --model=gemini",
+    "eval:report:comparative": "tsx scripts/eval/generate-comparative-report.ts"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.82.0",

@@ -1,0 +1,53 @@
+{
+  "name": "CircularGallery",
+  "slug": "circular-gallery",
+  "description": "A WebGL-powered circular image gallery with curved layout, scroll/drag navigation, and per-item text labels. Images are arranged in a continuous horizontal loop with a configurable arc bend.",
+  "category": "sections",
+  "props": {
+    "items": {
+      "type": "Array<{ image: string; text: string }>",
+      "description": "Array of gallery items with image URL and label text. Falls back to placeholder images if omitted."
+    },
+    "bend": {
+      "type": "number",
+      "default": 3,
+      "description": "Curvature of the circular arc. 0 = flat, higher = more curved. Negative values curve upward."
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#ffffff",
+      "description": "Color of the text labels below each image."
+    },
+    "borderRadius": {
+      "type": "number",
+      "default": 0.05,
+      "description": "Border radius of each image card (0-0.5, as fraction of card size)."
+    },
+    "font": {
+      "type": "string",
+      "default": "bold 30px Figtree",
+      "description": "CSS font string for the text labels."
+    },
+    "scrollSpeed": {
+      "type": "number",
+      "default": 2,
+      "description": "Speed multiplier for scroll/drag navigation."
+    },
+    "scrollEase": {
+      "type": "number",
+      "default": 0.05,
+      "description": "Easing factor for smooth scroll deceleration (0-1, lower = smoother)."
+    }
+  },
+  "examples": [
+    {
+      "title": "Basic gallery",
+      "code": "<div style={{ height: '600px', position: 'relative' }}>\n  <CircularGallery bend={3} textColor=\"#ffffff\" borderRadius={0.05} />\n</div>"
+    },
+    {
+      "title": "Custom items",
+      "code": "<div style={{ height: '500px', position: 'relative' }}>\n  <CircularGallery\n    items={[\n      { image: '/photo1.jpg', text: 'Mountain' },\n      { image: '/photo2.jpg', text: 'Ocean' },\n      { image: '/photo3.jpg', text: 'Forest' }\n    ]}\n    bend={2}\n    scrollSpeed={3}\n  />\n</div>"
+    }
+  ],
+  "aiPromptHint": "CircularGallery MUST be wrapped in a container with explicit height and position:relative. The component fills its parent. Use 'bend' to control the arc curvature. Items loop infinitely. Supports mouse drag and scroll wheel navigation."
+}

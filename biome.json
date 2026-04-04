@@ -39,6 +39,15 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "dist", ".next", ".turbo", "Resources", "pnpm-lock.yaml"]
+    "ignore": [
+      "node_modules",
+      "dist",
+      ".next",
+      ".turbo",
+      "Resources",
+      "pnpm-lock.yaml",
+      "scripts/eval/fixtures/*.source.tsx",
+      "scripts/eval/results"
+    ]
   }
 }

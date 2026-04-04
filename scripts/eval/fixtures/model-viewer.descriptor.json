@@ -1,0 +1,113 @@
+{
+  "name": "ModelViewer",
+  "slug": "model-viewer",
+  "description": "A Three.js-powered 3D model viewer with mouse parallax, hover rotation, environment lighting, auto-framing, and screenshot support. Loads glTF/GLB, FBX, and OBJ formats.",
+  "category": "sections",
+  "props": {
+    "url": {
+      "type": "string",
+      "required": true,
+      "description": "URL of the 3D model file (glTF, GLB, FBX, or OBJ format)."
+    },
+    "width": {
+      "type": "number | string",
+      "default": 400,
+      "description": "Width of the viewer canvas in pixels or CSS value."
+    },
+    "height": {
+      "type": "number | string",
+      "default": 400,
+      "description": "Height of the viewer canvas in pixels or CSS value."
+    },
+    "modelXOffset": {
+      "type": "number",
+      "default": 0,
+      "description": "Horizontal position offset of the model."
+    },
+    "modelYOffset": {
+      "type": "number",
+      "default": 0,
+      "description": "Vertical position offset of the model."
+    },
+    "defaultRotationX": {
+      "type": "number",
+      "default": -50,
+      "description": "Initial X rotation of the model in degrees."
+    },
+    "defaultRotationY": {
+      "type": "number",
+      "default": 20,
+      "description": "Initial Y rotation of the model in degrees."
+    },
+    "defaultZoom": {
+      "type": "number",
+      "default": 0.5,
+      "description": "Initial zoom level (camera distance factor)."
+    },
+    "enableMouseParallax": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable subtle camera movement following the mouse cursor."
+    },
+    "enableManualRotation": {
+      "type": "boolean",
+      "default": true,
+      "description": "Allow drag-to-rotate interaction."
+    },
+    "enableHoverRotation": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable rotation effect when hovering over the model."
+    },
+    "enableManualZoom": {
+      "type": "boolean",
+      "default": true,
+      "description": "Allow scroll-to-zoom interaction."
+    },
+    "environmentPreset": {
+      "type": "'city' | 'sunset' | 'night' | 'dawn' | 'studio' | 'apartment' | 'forest' | 'park' | 'none'",
+      "default": "forest",
+      "description": "Environment lighting preset for reflections and illumination."
+    },
+    "autoRotate": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable continuous auto-rotation of the model."
+    },
+    "autoRotateSpeed": {
+      "type": "number",
+      "default": 0.35,
+      "description": "Speed of auto-rotation when enabled."
+    },
+    "fadeIn": {
+      "type": "boolean",
+      "default": false,
+      "description": "Fade in the model after loading."
+    },
+    "showScreenshotButton": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show a button to capture a screenshot of the current view."
+    },
+    "autoFrame": {
+      "type": "boolean",
+      "default": false,
+      "description": "Automatically frame the model to fit the viewport."
+    },
+    "onModelLoaded": {
+      "type": "() => void",
+      "description": "Callback fired when the model finishes loading."
+    }
+  },
+  "examples": [
+    {
+      "title": "Basic model viewer",
+      "code": "<ModelViewer url=\"/models/car.glb\" width={500} height={400} environmentPreset=\"studio\" />"
+    },
+    {
+      "title": "Interactive product viewer",
+      "code": "<ModelViewer\n  url=\"/models/shoe.glb\"\n  width={600}\n  height={500}\n  enableMouseParallax\n  enableHoverRotation\n  autoRotate\n  autoRotateSpeed={0.2}\n  environmentPreset=\"sunset\"\n  fadeIn\n/>"
+    }
+  ],
+  "aiPromptHint": "ModelViewer requires a 'url' prop pointing to a 3D model file. Supports glTF/GLB (preferred), FBX, and OBJ. Use environmentPreset to change lighting. The component renders its own canvas — no wrapper needed."
+}

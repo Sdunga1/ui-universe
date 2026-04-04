@@ -1,0 +1,78 @@
+{
+  "name": "Counter",
+  "slug": "counter",
+  "description": "Animated number counter that smoothly transitions between values using spring physics. Each digit rolls independently with a slot-machine effect.",
+  "category": "text",
+  "props": {
+    "value": {
+      "type": "number",
+      "required": true,
+      "description": "The target number to display and animate to."
+    },
+    "fontSize": {
+      "type": "number",
+      "default": 100,
+      "description": "Font size of the digits in pixels."
+    },
+    "padding": {
+      "type": "number",
+      "default": 0,
+      "description": "Vertical padding added to each digit's height."
+    },
+    "places": {
+      "type": "Array<number | '.'>",
+      "description": "Array of place values determining which digit positions to display. Use '.' for decimal point. Auto-detected from value if omitted."
+    },
+    "gap": {
+      "type": "number",
+      "default": 8,
+      "description": "Gap between digits in pixels."
+    },
+    "borderRadius": {
+      "type": "number",
+      "default": 4,
+      "description": "Border radius of the counter container."
+    },
+    "horizontalPadding": {
+      "type": "number",
+      "default": 8,
+      "description": "Horizontal padding of the counter container."
+    },
+    "textColor": {
+      "type": "string",
+      "default": "inherit",
+      "description": "Color of the digit text."
+    },
+    "fontWeight": {
+      "type": "string | number",
+      "default": "inherit",
+      "description": "Font weight of the digits."
+    },
+    "gradientHeight": {
+      "type": "number",
+      "default": 16,
+      "description": "Height of the top/bottom fade gradients in pixels."
+    },
+    "gradientFrom": {
+      "type": "string",
+      "default": "black",
+      "description": "Starting color of the fade gradient (should match background)."
+    },
+    "gradientTo": {
+      "type": "string",
+      "default": "transparent",
+      "description": "Ending color of the fade gradient."
+    }
+  },
+  "examples": [
+    {
+      "title": "Basic counter",
+      "code": "<Counter value={1234} fontSize={60} textColor=\"white\" fontWeight={700} />"
+    },
+    {
+      "title": "With custom places",
+      "code": "<Counter value={42} places={[10, 1]} fontSize={80} gap={10} textColor=\"white\" />"
+    }
+  ],
+  "aiPromptHint": "Counter animates between number values with a rolling digit effect. Set 'value' to the target number. Use 'places' to control which digit positions render. Match 'gradientFrom' to your background color for clean edge fading."
+}
