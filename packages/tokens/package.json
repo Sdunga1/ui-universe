@@ -1,7 +1,7 @@
 {
   "name": "@ui-universe/tokens",
   "version": "0.1.0",
-  "description": "Motion and design tokens for ui-universe",
+  "description": "Motion and design tokens for uiUniverse",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

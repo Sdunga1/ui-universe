@@ -1,0 +1,687 @@
+# uiUniverse Component Registry
+# Generated: 2026-04-04T09:51:01.117Z
+# Components: 25
+
+## BlurReveal (animations/blur-reveal) v1.0.0
+Animates children with a blur-to-sharp + fade reveal on mount or viewport entry.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use BlurReveal for a dramatic focus-pulling effect. Content starts blurred and sharpens into view. Great for hero images, featured content, or creating depth-of-field effects. Adjust 'blurAmount' (default 12px) for intensity — lower for subtle, higher for dramatic. Pair with background components like GradientMesh for atmospheric reveals.
+Recommended with: StaggerGroup, FadeUp, GradientMesh
+Props: children, blurAmount, delay, triggerOnView, viewThreshold, once, className
+Example (Basic usage):
+<BlurReveal>
+  <h1 className="text-6xl font-bold">Welcome</h1>
+</BlurReveal>
+Example (Dramatic blur):
+<BlurReveal blurAmount={24}>
+  <img src="/hero.jpg" alt="Hero" className="w-full rounded-xl" />
+</BlurReveal>
+Example (Subtle with delay):
+<BlurReveal blurAmount={6} delay={200}>
+  <p className="text-lg text-neutral-400">Gently comes into focus</p>
+</BlurReveal>
+
+## FadeIn (animations/fade-in) v1.0.0
+Animates children with a simple opacity fade on mount or viewport entry.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use FadeIn for simple opacity reveals without any directional movement. Ideal for overlays, modal content, image reveals, or any element that should appear without sliding. For directional entrance, use FadeUp or SlideIn instead. Wrap in StaggerGroup for cascading effects.
+Recommended with: StaggerGroup
+Props: children, preset, delay, triggerOnView, viewThreshold, once, className
+Example (Basic usage):
+<FadeIn>
+  <img src="/hero.png" alt="Hero" className="w-full" />
+</FadeIn>
+Example (Delayed reveal):
+<FadeIn delay={300}>
+  <p className="text-neutral-400">Appears after 300ms</p>
+</FadeIn>
+
+## FadeUp (animations/fade-up) v1.0.0
+Animates children with a fade + upward translate on mount or viewport entry.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use FadeUp to reveal content sections on scroll. Wrap multiple FadeUp components inside a StaggerGroup for cascading entrance effects. Works well for hero text, feature cards, testimonial sections, and any content that should appear as the user scrolls. Supports all motion presets from the token system via the 'preset' prop.
+Recommended with: StaggerGroup, GradientBackground
+Props: children, preset, delay, triggerOnView, viewThreshold, once, className
+Example (Basic usage):
+<FadeUp>
+  <h1 className="text-4xl font-bold">Hello World</h1>
+</FadeUp>
+Example (With custom delay):
+<FadeUp delay={200}>
+  <p className="text-lg text-neutral-400">Appears after 200ms</p>
+</FadeUp>
+Example (Staggered group):
+<StaggerGroup stagger="normal">
+  <FadeUp><Card title="Feature 1" /></FadeUp>
+  <FadeUp><Card title="Feature 2" /></FadeUp>
+  <FadeUp><Card title="Feature 3" /></FadeUp>
+</StaggerGroup>
+Example (Different preset):
+<FadeUp preset="scaleIn">
+  <div className="rounded-xl bg-neutral-900 p-8">Scales in instead of sliding up</div>
+</FadeUp>
+
+## GlowCard (animations/glow-card) v1.0.0
+A card with a border glow effect that follows the cursor position, creating an illuminated edge highlight.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use GlowCard for interactive cards with cursor-following border illumination. Great for feature cards, pricing tiers, or portfolio items. Set glowColor to your brand accent. Adjust glowSize for intensity.
+Recommended with: TiltCard, FadeUp
+Props: children, glowColor, glowSize, borderRadius, disabled, className, id
+Example (Basic glow card):
+<GlowCard>
+  <div className="bg-neutral-900 p-8 rounded-2xl">
+    <h3 className="text-xl font-bold">Feature</h3>
+    <p className="text-neutral-400 mt-2">Hover to see the glow follow your cursor</p>
+  </div>
+</GlowCard>
+Example (Custom brand color glow):
+<GlowCard glowColor="#6366f1" glowSize={300}>
+  <div className="bg-neutral-900 p-8 rounded-2xl border border-neutral-800">
+    <h3 className="text-xl font-bold">Pro Plan</h3>
+    <p className="text-3xl font-bold mt-4">$29/mo</p>
+  </div>
+</GlowCard>
+Example (Subtle small glow):
+<GlowCard glowColor="rgba(255,255,255,0.5)" glowSize={100}>
+  <div className="bg-neutral-900 p-6 rounded-xl">
+    <p className="text-sm text-neutral-300">Minimal glow effect</p>
+  </div>
+</GlowCard>
+Example (Combined with TiltCard):
+<TiltCard maxTilt={10}>
+  <GlowCard glowColor="#ee502c">
+    <div className="bg-neutral-900 p-8 rounded-2xl">
+      <h3 className="text-xl font-bold">Premium Feature</h3>
+      <p className="text-neutral-400 mt-2">3D tilt + glow border</p>
+    </div>
+  </GlowCard>
+</TiltCard>
+
+## MagneticHover (animations/magnetic-hover) v1.0.0
+Makes child elements subtly follow the cursor within bounds, creating a magnetic pull effect on hover.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use MagneticHover to make buttons, icons, or cards subtly follow the cursor. Great for CTAs and interactive elements. Set strength (0-1) to control pull intensity.
+Recommended with: ShimmerButton, GlowCard
+Props: children, strength, radius, disabled, className, id
+Example (Basic magnetic button):
+<MagneticHover>
+  <button className="rounded-lg bg-white px-6 py-3 text-black font-semibold">
+    Get Started
+  </button>
+</MagneticHover>
+Example (Strong pull on an icon):
+<MagneticHover strength={0.6}>
+  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-800">
+    <ArrowIcon />
+  </div>
+</MagneticHover>
+Example (Subtle nav link):
+<MagneticHover strength={0.15}>
+  <a href="/docs" className="text-neutral-400 hover:text-white transition-colors">
+    Documentation
+  </a>
+</MagneticHover>
+Example (Disabled state):
+<MagneticHover disabled>
+  <button className="rounded-lg bg-neutral-700 px-6 py-3 text-neutral-400 cursor-not-allowed">
+    Unavailable
+  </button>
+</MagneticHover>
+
+## RippleClick (animations/ripple-click) v1.0.0
+Adds a Material-style click ripple effect that emanates from the exact click position within any element.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use RippleClick to add tactile click feedback to any element. Wrap buttons, cards, or list items. Set color to match your theme. The ripple emanates from the exact click position.
+Recommended with: ShimmerButton, MagneticHover
+Props: children, color, duration, disabled, className, id
+Example (Basic ripple on a button):
+<RippleClick className="rounded-lg">
+  <button className="w-full rounded-lg bg-neutral-800 px-6 py-3 font-semibold text-white">
+    Click Me
+  </button>
+</RippleClick>
+Example (Custom ripple color):
+<RippleClick color="rgba(238,80,44,0.3)" className="rounded-xl">
+  <div className="rounded-xl bg-neutral-900 p-6">
+    <h3 className="font-bold">Interactive Card</h3>
+    <p className="text-neutral-400">Click anywhere on this card</p>
+  </div>
+</RippleClick>
+Example (Slow ripple for large surfaces):
+<RippleClick duration={1000} className="rounded-2xl">
+  <div className="rounded-2xl bg-gradient-to-br from-neutral-800 to-neutral-900 p-12">
+    <p className="text-lg">Large interactive area</p>
+  </div>
+</RippleClick>
+Example (List item ripple):
+<ul>
+  {items.map(item => (
+    <RippleClick key={item.id}>
+      <li className="border-b border-neutral-800 px-4 py-3">{item.name}</li>
+    </RippleClick>
+  ))}
+</ul>
+
+## ScaleIn (animations/scale-in) v1.0.0
+Animates children with a scale + fade entrance on mount or viewport entry.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use ScaleIn for elements that should grow into view — buttons, cards, images, modals. Use preset='popIn' for a bouncier entrance with spring physics. The 'scale' prop controls initial size (0.92 = subtle grow, 0.5 = dramatic zoom). Combine with StaggerGroup for cascading card entrances.
+Recommended with: StaggerGroup, FadeUp
+Props: children, preset, scale, delay, triggerOnView, viewThreshold, once, className
+Example (Basic usage):
+<ScaleIn>
+  <div className="rounded-xl bg-neutral-900 p-8">Scales into view</div>
+</ScaleIn>
+Example (Pop-in effect):
+<ScaleIn preset="popIn" scale={0.8}>
+  <button className="px-6 py-3 bg-accent text-white">Click me</button>
+</ScaleIn>
+Example (Staggered cards):
+<StaggerGroup stagger="normal">
+  <ScaleIn><Card title="Plan A" /></ScaleIn>
+  <ScaleIn><Card title="Plan B" /></ScaleIn>
+  <ScaleIn><Card title="Plan C" /></ScaleIn>
+</StaggerGroup>
+
+## ShimmerButton (animations/shimmer-button) v1.0.0
+A button with a CSS gradient sweep highlight on hover, drawing attention to primary CTAs.
+Stack: react >=18, next >=14, tailwind >=4
+Slots: children (required)
+AI Hint: Use ShimmerButton for primary CTAs that need visual emphasis. The sweep highlight draws attention on hover. Customize shimmerColor to match your brand. Works as a drop-in button replacement.
+Recommended with: MagneticHover, FadeUp
+Props: children, shimmerColor, shimmerWidth, duration, className, id
+Example (Basic shimmer CTA):
+<ShimmerButton className="bg-white text-black">
+  Get Started
+</ShimmerButton>
+Example (Branded shimmer color):
+<ShimmerButton
+  shimmerColor="rgba(238,80,44,0.2)"
+  className="bg-neutral-900 text-white border border-neutral-700"
+>
+  Launch App
+</ShimmerButton>
+Example (Slow shimmer):
+<ShimmerButton duration={3} className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+  Explore
+</ShimmerButton>
+Example (Combined with MagneticHover):
+<MagneticHover>
+  <ShimmerButton className="bg-white text-black">
+    Sign Up Free
+  </ShimmerButton>
+</MagneticHover>
+
+## SlideIn (animations/slide-in) v1.0.0
+Animates children with a directional slide + fade entrance from any edge.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use SlideIn for directional entrance animations. Set 'direction' to control where content slides from. Use 'distance' with token names ('subtle' for 8px, 'normal' for 24px, 'pronounced' for 48px, 'dramatic' for 80px) or raw pixel values. Works well for sidebar menus, panels, cards entering from edges. Combine with StaggerGroup for sequential reveals.
+Recommended with: StaggerGroup, FadeUp
+Props: children, direction, distance, delay, triggerOnView, viewThreshold, once, className
+Example (From left (default)):
+<SlideIn>
+  <nav className="w-64 bg-neutral-900 p-4">Sidebar content</nav>
+</SlideIn>
+Example (From right with large distance):
+<SlideIn direction="right" distance="dramatic">
+  <div className="rounded-xl bg-neutral-900 p-8">Panel</div>
+</SlideIn>
+Example (Staggered from bottom):
+<StaggerGroup stagger="relaxed">
+  <SlideIn direction="up"><Card title="Step 1" /></SlideIn>
+  <SlideIn direction="up"><Card title="Step 2" /></SlideIn>
+</StaggerGroup>
+
+## TiltCard (animations/tilt-card) v1.0.0
+Applies a 3D perspective tilt effect to its children on hover, with optional glare overlay.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use TiltCard for interactive cards on hover — pricing cards, team members, portfolio items. Adjust maxTilt (degrees) and perspective (depth). Enable glare for a reflective sheen effect.
+Recommended with: GlowCard, FadeUp
+Props: children, maxTilt, perspective, scale, glare, disabled, className, id
+Example (Basic tilt card):
+<TiltCard>
+  <div className="rounded-xl bg-neutral-900 p-8">
+    <h3 className="text-xl font-bold">Feature</h3>
+    <p className="text-neutral-400">Hover to see the tilt effect</p>
+  </div>
+</TiltCard>
+Example (With glare effect):
+<TiltCard glare maxTilt={20}>
+  <div className="rounded-xl bg-gradient-to-br from-neutral-800 to-neutral-900 p-8">
+    <h3 className="text-xl font-bold">Premium Plan</h3>
+    <p className="text-3xl font-bold mt-4">$49/mo</p>
+  </div>
+</TiltCard>
+Example (Subtle tilt for team cards):
+<TiltCard maxTilt={8} scale={1.01}>
+  <div className="rounded-xl bg-neutral-900 p-6 text-center">
+    <img src="/avatar.jpg" className="mx-auto h-20 w-20 rounded-full" alt="" />
+    <p className="mt-4 font-semibold">Jane Doe</p>
+    <p className="text-sm text-neutral-400">Lead Designer</p>
+  </div>
+</TiltCard>
+Example (High perspective depth):
+<TiltCard perspective={2000} maxTilt={25}>
+  <div className="rounded-xl border border-neutral-700 p-8">
+    <p>Deep perspective with dramatic tilt</p>
+  </div>
+</TiltCard>
+
+## Aurora (backgrounds/aurora) v1.0.0
+Flowing northern lights effect using animated CSS gradient layers with mix-blend-mode for atmospheric depth.
+Stack: react >=18, next >=14, tailwind >=4
+AI Hint: Use Aurora for a dramatic, flowing light effect. Best on dark backgrounds. Pass colors with alpha (e.g., '#ee502c40') for translucent layers. Adjust speed and blur. Pair with hero sections for atmospheric depth.
+Recommended with: DotGrid, Particles
+Props: colors, speed, blur, className, id
+Example (Basic aurora):
+<div className="relative h-screen bg-black">
+  <Aurora />
+  <div className="relative z-10 flex items-center justify-center h-full">
+    <h1 className="text-white text-5xl font-bold">Welcome</h1>
+  </div>
+</div>
+Example (Custom warm palette):
+<div className="relative h-96 bg-neutral-950">
+  <Aurora colors={["#f9731640", "#ef444440", "#eab30840"]} speed={10} />
+</div>
+Example (Subtle and slow):
+<div className="relative h-96 bg-black">
+  <Aurora blur={150} speed={15} colors={["#3b82f620", "#8b5cf620"]} />
+</div>
+
+## DotGrid (backgrounds/dot-grid) v1.0.0
+Animated dot matrix background using pure CSS radial-gradient patterns with optional drift animation and radial fade mask.
+Stack: react >=18, next >=14, tailwind >=4
+AI Hint: Use DotGrid as a subtle background pattern. Place behind hero sections or feature grids. Enable fade for a vignette effect. Adjust gap and dotSize for density. Layer with other content using absolute positioning.
+Recommended with: Aurora, GradientMesh
+Props: dotSize, gap, color, animate, fade, className, id
+Example (Basic usage):
+<div className="relative h-96 bg-black">
+  <DotGrid />
+  <div className="relative z-10 p-8">
+    <h1>Content above dots</h1>
+  </div>
+</div>
+Example (Dense grid without fade):
+<div className="relative h-96 bg-neutral-950">
+  <DotGrid gap={16} dotSize={1.5} fade={false} />
+</div>
+Example (Custom color, no animation):
+<div className="relative h-96 bg-neutral-900">
+  <DotGrid color="rgba(139,92,246,0.2)" animate={false} />
+</div>
+
+## GradientMesh (backgrounds/gradient-mesh) v1.0.0
+Multi-color animated gradient background using CSS radial-gradient blobs with blur for a soft mesh effect.
+Stack: react >=18, next >=14, tailwind >=4
+AI Hint: Use GradientMesh for rich, organic background gradients. Place behind hero sections. Pass brand colors. Adjust speed (seconds per cycle) and blur (softness). Pair with dark overlays and light text.
+Recommended with: DotGrid, GridPattern
+Props: colors, speed, blur, className, id
+Example (Basic usage):
+<div className="relative h-screen bg-black">
+  <GradientMesh />
+  <div className="relative z-10 flex items-center justify-center h-full">
+    <h1 className="text-white text-5xl font-bold">Hero Title</h1>
+  </div>
+</div>
+Example (Custom brand colors):
+<div className="relative h-96 bg-neutral-950">
+  <GradientMesh colors={["#3b82f6", "#8b5cf6", "#ec4899"]} speed={12} />
+</div>
+Example (Subtle, slow mesh):
+<div className="relative h-96 bg-black">
+  <GradientMesh blur={120} speed={20} colors={["#1e3a5f", "#2d1b4e"]} />
+</div>
+
+## GridPattern (backgrounds/grid-pattern) v1.0.0
+Animated grid lines background using SVG patterns with optional radial fade mask and subtle pulse animation.
+Stack: react >=18, next >=14, tailwind >=4
+AI Hint: Use GridPattern for a clean, technical grid background. Adjust size for cell dimensions. Enable fade for a vignette effect. Works well behind pricing sections, dashboards, or code showcases.
+Recommended with: DotGrid, GradientMesh
+Props: size, strokeColor, strokeWidth, fade, animate, className, id
+Example (Basic grid):
+<div className="relative h-96 bg-black">
+  <GridPattern />
+  <div className="relative z-10 p-8">
+    <h2 className="text-white text-2xl">Pricing</h2>
+  </div>
+</div>
+Example (Large cells, no fade):
+<div className="relative h-96 bg-neutral-950">
+  <GridPattern size={64} fade={false} strokeColor="rgba(255,255,255,0.05)" />
+</div>
+Example (Colored grid, no animation):
+<div className="relative h-96 bg-neutral-900">
+  <GridPattern strokeColor="rgba(139,92,246,0.15)" animate={false} size={48} />
+</div>
+
+## Particles (backgrounds/particles) v1.0.0
+Floating particle field rendered on Canvas with optional connecting lines between nearby particles.
+Stack: react >=18, next >=14, tailwind >=4
+AI Hint: Use Particles for atmospheric floating dots. Enable 'connected' for a network/constellation effect. Adjust count (50-200 typical), speed, and size. Great for hero backgrounds or empty states.
+Recommended with: GradientMesh, Aurora
+Props: count, color, speed, size, connected, maxDistance, className, id
+Example (Basic floating particles):
+<div className="relative h-96 bg-black">
+  <Particles />
+</div>
+Example (Connected network effect):
+<div className="relative h-screen bg-neutral-950">
+  <Particles count={100} connected maxDistance={120} color="#8b5cf6" />
+  <div className="relative z-10 flex items-center justify-center h-full">
+    <h1 className="text-white text-4xl font-bold">Network</h1>
+  </div>
+</div>
+Example (Slow, large particles):
+<div className="relative h-96 bg-black">
+  <Particles count={30} size={4} speed={0.3} color="rgba(255,255,255,0.5)" />
+</div>
+
+## CTASection (sections/cta-section) v1.0.0
+Centered call-to-action block with heading, description, and primary/secondary action buttons.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: heading (required), description, primaryAction, secondaryAction
+AI Hint: Use CTASection as the final conversion section on a landing page. Pass heading, description, and action buttons. Pair primaryAction with ShimmerButton for emphasis. Place over a GradientMesh background for visual impact.
+Recommended with: ShimmerButton, FadeUp, GradientMesh
+Props: heading, description, primaryAction, secondaryAction, className, id
+Example (Basic CTA):
+<CTASection
+  heading={<h2 className="text-4xl font-bold">Ready to get started?</h2>}
+  description={<p className="text-lg text-neutral-400">Join thousands of developers building with ui-universe.</p>}
+  primaryAction={<button className="rounded-full bg-white px-8 py-3 text-black">Start Free</button>}
+  secondaryAction={<a href="/docs" className="text-neutral-400 underline">Read the docs</a>}
+/>
+Example (With ShimmerButton):
+<CTASection
+  heading={<h2 className="text-4xl font-bold">Ship faster today</h2>}
+  description={<p className="text-lg text-neutral-400">Beautiful, animated UI in minutes.</p>}
+  primaryAction={<ShimmerButton>Get Started</ShimmerButton>}
+/>
+Example (Over background):
+<div className="relative">
+  <GradientMesh className="absolute inset-0" />
+  <CTASection
+    heading={<h2 className="text-5xl font-bold">Build something beautiful</h2>}
+    primaryAction={<button className="rounded-full bg-white px-8 py-3 text-black">Explore Components</button>}
+  />
+</div>
+
+## FeatureGrid (sections/feature-grid) v1.0.0
+Responsive grid of feature cards with staggered entrance animations.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use FeatureGrid for displaying feature cards, benefits, or service offerings in a responsive grid. Pass cards as children — each is auto-wrapped in FadeUp with stagger delay. Use columns prop (2/3/4) to control layout.
+Recommended with: FadeUp, GlowCard, TiltCard, StaggerGroup
+Props: children, columns, stagger, gap, className, id
+Example (Basic 3-column grid):
+<FeatureGrid>
+  <div className="rounded-xl bg-neutral-900 p-6">Feature 1</div>
+  <div className="rounded-xl bg-neutral-900 p-6">Feature 2</div>
+  <div className="rounded-xl bg-neutral-900 p-6">Feature 3</div>
+</FeatureGrid>
+Example (2-column with custom stagger):
+<FeatureGrid columns={2} stagger="slow" gap="gap-8">
+  <GlowCard>Analytics Dashboard</GlowCard>
+  <GlowCard>Real-time Monitoring</GlowCard>
+  <GlowCard>Custom Reports</GlowCard>
+  <GlowCard>API Access</GlowCard>
+</FeatureGrid>
+Example (4-column icon grid):
+<FeatureGrid columns={4} stagger={50}>
+  {features.map((f) => (
+    <div key={f.id} className="text-center">
+      {f.icon}
+      <h3>{f.title}</h3>
+    </div>
+  ))}
+</FeatureGrid>
+
+## HeroSection (sections/hero-section) v1.0.0
+Full hero section with heading, subheading, CTA, and optional visual. Supports centered and split layouts.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: heading (required), subheading, cta, visual
+AI Hint: Use HeroSection as the top section of a landing page. Pass heading, subheading, and CTA as ReactNode slots. Set align='left' for a split layout with visual on the right. Pair with background components (GradientMesh, Aurora, DotGrid) behind it.
+Recommended with: GradientMesh, Aurora, DotGrid, FadeUp, ScaleIn
+Props: heading, subheading, cta, visual, align, className, id
+Example (Centered hero):
+<HeroSection
+  heading={<h1 className="text-5xl font-bold">Build faster with AI</h1>}
+  subheading={<p className="text-lg text-neutral-400">Ship beautiful interfaces in minutes</p>}
+  cta={<button className="rounded-full bg-white px-8 py-3 text-black">Get Started</button>}
+/>
+Example (Split layout with visual):
+<HeroSection
+  align="left"
+  heading={<h1 className="text-5xl font-bold">Design meets motion</h1>}
+  subheading={<p className="text-lg text-neutral-400">Animated components for modern apps</p>}
+  cta={<button className="rounded-full bg-white px-8 py-3 text-black">Explore</button>}
+  visual={<img src="/hero.png" alt="Hero" className="rounded-2xl" />}
+/>
+Example (With background component):
+<div className="relative">
+  <Aurora className="absolute inset-0" />
+  <HeroSection
+    heading={<h1 className="text-6xl font-bold">Welcome</h1>}
+    cta={<ShimmerButton>Start Building</ShimmerButton>}
+  />
+</div>
+
+## LogoMarquee (sections/logo-marquee) v1.0.0
+Infinite scrolling logo/brand strip with CSS animation. Supports pause on hover and reduced motion.
+Stack: react >=18, next >=14, tailwind >=4
+Slots: children (required)
+AI Hint: Use LogoMarquee for scrolling partner logos, tech stack icons, or client brands. Pass logo elements as children. Adjust speed (seconds per cycle — lower = faster). Enable pauseOnHover for accessibility. Respects prefers-reduced-motion.
+Recommended with: FadeIn
+Props: children, speed, pauseOnHover, direction, className, id
+Example (Basic logo strip):
+<LogoMarquee>
+  <img src="/logos/a.svg" alt="Company A" className="h-8 mx-8" />
+  <img src="/logos/b.svg" alt="Company B" className="h-8 mx-8" />
+  <img src="/logos/c.svg" alt="Company C" className="h-8 mx-8" />
+</LogoMarquee>
+Example (Fast reverse scroll):
+<LogoMarquee speed={15} direction="right">
+  {techLogos.map((logo) => (
+    <img key={logo.name} src={logo.src} alt={logo.name} className="h-6 mx-6 opacity-50 hover:opacity-100 transition-opacity" />
+  ))}
+</LogoMarquee>
+Example (No pause on hover):
+<LogoMarquee pauseOnHover={false} speed={40}>
+  <span className="mx-8 text-neutral-500">Partner 1</span>
+  <span className="mx-8 text-neutral-500">Partner 2</span>
+  <span className="mx-8 text-neutral-500">Partner 3</span>
+</LogoMarquee>
+
+## StatsBar (sections/stats-bar) v1.0.0
+Row of animated counters with labels. Each stat animates on viewport entry with staggered delays.
+Stack: react >=18, next >=14, tailwind >=4
+AI Hint: Use StatsBar for displaying key metrics — user counts, revenue, uptime. Pass an array of { value, label, prefix?, suffix? }. Counters animate on viewport entry. Example: stats={[{ value: 10000, label: 'Users', suffix: '+' }, { value: 99.9, label: 'Uptime', suffix: '%' }]}
+Recommended with: Counter, FadeUp, DotGrid
+Props: stats, triggerOnView, className, id
+Example (Basic stats):
+<StatsBar
+  stats={[
+    { value: 10000, label: "Users", suffix: "+" },
+    { value: 99.9, label: "Uptime", suffix: "%" },
+    { value: 50, label: "Countries" },
+  ]}
+/>
+Example (Revenue metrics with prefix):
+<StatsBar
+  stats={[
+    { value: 2.5, label: "ARR", prefix: "$", suffix: "M" },
+    { value: 150, label: "Customers", suffix: "+" },
+    { value: 4.9, label: "Rating", suffix: "/5" },
+    { value: 24, label: "Support", suffix: "/7" },
+  ]}
+/>
+Example (No viewport trigger):
+<StatsBar
+  triggerOnView={false}
+  stats={[
+    { value: 100, label: "Components" },
+    { value: 12, label: "Categories" },
+  ]}
+/>
+
+## Counter (text/counter) v1.0.0
+Animated number counter that smoothly increments from one value to another with eased timing. Ideal for stats sections, dashboards, and metric displays.
+Stack: react >=18, next >=14, tailwind >=4
+AI Hint: Use Counter for stats sections — revenue numbers, user counts, metrics. Set 'from' and 'to' for the range. Add 'prefix' ($) or 'suffix' (%) for formatted display. Use decimals for precise values. Place multiple Counters in a flex/grid row for a stats bar. Triggers on viewport entry by default.
+Recommended with: FadeUp, GradientText
+Props: from, to, duration, decimals, separator, prefix, suffix, triggerOnView, className, id
+Example (Revenue counter):
+<Counter to={1250000} prefix="$" className="text-5xl font-bold" />
+Example (Percentage with decimals):
+<Counter to={99.9} decimals={1} suffix="%" className="text-4xl font-semibold" />
+Example (Stats row):
+<div className="flex gap-16">
+  <div>
+    <Counter to={50000} suffix="+" className="text-5xl font-bold" />
+    <p className="text-neutral-400">Users</p>
+  </div>
+  <div>
+    <Counter to={12} suffix="M" prefix="$" className="text-5xl font-bold" />
+    <p className="text-neutral-400">Revenue</p>
+  </div>
+  <div>
+    <Counter to={99.9} decimals={1} suffix="%" className="text-5xl font-bold" />
+    <p className="text-neutral-400">Uptime</p>
+  </div>
+</div>
+Example (Custom duration and range):
+<Counter from={100} to={500} duration={3000} className="text-6xl font-black" />
+
+## GradientText (text/gradient-text) v1.0.0
+Renders text with an animated gradient sweep across the background. Great for eye-catching headlines and brand-colored accent text.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: children (required)
+AI Hint: Use GradientText for eye-catching headlines. Pass brand colors via the colors prop. Works as inline text — wrap any heading or span. Combine with TypeWriter for typed gradient text. Repeat the first color at the end for seamless looping.
+Recommended with: TypeWriter, FadeUp, SplitText
+Props: children, colors, speed, animate, className, id
+Example (Basic gradient headline):
+<h1 className="text-5xl font-bold">
+  <GradientText>Build the future</GradientText>
+</h1>
+Example (Custom brand colors):
+<GradientText colors={["#6366f1", "#a855f7", "#ec4899", "#6366f1"]}>
+  Premium Plan
+</GradientText>
+Example (Slow sweep with custom speed):
+<GradientText speed={6} colors={["#22d3ee", "#3b82f6", "#8b5cf6", "#22d3ee"]}>
+  Enterprise Grade
+</GradientText>
+Example (Static gradient (no animation)):
+<GradientText animate={false} colors={["#f59e0b", "#ef4444"]}>
+  Hot Deal
+</GradientText>
+
+## SplitText (text/split-text) v1.0.0
+Per-character stagger animation that splits text and animates each letter individually with configurable presets and stagger timing from the token system.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: text (required)
+AI Hint: Use SplitText for dramatic headline entrances where each character animates individually. Adjust 'stagger' with token names ('tight' 40ms, 'normal' 80ms, 'relaxed' 150ms, 'dramatic' 250ms) or raw ms values. Combine with any preset — 'fadeUp' for rising text, 'scaleIn' for growing letters, 'blur' for focus-in effect. Best for short headlines, not paragraphs.
+Recommended with: GradientText, FadeUp, StaggerGroup
+Props: text, stagger, preset, triggerOnView, viewThreshold, once, className, id
+Example (Basic split headline):
+<SplitText
+  text="Hello World"
+  className="text-6xl font-bold"
+/>
+Example (Dramatic entrance with slow stagger):
+<SplitText
+  text="LAUNCH"
+  stagger="dramatic"
+  preset="slideUp"
+  className="text-8xl font-black tracking-widest"
+/>
+Example (Scale-in with tight stagger):
+<SplitText
+  text="Design System"
+  stagger="tight"
+  preset="scaleIn"
+  className="text-5xl font-semibold"
+/>
+Example (Blur reveal with custom ms stagger):
+<SplitText
+  text="Focus"
+  stagger={100}
+  preset="blur"
+  className="text-7xl font-bold"
+/>
+Example (Pop-in letters):
+<SplitText
+  text="New Feature"
+  preset="popIn"
+  stagger="relaxed"
+  className="text-4xl font-bold text-orange-400"
+/>
+
+## TextReveal (text/text-reveal) v1.0.0
+Word-by-word, line-by-line, or character-by-character opacity reveal driven by scroll position. Creates a progressive reading effect as the user scrolls.
+Stack: react >=18, next >=14, tailwind >=4, motion >=12
+Slots: text (required)
+AI Hint: Use TextReveal for long-form text that progressively reveals as user scrolls. Split by 'word' for paragraph reveals, 'character' for dramatic single-word reveals, 'line' for section headings. Give the container enough height (min-h-[200vh]) for the scroll range to work well.
+Recommended with: FadeUp, GradientText
+Props: text, splitBy, className, id
+Example (Word-by-word paragraph reveal):
+<div className="min-h-[200vh] flex items-center">
+  <TextReveal
+    text="We believe design should be effortless, expressive, and accessible to everyone."
+    className="text-4xl font-bold leading-relaxed"
+  />
+</div>
+Example (Character-by-character dramatic reveal):
+<TextReveal
+  text="WELCOME"
+  splitBy="character"
+  className="text-8xl font-black tracking-widest"
+/>
+Example (Line-by-line section heading):
+<TextReveal
+  text={"Design.\nBuild.\nShip."}
+  splitBy="line"
+  className="text-6xl font-bold"
+/>
+Example (Paragraph with muted base opacity):
+<TextReveal
+  text="Every pixel matters. Every interaction counts. Every moment is an opportunity to delight your users."
+  className="text-2xl text-neutral-300 leading-loose max-w-2xl"
+/>
+
+## TypeWriter (text/type-writer) v1.0.0
+Character-by-character text reveal with an optional blinking cursor. Ideal for hero headlines, terminal-style UIs, and code-typing effects.
+Stack: react >=18, next >=14, tailwind >=4
+Slots: text (required)
+AI Hint: Use TypeWriter for hero headlines, terminal-style text, or code-typing effects. Set speed for typing rate. Enable loop for repeating demonstrations. Pair with GradientText to type colorful text. Works as inline span so it can sit inside any heading element.
+Recommended with: GradientText, FadeUp
+Props: text, speed, cursor, cursorChar, loop, delay, className, id
+Example (Basic hero headline):
+<TypeWriter text="Build beautiful interfaces" />
+Example (Terminal style with custom cursor):
+<TypeWriter
+  text="$ npm install @ui-universe/ui"
+  speed={30}
+  cursorChar="_"
+  className="font-mono text-green-400"
+/>
+Example (Looping tagline):
+<TypeWriter
+  text="Design. Build. Ship."
+  speed={80}
+  loop
+  delay={500}
+/>
+Example (Slow dramatic reveal):
+<h1 className="text-6xl font-bold">
+  <TypeWriter text="The future of UI" speed={120} />
+</h1>

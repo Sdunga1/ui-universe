@@ -1,0 +1,98 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "Particles",
+  "slug": "particles",
+  "description": "Floating particle field rendered on Canvas with optional connecting lines between nearby particles.",
+  "category": "backgrounds",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": [
+    "background",
+    "particles",
+    "canvas",
+    "network",
+    "constellation",
+    "decorative",
+    "animated"
+  ],
+  "since": "0.2.0",
+  "props": {
+    "count": {
+      "type": "number",
+      "required": false,
+      "default": 50,
+      "description": "Number of particles"
+    },
+    "color": {
+      "type": "string",
+      "required": false,
+      "default": "#ffffff",
+      "description": "Particle color (any CSS color value)"
+    },
+    "speed": {
+      "type": "number",
+      "required": false,
+      "default": 1,
+      "description": "Speed multiplier for particle movement"
+    },
+    "size": {
+      "type": "number",
+      "required": false,
+      "default": 2,
+      "description": "Particle radius in pixels"
+    },
+    "connected": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Draw lines between nearby particles"
+    },
+    "maxDistance": {
+      "type": "number",
+      "required": false,
+      "default": 100,
+      "description": "Maximum distance for connected lines in pixels"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Fills container with absolute positioning. Canvas auto-resizes via ResizeObserver. Requires a relative-positioned parent."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["GradientMesh", "Aurora"],
+  "aiPromptHint": "Use Particles for atmospheric floating dots. Enable 'connected' for a network/constellation effect. Adjust count (50-200 typical), speed, and size. Great for hero backgrounds or empty states.",
+  "examples": [
+    {
+      "title": "Basic floating particles",
+      "code": "<div className=\"relative h-96 bg-black\">\n  <Particles />\n</div>"
+    },
+    {
+      "title": "Connected network effect",
+      "code": "<div className=\"relative h-screen bg-neutral-950\">\n  <Particles count={100} connected maxDistance={120} color=\"#8b5cf6\" />\n  <div className=\"relative z-10 flex items-center justify-center h-full\">\n    <h1 className=\"text-white text-4xl font-bold\">Network</h1>\n  </div>\n</div>"
+    },
+    {
+      "title": "Slow, large particles",
+      "code": "<div className=\"relative h-96 bg-black\">\n  <Particles count={30} size={4} speed={0.3} color=\"rgba(255,255,255,0.5)\" />\n</div>"
+    }
+  ]
+}

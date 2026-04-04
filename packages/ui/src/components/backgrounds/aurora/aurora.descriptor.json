@@ -1,0 +1,80 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "Aurora",
+  "slug": "aurora",
+  "description": "Flowing northern lights effect using animated CSS gradient layers with mix-blend-mode for atmospheric depth.",
+  "category": "backgrounds",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": [
+    "background",
+    "aurora",
+    "northern-lights",
+    "gradient",
+    "blend",
+    "decorative",
+    "animated"
+  ],
+  "since": "0.2.0",
+  "props": {
+    "colors": {
+      "type": "string[]",
+      "required": false,
+      "default": "[\"#ee502c40\", \"#8b5cf640\", \"#06b6d440\"]",
+      "description": "Array of CSS color values with alpha for translucent aurora layers"
+    },
+    "speed": {
+      "type": "number",
+      "required": false,
+      "default": 6,
+      "description": "Animation cycle duration in seconds"
+    },
+    "blur": {
+      "type": "number",
+      "required": false,
+      "default": 100,
+      "description": "Blur amount in pixels"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Fills container with absolute positioning and overflow hidden. Uses mix-blend-mode: screen. Requires a relative-positioned dark parent."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["DotGrid", "Particles"],
+  "aiPromptHint": "Use Aurora for a dramatic, flowing light effect. Best on dark backgrounds. Pass colors with alpha (e.g., '#ee502c40') for translucent layers. Adjust speed and blur. Pair with hero sections for atmospheric depth.",
+  "examples": [
+    {
+      "title": "Basic aurora",
+      "code": "<div className=\"relative h-screen bg-black\">\n  <Aurora />\n  <div className=\"relative z-10 flex items-center justify-center h-full\">\n    <h1 className=\"text-white text-5xl font-bold\">Welcome</h1>\n  </div>\n</div>"
+    },
+    {
+      "title": "Custom warm palette",
+      "code": "<div className=\"relative h-96 bg-neutral-950\">\n  <Aurora colors={[\"#f9731640\", \"#ef444440\", \"#eab30840\"]} speed={10} />\n</div>"
+    },
+    {
+      "title": "Subtle and slow",
+      "code": "<div className=\"relative h-96 bg-black\">\n  <Aurora blur={150} speed={15} colors={[\"#3b82f620\", \"#8b5cf620\"]} />\n</div>"
+    }
+  ]
+}

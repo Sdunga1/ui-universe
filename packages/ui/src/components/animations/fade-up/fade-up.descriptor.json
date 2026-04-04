@@ -4,6 +4,13 @@
   "slug": "fade-up",
   "description": "Animates children with a fade + upward translate on mount or viewport entry.",
   "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
   "tags": ["entrance", "scroll", "fade", "translate", "reveal"],
   "since": "0.1.0",
   "props": {
@@ -18,6 +25,7 @@
       "default": "fadeUp",
       "description": "Motion preset from the token system",
       "enum": [
+        "fadeIn",
         "fadeUp",
         "fadeDown",
         "fadeLeft",
@@ -59,6 +67,19 @@
       "required": false,
       "description": "Additional Tailwind classes"
     }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Content to animate with a fade-up entrance",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Wraps children in an animated div. Takes full width of parent by default."
   },
   "variants": {},
   "motionPreset": "fadeUp",

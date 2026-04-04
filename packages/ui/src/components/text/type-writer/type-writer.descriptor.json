@@ -1,0 +1,100 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "TypeWriter",
+  "slug": "type-writer",
+  "description": "Character-by-character text reveal with an optional blinking cursor. Ideal for hero headlines, terminal-style UIs, and code-typing effects.",
+  "category": "text",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": ["text", "typewriter", "typing", "cursor", "reveal", "hero"],
+  "since": "0.1.0",
+  "props": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "description": "The text string to type out character-by-character"
+    },
+    "speed": {
+      "type": "number",
+      "required": false,
+      "default": 50,
+      "description": "Typing speed in milliseconds per character"
+    },
+    "cursor": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Show a blinking cursor at the typing position"
+    },
+    "cursorChar": {
+      "type": "string",
+      "required": false,
+      "default": "|",
+      "description": "Character used for the cursor"
+    },
+    "loop": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Restart typing from the beginning after completion"
+    },
+    "delay": {
+      "type": "number",
+      "required": false,
+      "default": 0,
+      "description": "Delay in milliseconds before typing starts"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "text",
+      "type": "string",
+      "description": "The text content rendered character-by-character via the text prop",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "inline",
+    "responsive": false,
+    "description": "Renders as an inline span. Fits naturally inside headings, paragraphs, or other inline contexts."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["GradientText", "FadeUp"],
+  "aiPromptHint": "Use TypeWriter for hero headlines, terminal-style text, or code-typing effects. Set speed for typing rate. Enable loop for repeating demonstrations. Pair with GradientText to type colorful text. Works as inline span so it can sit inside any heading element.",
+  "examples": [
+    {
+      "title": "Basic hero headline",
+      "code": "<TypeWriter text=\"Build beautiful interfaces\" />"
+    },
+    {
+      "title": "Terminal style with custom cursor",
+      "code": "<TypeWriter\n  text=\"$ npm install @ui-universe/ui\"\n  speed={30}\n  cursorChar=\"_\"\n  className=\"font-mono text-green-400\"\n/>"
+    },
+    {
+      "title": "Looping tagline",
+      "code": "<TypeWriter\n  text=\"Design. Build. Ship.\"\n  speed={80}\n  loop\n  delay={500}\n/>"
+    },
+    {
+      "title": "Slow dramatic reveal",
+      "code": "<h1 className=\"text-6xl font-bold\">\n  <TypeWriter text=\"The future of UI\" speed={120} />\n</h1>"
+    }
+  ]
+}

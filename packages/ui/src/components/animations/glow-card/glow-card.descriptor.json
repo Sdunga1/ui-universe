@@ -1,0 +1,95 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "GlowCard",
+  "slug": "glow-card",
+  "description": "A card with a border glow effect that follows the cursor position, creating an illuminated edge highlight.",
+  "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["hover", "glow", "border", "cursor", "card", "interactive"],
+  "since": "0.2.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content to render inside the glowing card"
+    },
+    "glowColor": {
+      "type": "string",
+      "required": false,
+      "default": "#ee502c",
+      "description": "Color of the glow effect"
+    },
+    "glowSize": {
+      "type": "number",
+      "required": false,
+      "default": 200,
+      "description": "Diameter of the glow in pixels"
+    },
+    "borderRadius": {
+      "type": "string",
+      "required": false,
+      "default": "1rem",
+      "description": "Border radius of the card"
+    },
+    "disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Disable the glow effect"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Card content rendered above the glow layer",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Wraps children in a relatively-positioned container with an absolute glow layer behind the content."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": ["motion/react"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["TiltCard", "FadeUp"],
+  "aiPromptHint": "Use GlowCard for interactive cards with cursor-following border illumination. Great for feature cards, pricing tiers, or portfolio items. Set glowColor to your brand accent. Adjust glowSize for intensity.",
+  "examples": [
+    {
+      "title": "Basic glow card",
+      "code": "<GlowCard>\n  <div className=\"bg-neutral-900 p-8 rounded-2xl\">\n    <h3 className=\"text-xl font-bold\">Feature</h3>\n    <p className=\"text-neutral-400 mt-2\">Hover to see the glow follow your cursor</p>\n  </div>\n</GlowCard>"
+    },
+    {
+      "title": "Custom brand color glow",
+      "code": "<GlowCard glowColor=\"#6366f1\" glowSize={300}>\n  <div className=\"bg-neutral-900 p-8 rounded-2xl border border-neutral-800\">\n    <h3 className=\"text-xl font-bold\">Pro Plan</h3>\n    <p className=\"text-3xl font-bold mt-4\">$29/mo</p>\n  </div>\n</GlowCard>"
+    },
+    {
+      "title": "Subtle small glow",
+      "code": "<GlowCard glowColor=\"rgba(255,255,255,0.5)\" glowSize={100}>\n  <div className=\"bg-neutral-900 p-6 rounded-xl\">\n    <p className=\"text-sm text-neutral-300\">Minimal glow effect</p>\n  </div>\n</GlowCard>"
+    },
+    {
+      "title": "Combined with TiltCard",
+      "code": "<TiltCard maxTilt={10}>\n  <GlowCard glowColor=\"#ee502c\">\n    <div className=\"bg-neutral-900 p-8 rounded-2xl\">\n      <h3 className=\"text-xl font-bold\">Premium Feature</h3>\n      <p className=\"text-neutral-400 mt-2\">3D tilt + glow border</p>\n    </div>\n  </GlowCard>\n</TiltCard>"
+    }
+  ]
+}

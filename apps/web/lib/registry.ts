@@ -7,6 +7,13 @@ export interface ComponentDescriptor {
   slug: string;
   description: string;
   category: string;
+  version?: string;
+  supportedStack?: {
+    react?: string;
+    next?: string;
+    tailwind?: string;
+    motion?: string;
+  };
   tags?: string[];
   since?: string;
   props: Record<
@@ -19,8 +26,20 @@ export interface ComponentDescriptor {
       enum?: string[];
       min?: number;
       max?: number;
+      deprecated?: boolean | string;
     }
   >;
+  slots?: Array<{
+    name: string;
+    type: string;
+    description?: string;
+    required?: boolean;
+  }>;
+  layout?: {
+    display?: string;
+    responsive?: boolean;
+    description?: string;
+  };
   variants?: Record<string, unknown>;
   motionPreset?: string;
   dependencies?: {

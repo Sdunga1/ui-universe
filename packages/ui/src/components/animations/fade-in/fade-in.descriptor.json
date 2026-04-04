@@ -1,0 +1,89 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "FadeIn",
+  "slug": "fade-in",
+  "description": "Animates children with a simple opacity fade on mount or viewport entry.",
+  "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": { "react": ">=18", "next": ">=14", "tailwind": ">=4", "motion": ">=12" },
+  "tags": ["entrance", "scroll", "fade", "opacity", "reveal", "simple"],
+  "since": "0.1.0",
+  "props": {
+    "children": { "type": "ReactNode", "required": true, "description": "Content to animate" },
+    "preset": {
+      "type": "MotionPresetName",
+      "required": false,
+      "default": "fadeIn",
+      "description": "Motion preset from the token system",
+      "enum": [
+        "fadeIn",
+        "fadeUp",
+        "fadeDown",
+        "fadeLeft",
+        "fadeRight",
+        "scaleIn",
+        "popIn",
+        "blur",
+        "slideUp",
+        "slideDown"
+      ]
+    },
+    "delay": { "type": "number", "required": false, "description": "Custom delay in milliseconds" },
+    "triggerOnView": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Animate when element enters viewport"
+    },
+    "viewThreshold": {
+      "type": "number",
+      "required": false,
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "description": "Fraction of element visible before triggering"
+    },
+    "once": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Only animate once (don't re-trigger on scroll back)"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Content to fade in",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Wraps children in an animated div with opacity transition."
+  },
+  "variants": {},
+  "motionPreset": "fadeIn",
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["StaggerGroup"],
+  "aiPromptHint": "Use FadeIn for simple opacity reveals without any directional movement. Ideal for overlays, modal content, image reveals, or any element that should appear without sliding. For directional entrance, use FadeUp or SlideIn instead. Wrap in StaggerGroup for cascading effects.",
+  "examples": [
+    {
+      "title": "Basic usage",
+      "code": "<FadeIn>\n  <img src=\"/hero.png\" alt=\"Hero\" className=\"w-full\" />\n</FadeIn>"
+    },
+    {
+      "title": "Delayed reveal",
+      "code": "<FadeIn delay={300}>\n  <p className=\"text-neutral-400\">Appears after 300ms</p>\n</FadeIn>"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "ui-universe Component Descriptor",
-  "description": "Machine-readable descriptor for a ui-universe component. Used by AI agents, the docs site, and Lab Mode.",
+  "title": "uiUniverse Component Descriptor",
+  "description": "Machine-readable descriptor for a uiUniverse component. Used by AI agents, the docs site, and Lab Mode.",
   "type": "object",
-  "required": ["name", "slug", "description", "category", "props"],
+  "required": ["name", "slug", "description", "category", "version", "props"],
   "properties": {
     "name": {
       "type": "string",
@@ -22,6 +22,21 @@
       "type": "string",
       "enum": ["animations", "backgrounds", "sections", "text"],
       "description": "Component category"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Descriptor schema version (semver)"
+    },
+    "supportedStack": {
+      "type": "object",
+      "properties": {
+        "react": { "type": "string", "description": "Semver range (e.g., >=18)" },
+        "next": { "type": "string", "description": "Semver range (e.g., >=14)" },
+        "tailwind": { "type": "string", "description": "Semver range (e.g., >=4)" },
+        "motion": { "type": "string", "description": "Semver range (e.g., >=12)" }
+      },
+      "description": "Compatible framework versions — AI agents use this to avoid generating outdated patterns"
     },
     "tags": {
       "type": "array",
@@ -47,10 +62,65 @@
             "items": { "type": "string" }
           },
           "min": { "type": "number" },
-          "max": { "type": "number" }
+          "max": { "type": "number" },
+          "deprecated": {
+            "oneOf": [
+              { "type": "boolean" },
+              {
+                "type": "string",
+                "description": "Migration hint (e.g., 'Use motionPreset instead')"
+              }
+            ],
+            "description": "Marks a prop as deprecated, optionally with migration guidance for AI agents"
+          }
         }
       },
       "description": "Props schema — AI agents use this to generate correct code"
+    },
+    "slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Slot name (e.g., 'children', 'header', 'icon')"
+          },
+          "type": {
+            "type": "string",
+            "description": "Expected React type (e.g., 'ReactNode', 'ReactElement', 'string')"
+          },
+          "description": {
+            "type": "string",
+            "description": "What content belongs in this slot"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the slot must be provided"
+          }
+        }
+      },
+      "description": "Named child slots — describes what content the component accepts"
+    },
+    "layout": {
+      "type": "object",
+      "properties": {
+        "display": {
+          "type": "string",
+          "enum": ["block", "flex", "grid", "inline", "inline-flex", "inline-block", "contents"],
+          "description": "Root element display type"
+        },
+        "responsive": {
+          "type": "boolean",
+          "description": "Whether the component adapts to viewport width"
+        },
+        "description": {
+          "type": "string",
+          "description": "Layout behavior summary for AI agents"
+        }
+      },
+      "description": "Layout behavior — helps AI agents compose components correctly"
     },
     "variants": {
       "type": "object",

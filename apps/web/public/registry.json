@@ -1,0 +1,358 @@
+[
+  {
+    "name": "BlurReveal",
+    "slug": "blur-reveal",
+    "description": "Animates children with a blur-to-sharp + fade reveal on mount or viewport entry.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["entrance", "scroll", "blur", "focus", "reveal", "sharp"]
+  },
+  {
+    "name": "FadeIn",
+    "slug": "fade-in",
+    "description": "Animates children with a simple opacity fade on mount or viewport entry.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["entrance", "scroll", "fade", "opacity", "reveal", "simple"]
+  },
+  {
+    "name": "FadeUp",
+    "slug": "fade-up",
+    "description": "Animates children with a fade + upward translate on mount or viewport entry.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["entrance", "scroll", "fade", "translate", "reveal"]
+  },
+  {
+    "name": "GlowCard",
+    "slug": "glow-card",
+    "description": "A card with a border glow effect that follows the cursor position, creating an illuminated edge highlight.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["hover", "glow", "border", "cursor", "card", "interactive"]
+  },
+  {
+    "name": "MagneticHover",
+    "slug": "magnetic-hover",
+    "description": "Makes child elements subtly follow the cursor within bounds, creating a magnetic pull effect on hover.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["hover", "cursor", "magnetic", "interactive", "micro-interaction"]
+  },
+  {
+    "name": "RippleClick",
+    "slug": "ripple-click",
+    "description": "Adds a Material-style click ripple effect that emanates from the exact click position within any element.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["click", "ripple", "feedback", "tactile", "interactive", "material"]
+  },
+  {
+    "name": "ScaleIn",
+    "slug": "scale-in",
+    "description": "Animates children with a scale + fade entrance on mount or viewport entry.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["entrance", "scroll", "scale", "zoom", "reveal", "grow"]
+  },
+  {
+    "name": "ShimmerButton",
+    "slug": "shimmer-button",
+    "description": "A button with a CSS gradient sweep highlight on hover, drawing attention to primary CTAs.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": ["button", "hover", "shimmer", "cta", "highlight", "gradient"]
+  },
+  {
+    "name": "SlideIn",
+    "slug": "slide-in",
+    "description": "Animates children with a directional slide + fade entrance from any edge.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["entrance", "scroll", "slide", "translate", "direction", "reveal"]
+  },
+  {
+    "name": "TiltCard",
+    "slug": "tilt-card",
+    "description": "Applies a 3D perspective tilt effect to its children on hover, with optional glare overlay.",
+    "category": "animations",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["hover", "3d", "tilt", "perspective", "interactive", "card"]
+  },
+  {
+    "name": "Aurora",
+    "slug": "aurora",
+    "description": "Flowing northern lights effect using animated CSS gradient layers with mix-blend-mode for atmospheric depth.",
+    "category": "backgrounds",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": [
+      "background",
+      "aurora",
+      "northern-lights",
+      "gradient",
+      "blend",
+      "decorative",
+      "animated"
+    ]
+  },
+  {
+    "name": "DotGrid",
+    "slug": "dot-grid",
+    "description": "Animated dot matrix background using pure CSS radial-gradient patterns with optional drift animation and radial fade mask.",
+    "category": "backgrounds",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": ["background", "dots", "pattern", "grid", "decorative"]
+  },
+  {
+    "name": "GradientMesh",
+    "slug": "gradient-mesh",
+    "description": "Multi-color animated gradient background using CSS radial-gradient blobs with blur for a soft mesh effect.",
+    "category": "backgrounds",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": ["background", "gradient", "mesh", "blur", "decorative", "animated"]
+  },
+  {
+    "name": "GridPattern",
+    "slug": "grid-pattern",
+    "description": "Animated grid lines background using SVG patterns with optional radial fade mask and subtle pulse animation.",
+    "category": "backgrounds",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": ["background", "grid", "lines", "svg", "pattern", "decorative", "animated"]
+  },
+  {
+    "name": "Particles",
+    "slug": "particles",
+    "description": "Floating particle field rendered on Canvas with optional connecting lines between nearby particles.",
+    "category": "backgrounds",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": [
+      "background",
+      "particles",
+      "canvas",
+      "network",
+      "constellation",
+      "decorative",
+      "animated"
+    ]
+  },
+  {
+    "name": "CTASection",
+    "slug": "cta-section",
+    "description": "Centered call-to-action block with heading, description, and primary/secondary action buttons.",
+    "category": "sections",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["cta", "call-to-action", "conversion", "section", "landing"]
+  },
+  {
+    "name": "FeatureGrid",
+    "slug": "feature-grid",
+    "description": "Responsive grid of feature cards with staggered entrance animations.",
+    "category": "sections",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["features", "grid", "cards", "stagger", "section", "benefits"]
+  },
+  {
+    "name": "HeroSection",
+    "slug": "hero-section",
+    "description": "Full hero section with heading, subheading, CTA, and optional visual. Supports centered and split layouts.",
+    "category": "sections",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["hero", "landing", "section", "above-the-fold", "heading", "cta"]
+  },
+  {
+    "name": "LogoMarquee",
+    "slug": "logo-marquee",
+    "description": "Infinite scrolling logo/brand strip with CSS animation. Supports pause on hover and reduced motion.",
+    "category": "sections",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": ["marquee", "logos", "scroll", "brands", "partners", "infinite", "ticker"]
+  },
+  {
+    "name": "StatsBar",
+    "slug": "stats-bar",
+    "description": "Row of animated counters with labels. Each stat animates on viewport entry with staggered delays.",
+    "category": "sections",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": ["stats", "counters", "metrics", "numbers", "section", "kpi"]
+  },
+  {
+    "name": "Counter",
+    "slug": "counter",
+    "description": "Animated number counter that smoothly increments from one value to another with eased timing. Ideal for stats sections, dashboards, and metric displays.",
+    "category": "text",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": ["text", "counter", "number", "stats", "metrics", "animated"]
+  },
+  {
+    "name": "GradientText",
+    "slug": "gradient-text",
+    "description": "Renders text with an animated gradient sweep across the background. Great for eye-catching headlines and brand-colored accent text.",
+    "category": "text",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["text", "gradient", "color", "headline", "brand", "animated"]
+  },
+  {
+    "name": "SplitText",
+    "slug": "split-text",
+    "description": "Per-character stagger animation that splits text and animates each letter individually with configurable presets and stagger timing from the token system.",
+    "category": "text",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["text", "split", "stagger", "character", "entrance", "headline"]
+  },
+  {
+    "name": "TextReveal",
+    "slug": "text-reveal",
+    "description": "Word-by-word, line-by-line, or character-by-character opacity reveal driven by scroll position. Creates a progressive reading effect as the user scrolls.",
+    "category": "text",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4",
+      "motion": ">=12"
+    },
+    "tags": ["text", "scroll", "reveal", "opacity", "progressive", "reading"]
+  },
+  {
+    "name": "TypeWriter",
+    "slug": "type-writer",
+    "description": "Character-by-character text reveal with an optional blinking cursor. Ideal for hero headlines, terminal-style UIs, and code-typing effects.",
+    "category": "text",
+    "version": "1.0.0",
+    "supportedStack": {
+      "react": ">=18",
+      "next": ">=14",
+      "tailwind": ">=4"
+    },
+    "tags": ["text", "typewriter", "typing", "cursor", "reveal", "hero"]
+  }
+]

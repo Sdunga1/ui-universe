@@ -1,0 +1,121 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "SplitText",
+  "slug": "split-text",
+  "description": "Per-character stagger animation that splits text and animates each letter individually with configurable presets and stagger timing from the token system.",
+  "category": "text",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["text", "split", "stagger", "character", "entrance", "headline"],
+  "since": "0.1.0",
+  "props": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "description": "The text string to split and animate per-character"
+    },
+    "stagger": {
+      "type": "StaggerName | number",
+      "required": false,
+      "default": "normal",
+      "description": "Stagger delay between characters. Token name or raw ms value.",
+      "enum": ["tight", "normal", "relaxed", "dramatic"]
+    },
+    "preset": {
+      "type": "MotionPresetName",
+      "required": false,
+      "default": "fadeUp",
+      "description": "Motion preset for each character's entrance",
+      "enum": [
+        "fadeIn",
+        "fadeUp",
+        "fadeDown",
+        "fadeLeft",
+        "fadeRight",
+        "scaleIn",
+        "popIn",
+        "blur",
+        "slideUp",
+        "slideDown"
+      ]
+    },
+    "triggerOnView": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Animate when element enters viewport"
+    },
+    "viewThreshold": {
+      "type": "number",
+      "required": false,
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "description": "Fraction of element visible before triggering"
+    },
+    "once": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Only animate once"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "text",
+      "type": "string",
+      "description": "The text content split into individually animated characters via the text prop",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Renders as a block div containing inline-block character spans. Works best with large, short text like headings."
+  },
+  "variants": {},
+  "motionPreset": "fadeUp",
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["GradientText", "FadeUp", "StaggerGroup"],
+  "aiPromptHint": "Use SplitText for dramatic headline entrances where each character animates individually. Adjust 'stagger' with token names ('tight' 40ms, 'normal' 80ms, 'relaxed' 150ms, 'dramatic' 250ms) or raw ms values. Combine with any preset \u2014 'fadeUp' for rising text, 'scaleIn' for growing letters, 'blur' for focus-in effect. Best for short headlines, not paragraphs.",
+  "examples": [
+    {
+      "title": "Basic split headline",
+      "code": "<SplitText\n  text=\"Hello World\"\n  className=\"text-6xl font-bold\"\n/>"
+    },
+    {
+      "title": "Dramatic entrance with slow stagger",
+      "code": "<SplitText\n  text=\"LAUNCH\"\n  stagger=\"dramatic\"\n  preset=\"slideUp\"\n  className=\"text-8xl font-black tracking-widest\"\n/>"
+    },
+    {
+      "title": "Scale-in with tight stagger",
+      "code": "<SplitText\n  text=\"Design System\"\n  stagger=\"tight\"\n  preset=\"scaleIn\"\n  className=\"text-5xl font-semibold\"\n/>"
+    },
+    {
+      "title": "Blur reveal with custom ms stagger",
+      "code": "<SplitText\n  text=\"Focus\"\n  stagger={100}\n  preset=\"blur\"\n  className=\"text-7xl font-bold\"\n/>"
+    },
+    {
+      "title": "Pop-in letters",
+      "code": "<SplitText\n  text=\"New Feature\"\n  preset=\"popIn\"\n  stagger=\"relaxed\"\n  className=\"text-4xl font-bold text-orange-400\"\n/>"
+    }
+  ]
+}

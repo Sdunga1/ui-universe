@@ -1,0 +1,101 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "TiltCard",
+  "slug": "tilt-card",
+  "description": "Applies a 3D perspective tilt effect to its children on hover, with optional glare overlay.",
+  "category": "animations",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["hover", "3d", "tilt", "perspective", "interactive", "card"],
+  "since": "0.2.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Content to render inside the tilting card"
+    },
+    "maxTilt": {
+      "type": "number",
+      "required": false,
+      "default": 15,
+      "description": "Maximum tilt angle in degrees"
+    },
+    "perspective": {
+      "type": "number",
+      "required": false,
+      "default": 1000,
+      "description": "CSS perspective value in pixels"
+    },
+    "scale": {
+      "type": "number",
+      "required": false,
+      "default": 1.02,
+      "description": "Scale factor on hover"
+    },
+    "glare": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Show a reflective glare overlay on hover"
+    },
+    "disabled": {
+      "type": "boolean",
+      "required": false,
+      "default": false,
+      "description": "Disable the tilt effect"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Card content that will be tilted in 3D space on hover",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "block",
+    "responsive": false,
+    "description": "Wraps children in a perspective container. Inner content preserves 3D transforms. Takes full width of parent by default."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": ["motion/react"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["GlowCard", "FadeUp"],
+  "aiPromptHint": "Use TiltCard for interactive cards on hover \u2014 pricing cards, team members, portfolio items. Adjust maxTilt (degrees) and perspective (depth). Enable glare for a reflective sheen effect.",
+  "examples": [
+    {
+      "title": "Basic tilt card",
+      "code": "<TiltCard>\n  <div className=\"rounded-xl bg-neutral-900 p-8\">\n    <h3 className=\"text-xl font-bold\">Feature</h3>\n    <p className=\"text-neutral-400\">Hover to see the tilt effect</p>\n  </div>\n</TiltCard>"
+    },
+    {
+      "title": "With glare effect",
+      "code": "<TiltCard glare maxTilt={20}>\n  <div className=\"rounded-xl bg-gradient-to-br from-neutral-800 to-neutral-900 p-8\">\n    <h3 className=\"text-xl font-bold\">Premium Plan</h3>\n    <p className=\"text-3xl font-bold mt-4\">$49/mo</p>\n  </div>\n</TiltCard>"
+    },
+    {
+      "title": "Subtle tilt for team cards",
+      "code": "<TiltCard maxTilt={8} scale={1.01}>\n  <div className=\"rounded-xl bg-neutral-900 p-6 text-center\">\n    <img src=\"/avatar.jpg\" className=\"mx-auto h-20 w-20 rounded-full\" alt=\"\" />\n    <p className=\"mt-4 font-semibold\">Jane Doe</p>\n    <p className=\"text-sm text-neutral-400\">Lead Designer</p>\n  </div>\n</TiltCard>"
+    },
+    {
+      "title": "High perspective depth",
+      "code": "<TiltCard perspective={2000} maxTilt={25}>\n  <div className=\"rounded-xl border border-neutral-700 p-8\">\n    <p>Deep perspective with dramatic tilt</p>\n  </div>\n</TiltCard>"
+    }
+  ]
+}

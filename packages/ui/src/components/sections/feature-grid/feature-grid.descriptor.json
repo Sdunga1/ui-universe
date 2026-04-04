@@ -1,0 +1,86 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "FeatureGrid",
+  "slug": "feature-grid",
+  "description": "Responsive grid of feature cards with staggered entrance animations.",
+  "category": "sections",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["features", "grid", "cards", "stagger", "section", "benefits"],
+  "since": "0.1.0",
+  "props": {
+    "children": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Feature card elements to render in the grid"
+    },
+    "columns": {
+      "type": "number",
+      "required": false,
+      "default": "3",
+      "description": "Number of columns on desktop",
+      "enum": ["2", "3", "4"]
+    },
+    "stagger": {
+      "type": "StaggerName | number",
+      "required": false,
+      "default": "normal",
+      "description": "Stagger delay between children. Accepts a token name or milliseconds."
+    },
+    "gap": {
+      "type": "string",
+      "required": false,
+      "default": "gap-6",
+      "description": "Tailwind gap class applied to the grid"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes for the outer section"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "children",
+      "type": "ReactNode",
+      "description": "Feature card elements. Each child is auto-wrapped in FadeUp with stagger delay.",
+      "required": true
+    }
+  ],
+  "layout": {
+    "display": "grid",
+    "responsive": true,
+    "description": "Responsive grid. 1 col on mobile, 2 on tablet, columns prop on desktop."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["FadeUp", "GlowCard", "TiltCard", "StaggerGroup"],
+  "aiPromptHint": "Use FeatureGrid for displaying feature cards, benefits, or service offerings in a responsive grid. Pass cards as children \u2014 each is auto-wrapped in FadeUp with stagger delay. Use columns prop (2/3/4) to control layout.",
+  "examples": [
+    {
+      "title": "Basic 3-column grid",
+      "code": "<FeatureGrid>\n  <div className=\"rounded-xl bg-neutral-900 p-6\">Feature 1</div>\n  <div className=\"rounded-xl bg-neutral-900 p-6\">Feature 2</div>\n  <div className=\"rounded-xl bg-neutral-900 p-6\">Feature 3</div>\n</FeatureGrid>"
+    },
+    {
+      "title": "2-column with custom stagger",
+      "code": "<FeatureGrid columns={2} stagger=\"slow\" gap=\"gap-8\">\n  <GlowCard>Analytics Dashboard</GlowCard>\n  <GlowCard>Real-time Monitoring</GlowCard>\n  <GlowCard>Custom Reports</GlowCard>\n  <GlowCard>API Access</GlowCard>\n</FeatureGrid>"
+    },
+    {
+      "title": "4-column icon grid",
+      "code": "<FeatureGrid columns={4} stagger={50}>\n  {features.map((f) => (\n    <div key={f.id} className=\"text-center\">\n      {f.icon}\n      <h3>{f.title}</h3>\n    </div>\n  ))}\n</FeatureGrid>"
+    }
+  ]
+}

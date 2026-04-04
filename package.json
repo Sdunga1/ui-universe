@@ -14,12 +14,14 @@
     "typecheck": "turbo typecheck",
     "clean": "turbo clean && rm -rf node_modules",
     "format": "biome format --write .",
-    "new:component": "tsx scripts/generate-component.ts"
+    "new:component": "tsx scripts/generate-component.ts",
+    "eval": "tsx scripts/eval/run-eval.ts"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.82.0",
     "@biomejs/biome": "^1.9.4",
-    "turbo": "^2.3.3",
     "tsx": "^4.19.2",
+    "turbo": "^2.3.3",
     "typescript": "^5.7.3"
   }
 }

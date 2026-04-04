@@ -1,0 +1,65 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "StatsBar",
+  "slug": "stats-bar",
+  "description": "Row of animated counters with labels. Each stat animates on viewport entry with staggered delays.",
+  "category": "sections",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": ["stats", "counters", "metrics", "numbers", "section", "kpi"],
+  "since": "0.1.0",
+  "props": {
+    "stats": {
+      "type": "Array<{ value: number; label: string; prefix?: string; suffix?: string }>",
+      "required": true,
+      "description": "Array of stat items. Each has a numeric value, label, and optional prefix/suffix."
+    },
+    "triggerOnView": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Start counting when the element enters the viewport"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes for the outer section"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [],
+  "layout": {
+    "display": "grid",
+    "responsive": true,
+    "description": "Responsive row of stat counters. 2 cols on mobile, N cols (matching stats array length) on desktop."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["Counter", "FadeUp", "DotGrid"],
+  "aiPromptHint": "Use StatsBar for displaying key metrics \u2014 user counts, revenue, uptime. Pass an array of { value, label, prefix?, suffix? }. Counters animate on viewport entry. Example: stats={[{ value: 10000, label: 'Users', suffix: '+' }, { value: 99.9, label: 'Uptime', suffix: '%' }]}",
+  "examples": [
+    {
+      "title": "Basic stats",
+      "code": "<StatsBar\n  stats={[\n    { value: 10000, label: \"Users\", suffix: \"+\" },\n    { value: 99.9, label: \"Uptime\", suffix: \"%\" },\n    { value: 50, label: \"Countries\" },\n  ]}\n/>"
+    },
+    {
+      "title": "Revenue metrics with prefix",
+      "code": "<StatsBar\n  stats={[\n    { value: 2.5, label: \"ARR\", prefix: \"$\", suffix: \"M\" },\n    { value: 150, label: \"Customers\", suffix: \"+\" },\n    { value: 4.9, label: \"Rating\", suffix: \"/5\" },\n    { value: 24, label: \"Support\", suffix: \"/7\" },\n  ]}\n/>"
+    },
+    {
+      "title": "No viewport trigger",
+      "code": "<StatsBar\n  triggerOnView={false}\n  stats={[\n    { value: 100, label: \"Components\" },\n    { value: 12, label: \"Categories\" },\n  ]}\n/>"
+    }
+  ]
+}

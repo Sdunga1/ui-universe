@@ -58,6 +58,12 @@ export type DistanceName = keyof typeof distance;
 // ready to spread into Motion components.
 // ---------------------------------------------------------------------------
 export const presets = {
+  fadeIn: {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: duration.normal / 1000, ease: easing.smooth },
+  },
+
   fadeUp: {
     initial: { opacity: 0, y: distance.normal },
     animate: { opacity: 1, y: 0 },

@@ -1,0 +1,105 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "Counter",
+  "slug": "counter",
+  "description": "Animated number counter that smoothly increments from one value to another with eased timing. Ideal for stats sections, dashboards, and metric displays.",
+  "category": "text",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4"
+  },
+  "tags": ["text", "counter", "number", "stats", "metrics", "animated"],
+  "since": "0.1.0",
+  "props": {
+    "from": {
+      "type": "number",
+      "required": false,
+      "default": 0,
+      "description": "Starting number"
+    },
+    "to": {
+      "type": "number",
+      "required": true,
+      "description": "Target number to count to"
+    },
+    "duration": {
+      "type": "number",
+      "required": false,
+      "default": 2000,
+      "description": "Animation duration in milliseconds"
+    },
+    "decimals": {
+      "type": "number",
+      "required": false,
+      "default": 0,
+      "description": "Number of decimal places to display"
+    },
+    "separator": {
+      "type": "string",
+      "required": false,
+      "default": ",",
+      "description": "Thousands separator character"
+    },
+    "prefix": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "Text prepended to the number (e.g., '$')"
+    },
+    "suffix": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "description": "Text appended to the number (e.g., '%')"
+    },
+    "triggerOnView": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Start counting when element enters viewport"
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [],
+  "layout": {
+    "display": "inline",
+    "responsive": false,
+    "description": "Renders as an inline span with tabular-nums for stable digit widths. Place inside headings, stat cards, or grid cells."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": [],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["FadeUp", "GradientText"],
+  "aiPromptHint": "Use Counter for stats sections \u2014 revenue numbers, user counts, metrics. Set 'from' and 'to' for the range. Add 'prefix' ($) or 'suffix' (%) for formatted display. Use decimals for precise values. Place multiple Counters in a flex/grid row for a stats bar. Triggers on viewport entry by default.",
+  "examples": [
+    {
+      "title": "Revenue counter",
+      "code": "<Counter to={1250000} prefix=\"$\" className=\"text-5xl font-bold\" />"
+    },
+    {
+      "title": "Percentage with decimals",
+      "code": "<Counter to={99.9} decimals={1} suffix=\"%\" className=\"text-4xl font-semibold\" />"
+    },
+    {
+      "title": "Stats row",
+      "code": "<div className=\"flex gap-16\">\n  <div>\n    <Counter to={50000} suffix=\"+\" className=\"text-5xl font-bold\" />\n    <p className=\"text-neutral-400\">Users</p>\n  </div>\n  <div>\n    <Counter to={12} suffix=\"M\" prefix=\"$\" className=\"text-5xl font-bold\" />\n    <p className=\"text-neutral-400\">Revenue</p>\n  </div>\n  <div>\n    <Counter to={99.9} decimals={1} suffix=\"%\" className=\"text-5xl font-bold\" />\n    <p className=\"text-neutral-400\">Uptime</p>\n  </div>\n</div>"
+    },
+    {
+      "title": "Custom duration and range",
+      "code": "<Counter from={100} to={500} duration={3000} className=\"text-6xl font-black\" />"
+    }
+  ]
+}

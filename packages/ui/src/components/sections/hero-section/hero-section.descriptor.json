@@ -1,0 +1,107 @@
+{
+  "$schema": "../../../schemas/component-descriptor.schema.json",
+  "name": "HeroSection",
+  "slug": "hero-section",
+  "description": "Full hero section with heading, subheading, CTA, and optional visual. Supports centered and split layouts.",
+  "category": "sections",
+  "version": "1.0.0",
+  "supportedStack": {
+    "react": ">=18",
+    "next": ">=14",
+    "tailwind": ">=4",
+    "motion": ">=12"
+  },
+  "tags": ["hero", "landing", "section", "above-the-fold", "heading", "cta"],
+  "since": "0.1.0",
+  "props": {
+    "heading": {
+      "type": "ReactNode",
+      "required": true,
+      "description": "Primary heading content"
+    },
+    "subheading": {
+      "type": "ReactNode",
+      "required": false,
+      "description": "Supporting text below the heading"
+    },
+    "cta": {
+      "type": "ReactNode",
+      "required": false,
+      "description": "Call-to-action element (button, link, or group)"
+    },
+    "visual": {
+      "type": "ReactNode",
+      "required": false,
+      "description": "Visual element (image, video, illustration, or animation component)"
+    },
+    "align": {
+      "type": "string",
+      "required": false,
+      "default": "center",
+      "description": "Layout alignment. 'center' stacks vertically; 'left' creates a split layout with visual on the right.",
+      "enum": ["left", "center"]
+    },
+    "className": {
+      "type": "string",
+      "required": false,
+      "description": "Additional Tailwind classes for the outer section"
+    },
+    "id": {
+      "type": "string",
+      "required": false,
+      "description": "HTML id attribute"
+    }
+  },
+  "slots": [
+    {
+      "name": "heading",
+      "type": "ReactNode",
+      "description": "Primary heading content (h1, styled text, etc.)",
+      "required": true
+    },
+    {
+      "name": "subheading",
+      "type": "ReactNode",
+      "description": "Supporting text or paragraph below the heading",
+      "required": false
+    },
+    {
+      "name": "cta",
+      "type": "ReactNode",
+      "description": "Call-to-action button or link group",
+      "required": false
+    },
+    {
+      "name": "visual",
+      "type": "ReactNode",
+      "description": "Image, video, illustration, or animation component",
+      "required": false
+    }
+  ],
+  "layout": {
+    "display": "flex",
+    "responsive": true,
+    "description": "Full-width section. Center or split layout based on align prop. Centered uses flex-col; left uses 2-column grid on desktop."
+  },
+  "variants": {},
+  "dependencies": {
+    "runtime": ["motion/react", "@ui-universe/tokens"],
+    "peer": ["react", "react-dom"]
+  },
+  "recommendedWith": ["GradientMesh", "Aurora", "DotGrid", "FadeUp", "ScaleIn"],
+  "aiPromptHint": "Use HeroSection as the top section of a landing page. Pass heading, subheading, and CTA as ReactNode slots. Set align='left' for a split layout with visual on the right. Pair with background components (GradientMesh, Aurora, DotGrid) behind it.",
+  "examples": [
+    {
+      "title": "Centered hero",
+      "code": "<HeroSection\n  heading={<h1 className=\"text-5xl font-bold\">Build faster with AI</h1>}\n  subheading={<p className=\"text-lg text-neutral-400\">Ship beautiful interfaces in minutes</p>}\n  cta={<button className=\"rounded-full bg-white px-8 py-3 text-black\">Get Started</button>}\n/>"
+    },
+    {
+      "title": "Split layout with visual",
+      "code": "<HeroSection\n  align=\"left\"\n  heading={<h1 className=\"text-5xl font-bold\">Design meets motion</h1>}\n  subheading={<p className=\"text-lg text-neutral-400\">Animated components for modern apps</p>}\n  cta={<button className=\"rounded-full bg-white px-8 py-3 text-black\">Explore</button>}\n  visual={<img src=\"/hero.png\" alt=\"Hero\" className=\"rounded-2xl\" />}\n/>"
+    },
+    {
+      "title": "With background component",
+      "code": "<div className=\"relative\">\n  <Aurora className=\"absolute inset-0\" />\n  <HeroSection\n    heading={<h1 className=\"text-6xl font-bold\">Welcome</h1>}\n    cta={<ShimmerButton>Start Building</ShimmerButton>}\n  />\n</div>"
+    }
+  ]
+}
