@@ -41,7 +41,8 @@ export async function GET(request: Request) {
   for (const row of data ?? []) {
     if (!result[row.component]) result[row.component] = {};
     const condKey = row.condition === "raw-source-only" ? "raw-source" : "descriptor";
-    result[row.component][condKey] = {
+    // biome-ignore lint/style/noNonNullAssertion: assigned on the line above
+    result[row.component]![condKey] = {
       inputTokens: row.input_tokens ?? 0,
       outputTokens: row.output_tokens ?? 0,
       overall: row.overall ?? 0,
