@@ -1,0 +1,54 @@
+{
+  "name": "ShapeGrid",
+  "slug": "shape-grid",
+  "description": "A canvas-based animated grid background with configurable shapes (squares, hexagons, circles, triangles) that animate in a chosen direction and respond to mouse hover with fill color effects and optional trails.",
+  "category": "backgrounds",
+  "props": {
+    "direction": {
+      "type": "'diagonal' | 'up' | 'right' | 'down' | 'left'",
+      "default": "right",
+      "description": "Direction of the grid animation movement."
+    },
+    "speed": {
+      "type": "number",
+      "default": 1,
+      "description": "Speed of the animation movement."
+    },
+    "borderColor": {
+      "type": "string",
+      "default": "#999",
+      "description": "Border/stroke color of each grid shape."
+    },
+    "squareSize": {
+      "type": "number",
+      "default": 40,
+      "description": "Size of each grid cell in pixels."
+    },
+    "hoverFillColor": {
+      "type": "string",
+      "default": "#222",
+      "description": "Fill color applied to shapes on mouse hover."
+    },
+    "shape": {
+      "type": "'square' | 'hexagon' | 'circle' | 'triangle'",
+      "default": "square",
+      "description": "Shape type for each grid cell."
+    },
+    "hoverTrailAmount": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of trailing hovered shapes that fade out behind the cursor. 0 disables the trail effect."
+    }
+  },
+  "examples": [
+    {
+      "title": "Basic grid",
+      "code": "<ShapeGrid direction=\"diagonal\" borderColor=\"#333\" hoverFillColor=\"#111\" />"
+    },
+    {
+      "title": "Hexagon grid with trail",
+      "code": "<ShapeGrid shape=\"hexagon\" squareSize={50} speed={0.5} borderColor=\"#444\" hoverFillColor=\"#ee502c\" hoverTrailAmount={5} />"
+    }
+  ],
+  "aiPromptHint": "ShapeGrid fills its parent container with a canvas. Set the parent to have explicit dimensions. Use 'shape' to change between square, hexagon, circle, or triangle. The animation direction and hover effects are the key visual features."
+}

@@ -15,13 +15,37 @@
     "clean": "turbo clean && rm -rf node_modules",
     "format": "biome format --write .",
     "new:component": "tsx scripts/generate-component.ts",
-    "eval": "tsx scripts/eval/run-eval.ts"
+    "eval": "tsx scripts/eval/run-eval.ts",
+    "eval:report": "tsx scripts/eval/generate-report.ts",
+    "eval:comparative": "tsx scripts/eval/run-comparative.ts",
+    "eval:comparative:gemini": "tsx scripts/eval/run-comparative.ts --model=gemini",
+    "eval:report:comparative": "tsx scripts/eval/generate-comparative-report.ts",
+    "eval:visual": "tsx scripts/eval/visual/screenshot.ts",
+    "eval:visual:original": "tsx scripts/eval/visual/screenshot.ts --source=original",
+    "eval:compare": "cd scripts/eval/visual/compare-app && npm run extract && npm run dev",
+    "eval:compare:extract": "cd scripts/eval/visual/compare-app && tsx scripts/extract-usage.ts",
+    "eval:seed": "tsx scripts/eval/seed-supabase.ts"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.82.0",
     "@biomejs/biome": "^1.9.4",
+    "@supabase/supabase-js": "^2.101.1",
+    "@vitejs/plugin-react": "^6.0.1",
+    "dotenv": "^17.4.0",
+    "motion": "^12.0.0",
+    "ogl": "^1.0.11",
+    "playwright": "^1.59.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "tsx": "^4.19.2",
     "turbo": "^2.3.3",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vite": "^8.0.3"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "gl-matrix": "^3.4.4",
+    "three": "^0.183.2"
   }
 }

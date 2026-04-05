@@ -1,0 +1,615 @@
+{
+  "timestamp": "2026-04-04T23:37:55.749Z",
+  "model": "claude-sonnet-4-20250514",
+  "type": "comparative",
+  "results": [
+    {
+      "component": "Counter",
+      "prompt": "basic-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport React from 'react';\nimport Counter from './Counter';\n\nexport default function Example() {\n  const [count, setCount] = React.useState(1234.56);\n  const [revenue, setRevenue] = React.useState(987654.32);\n  const [downloads, setDownloads] = React.useState(42069);\n\n  React.useEffect(() => {\n    const interval = setInterval(() => {\n      setCount(prev => prev + Math.random() * 10 - 5);\n      setRevenue(prev => prev + Math.random() * 1000 - 500);\n      setDownloads(prev => Math.max(0, prev + Math.floor(Math.random() * 100)));\n    }, 2000);\n\n    return () => clearInterval(interval);\n  }, []);\n\n  return (\n    <div style={{ \n      padding: '2rem', \n      fontFamily: 'system-ui, -apple-system, sans-serif',\n      backgroundColor: '#f5f5f5',\n      minHeight: '100vh'\n    }}>\n      <h1 style={{ marginBottom: '2rem', color: '#333' }}>Counter Component Examples</h1>\n      \n      <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>\n        {/* Basic Counter */}\n        <div>\n          <h2 style={{ marginBottom: '1rem', color: '#666' }}>Basic Counter</h2>\n          <Counter \n            value={count}\n            fontSize={60}\n            textColor=\"#2563eb\"\n            fontWeight=\"bold\"\n            containerStyle={{\n              backgroundColor: 'white',\n              padding: '1rem',\n              borderRadius: '12px',\n              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'\n            }}\n          />\n        </div>\n\n        {/* Revenue Counter */}\n        <div>\n          <h2 style={{ marginBottom: '1rem', color: '#666' }}>Revenue Dashboard</h2>\n          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>\n            <span style={{ fontSize: '24px', color: '#16a34a', fontWeight: 'bold' }}>$</span>\n            <Counter \n              value={revenue}\n              fontSize={48}\n              textColor=\"#16a34a\"\n              fontWeight=\"600\"\n              containerStyle={{\n                backgroundColor: 'white',\n                border: '2px solid #dcfce7',\n                borderRadius: '8px'\n              }}\n              gradientFrom=\"#16a34a\"\n              gradientHeight={12}\n            />\n          </div>\n        </div>\n\n        {/* Downloads Counter */}\n        <div>\n          <h2 style={{ marginBottom: '1rem', color: '#666' }}>Total Downloads</h2>\n          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>\n            <Counter \n              value={downloads}\n              fontSize={72}\n              textColor=\"#7c3aed\"\n              fontWeight=\"800\"\n              gap={4}\n              containerStyle={{\n                backgroundColor: '#faf5ff',\n                border: '3px solid #e9d5ff',\n                borderRadius: '16px'\n              }}\n              gradientFrom=\"#7c3aed\"\n              gradientTo=\"transparent\"\n              gradientHeight={20}\n            />\n            <span style={{ fontSize: '24px', color: '#7c3aed', marginLeft: '0.5rem' }}>\n              downloads\n            </span>\n          </div>\n        </div>\n\n        {/* Small Counter */}\n        <div>\n          <h2 style={{ marginBottom: '1rem', color: '#666' }}>Compact View</h2>\n          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>\n            <div>\n              <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '0.5rem' }}>\n                Active Users\n              </div>\n              ",
+      "scores": {
+        "propCorrectness": 0.8461538461538461,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.9487179487179488
+      },
+      "inputTokens": 1679,
+      "outputTokens": 1024
+    },
+    {
+      "component": "Counter",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport Counter from './Counter';\n\nexport default function Example() {\n  return (\n    <div style={{\n      padding: '40px',\n      backgroundColor: '#1a1a1a',\n      minHeight: '100vh',\n      display: 'flex',\n      flexDirection: 'column',\n      gap: '40px',\n      alignItems: 'center',\n      justifyContent: 'center'\n    }}>\n      <div style={{ textAlign: 'center' }}>\n        <h2 style={{ color: 'white', marginBottom: '20px', fontSize: '24px' }}>\n          Basic Counter\n        </h2>\n        <Counter \n          value={1234} \n          fontSize={60} \n          textColor=\"white\" \n          fontWeight={700}\n          gradientFrom=\"#1a1a1a\"\n        />\n      </div>\n\n      <div style={{ textAlign: 'center' }}>\n        <h2 style={{ color: 'white', marginBottom: '20px', fontSize: '24px' }}>\n          Large Revenue Counter\n        </h2>\n        <Counter \n          value={987654} \n          fontSize={80} \n          textColor=\"#00ff88\" \n          fontWeight={800}\n          gap={12}\n          borderRadius={8}\n          horizontalPadding={16}\n          gradientFrom=\"#1a1a1a\"\n        />\n      </div>\n\n      <div style={{ textAlign: 'center' }}>\n        <h2 style={{ color: 'white', marginBottom: '20px', fontSize: '24px' }}>\n          Custom Places (Two Digits)\n        </h2>\n        <Counter \n          value={42} \n          places={[10, 1]} \n          fontSize={100} \n          textColor=\"#ff6b6b\" \n          fontWeight={900}\n          gap={16}\n          padding={8}\n          gradientFrom=\"#1a1a1a\"\n          gradientHeight={24}\n        />\n      </div>\n\n      <div style={{ textAlign: 'center' }}>\n        <h2 style={{ color: 'white', marginBottom: '20px', fontSize: '24px' }}>\n          Compact Style\n        </h2>\n        <Counter \n          value={999} \n          fontSize={40} \n          textColor=\"#ffd700\" \n          fontWeight={600}\n          gap={4}\n          borderRadius={6}\n          horizontalPadding={12}\n          gradientFrom=\"#1a1a1a\"\n          gradientHeight={12}\n        />\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.9230769230769231,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.9743589743589745
+      },
+      "inputTokens": 822,
+      "outputTokens": 656
+    },
+    {
+      "component": "Counter",
+      "prompt": "prop-customization",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport React from 'react';\nimport Counter from './Counter';\n\nexport default function Example() {\n  return (\n    <div style={{ padding: '20px' }}>\n      <Counter \n        value={12345.67}\n        fontSize={60}\n        padding={10}\n        gap={12}\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.38461538461538464,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.7948717948717948
+      },
+      "inputTokens": 1725,
+      "outputTokens": 92
+    },
+    {
+      "component": "Counter",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport Counter from './Counter';\n\nexport default function Example() {\n  return (\n    <Counter \n      value={9876}\n      fontSize={75}\n      padding={12}\n      gap={15}\n    />\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.38461538461538464,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.7948717948717948
+      },
+      "inputTokens": 868,
+      "outputTokens": 63
+    },
+    {
+      "component": "Counter",
+      "prompt": "complex-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport { useState, useEffect } from 'react';\nimport Counter from './Counter';\n\ninterface MetricCardProps {\n  title: string;\n  value: number;\n  suffix?: string;\n  prefix?: string;\n  change?: number;\n  changeLabel?: string;\n  icon: React.ReactNode;\n  color: 'blue' | 'green' | 'purple' | 'orange';\n}\n\nfunction MetricCard({ title, value, suffix = '', prefix = '', change, changeLabel, icon, color }: MetricCardProps) {\n  const colorClasses = {\n    blue: {\n      bg: 'bg-blue-50',\n      icon: 'text-blue-600',\n      counter: 'text-blue-900',\n      change: change && change > 0 ? 'text-green-600' : 'text-red-500'\n    },\n    green: {\n      bg: 'bg-green-50',\n      icon: 'text-green-600',\n      counter: 'text-green-900',\n      change: change && change > 0 ? 'text-green-600' : 'text-red-500'\n    },\n    purple: {\n      bg: 'bg-purple-50',\n      icon: 'text-purple-600',\n      counter: 'text-purple-900',\n      change: change && change > 0 ? 'text-green-600' : 'text-red-500'\n    },\n    orange: {\n      bg: 'bg-orange-50',\n      icon: 'text-orange-600',\n      counter: 'text-orange-900',\n      change: change && change > 0 ? 'text-green-600' : 'text-red-500'\n    }\n  };\n\n  const classes = colorClasses[color];\n\n  return (\n    <div className={`${classes.bg} rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow`}>\n      <div className=\"flex items-center justify-between mb-4\">\n        <div className={`p-2 rounded-lg bg-white ${classes.icon}`}>\n          {icon}\n        </div>\n        {change !== undefined && (\n          <div className={`flex items-center gap-1 text-sm font-medium ${classes.change}`}>\n            {change > 0 ? (\n              <svg className=\"w-4 h-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n                <path fillRule=\"evenodd\" d=\"M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z\" clipRule=\"evenodd\" />\n              </svg>\n            ) : (\n              <svg className=\"w-4 h-4\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n                <path fillRule=\"evenodd\" d=\"M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z\" clipRule=\"evenodd\" />\n              </svg>\n            )}\n            {Math.abs(change)}%\n          </div>\n        )}\n      </div>\n      \n      <div className=\"space-y-2\">\n        <h3 className=\"text-sm font-medium text-gray-600\">{title}</h3>\n        <div className=\"flex items-baseline gap-1\">\n          {prefix && <span className={`text-2xl font-bold ${classes.counter}`}>{prefix}</span>}\n          <Counter\n            value={",
+      "scores": {
+        "propCorrectness": 0.23076923076923078,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.7435897435897436
+      },
+      "inputTokens": 1699,
+      "outputTokens": 1024
+    },
+    {
+      "component": "Counter",
+      "prompt": "complex-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport Counter from './Counter';\nimport { TrendingUp, TrendingDown, Users, DollarSign, ShoppingCart, Eye } from 'lucide-react';\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6\">\n      <div className=\"max-w-7xl mx-auto\">\n        {/* Header */}\n        <div className=\"mb-8\">\n          <h1 className=\"text-4xl font-bold text-white mb-2\">Analytics Dashboard</h1>\n          <p className=\"text-slate-300\">Real-time business metrics and performance indicators</p>\n        </div>\n\n        {/* Main Stats Grid */}\n        <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8\">\n          {/* Revenue Card */}\n          <div className=\"bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20\">\n            <div className=\"flex items-center justify-between mb-4\">\n              <div className=\"p-3 bg-green-500/20 rounded-lg\">\n                <DollarSign className=\"w-6 h-6 text-green-400\" />\n              </div>\n              <div className=\"flex items-center text-green-400 text-sm\">\n                <TrendingUp className=\"w-4 h-4 mr-1\" />\n                +12.5%\n              </div>\n            </div>\n            <div className=\"mb-2\">\n              <div className=\"text-slate-300 text-sm mb-1\">Revenue</div>\n              <div className=\"flex items-center\">\n                <span className=\"text-white text-2xl font-bold mr-1\">$</span>\n                <Counter \n                  value={847392} \n                  fontSize={32} \n                  textColor=\"white\" \n                  fontWeight={700}\n                  gradientFrom=\"#1e293b\"\n                />\n              </div>\n            </div>\n          </div>\n\n          {/* Users Card */}\n          <div className=\"bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20\">\n            <div className=\"flex items-center justify-between mb-4\">\n              <div className=\"p-3 bg-blue-500/20 rounded-lg\">\n                <Users className=\"w-6 h-6 text-blue-400\" />\n              </div>\n              <div className=\"flex items-center text-blue-400 text-sm\">\n                <TrendingUp className=\"w-4 h-4 mr-1\" />\n                +8.2%\n              </div>\n            </div>\n            <div className=\"mb-2\">\n              <div className=\"text-slate-300 text-sm mb-1\">Active Users</div>\n              <Counter \n                value={24567} \n                fontSize={32} \n                textColor=\"white\" \n                fontWeight={700}\n                gradientFrom=\"#1e293b\"\n              />\n            </div>\n          </div>\n\n          {/* Orders Card */}\n          <div className=\"bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20\">\n            <div className=\"flex items-center justify-between mb-4\">\n              <div className=\"p-3 bg-purple-500/20 rounded-lg\">\n                <ShoppingCart className=\"w-6 h-6 text-purple-400\" />\n              </div>\n              <div className=\"flex items-center text-red-400 text-sm\">\n                <TrendingDown className=\"w-4 h-4 mr-1\" />\n                -2.1%\n              </div>\n            </div>\n            <div className=\"mb-2\">\n              <div className=\"text-slate-300 text-sm mb-1\">Orders</div>\n              <Counter \n                value={3892} \n                fontSize={32} \n                textColor=\"white\" \n                fontWeight={700}",
+      "scores": {
+        "propCorrectness": 0.5384615384615384,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.8461538461538461
+      },
+      "inputTokens": 842,
+      "outputTokens": 1024
+    },
+    {
+      "component": "CircularGallery",
+      "prompt": "basic-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport CircularGallery from './CircularGallery';\n\nconst exampleItems = [\n  {\n    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',\n    text: 'Mountain Peak'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop',\n    text: 'Ocean Waves'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop',\n    text: 'Forest Trail'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&h=600&fit=crop',\n    text: 'Desert Dunes'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',\n    text: 'City Lights'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&h=600&fit=crop',\n    text: 'Autumn Leaves'\n  }\n];\n\nexport default function Example() {\n  return (\n    <div className=\"w-full h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900\">\n      <div className=\"absolute inset-0 flex flex-col\">\n        {/* Header */}\n        <div className=\"z-10 p-8 text-center\">\n          <h1 className=\"text-4xl font-bold text-white mb-2\">\n            Interactive Gallery\n          </h1>\n          <p className=\"text-gray-300 text-lg\">\n            Scroll or drag to explore • Curved layout with smooth animations\n          </p>\n        </div>\n\n        {/* Gallery Container */}\n        <div className=\"flex-1 relative\">\n          <CircularGallery\n            items={exampleItems}\n            bend={2}\n            textColor=\"#ffffff\"\n            borderRadius={0.08}\n            font=\"bold 28px system-ui\"\n            scrollSpeed={1.8}\n            scrollEase={0.08}\n          />\n        </div>\n\n        {/* Footer */}\n        <div className=\"z-10 p-6 text-center\">\n          <p className=\"text-gray-400 text-sm\">\n            Use mouse wheel, touch gestures, or click and drag to navigate\n          </p>\n        </div>\n      </div>\n    </div>\n  );\n}\n```\n\nThis example component demonstrates the CircularGallery with:\n\n- **Curated image collection** using Unsplash photos with nature themes\n- **Moderate bend** (2) for a subtle curved effect\n- **Clean styling** with white text and rounded corners\n- **Smooth animations** with slightly reduced scroll speed and easing\n- **Responsive layout** that fills the screen\n- **Visual context** with a gradient background and instructional text\n- **Accessible font** using system-ui for better cross-platform compatibility\n\nThe component creates an immersive gallery experience with intuitive scroll/drag controls and smooth WebGL-powered animations.",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 6100,
+      "outputTokens": 876
+    },
+    {
+      "component": "CircularGallery",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport CircularGallery from './CircularGallery';\n\nexport default function Example() {\n  const galleryItems = [\n    { image: 'https://picsum.photos/400/300?random=1', text: 'Mountain Vista' },\n    { image: 'https://picsum.photos/400/300?random=2', text: 'Ocean Waves' },\n    { image: 'https://picsum.photos/400/300?random=3', text: 'Forest Path' },\n    { image: 'https://picsum.photos/400/300?random=4', text: 'City Lights' },\n    { image: 'https://picsum.photos/400/300?random=5', text: 'Desert Dunes' },\n    { image: 'https://picsum.photos/400/300?random=6', text: 'Snowy Peaks' },\n    { image: 'https://picsum.photos/400/300?random=7', text: 'Tropical Beach' },\n    { image: 'https://picsum.photos/400/300?random=8', text: 'Urban Street' }\n  ];\n\n  return (\n    <div style={{ \n      height: '600px', \n      position: 'relative',\n      width: '100%',\n      backgroundColor: '#1a1a1a'\n    }}>\n      <CircularGallery\n        items={galleryItems}\n        bend={3}\n        textColor=\"#ffffff\"\n        borderRadius={0.05}\n        font=\"bold 24px Figtree\"\n        scrollSpeed={2}\n        scrollEase={0.05}\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 814,
+      "outputTokens": 421
+    },
+    {
+      "component": "CircularGallery",
+      "prompt": "prop-customization",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport CircularGallery from './CircularGallery';\n\nexport default function Example() {\n  const customItems = [\n    { image: 'https://picsum.photos/seed/10/800/600', text: 'Mountain View' },\n    { image: 'https://picsum.photos/seed/20/800/600', text: 'City Lights' },\n    { image: 'https://picsum.photos/seed/30/800/600', text: 'Ocean Waves' },\n    { image: 'https://picsum.photos/seed/40/800/600', text: 'Forest Path' },\n    { image: 'https://picsum.photos/seed/50/800/600', text: 'Desert Dunes' },\n    { image: 'https://picsum.photos/seed/60/800/600', text: 'Snowy Peak' },\n  ];\n\n  return (\n    <div className=\"w-full h-screen bg-gradient-to-br from-purple-900 to-blue-900\">\n      <CircularGallery\n        items={customItems}\n        bend={1.5}\n        textColor=\"#ff6b6b\"\n        borderRadius={0.15}\n        font=\"bold 28px Arial\"\n        scrollSpeed={1.5}\n        scrollEase={0.08}\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 6150,
+      "outputTokens": 345
+    },
+    {
+      "component": "CircularGallery",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport React from 'react';\nimport CircularGallery from './CircularGallery';\n\nexport default function Example() {\n  return (\n    <div style={{ height: '600px', position: 'relative' }}>\n      <CircularGallery\n        bend={5}\n        textColor=\"#ff6b6b\"\n        borderRadius={0.15}\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.8333333333333334
+      },
+      "inputTokens": 864,
+      "outputTokens": 108
+    },
+    {
+      "component": "CircularGallery",
+      "prompt": "complex-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport { useState, useEffect } from 'react';\nimport CircularGallery from './CircularGallery';\nimport { ChevronLeftIcon, ChevronRightIcon, PlayIcon, PauseIcon } from '@heroicons/react/24/outline';\n\ninterface Project {\n  id: string;\n  title: string;\n  description: string;\n  category: string;\n  image: string;\n  tags: string[];\n  year: string;\n}\n\nconst projects: Project[] = [\n  {\n    id: '1',\n    title: 'Modern Architecture',\n    description: 'A stunning residential complex that redefines urban living with sustainable design principles.',\n    category: 'Architecture',\n    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop',\n    tags: ['Residential', 'Sustainable', 'Modern'],\n    year: '2024'\n  },\n  {\n    id: '2',\n    title: 'Digital Art Installation',\n    description: 'An immersive digital experience combining light, sound, and interactive elements.',\n    category: 'Digital Art',\n    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop',\n    tags: ['Interactive', 'Installation', 'Technology'],\n    year: '2023'\n  },\n  {\n    id: '3',\n    title: 'Brand Identity System',\n    description: 'Complete visual identity redesign for a sustainable fashion brand.',\n    category: 'Branding',\n    image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&h=600&fit=crop',\n    tags: ['Identity', 'Fashion', 'Sustainability'],\n    year: '2024'\n  },\n  {\n    id: '4',\n    title: 'Urban Photography',\n    description: 'A series capturing the essence of city life through candid street photography.',\n    category: 'Photography',\n    image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',\n    tags: ['Street', 'Urban', 'Documentary'],\n    year: '2023'\n  },\n  {\n    id: '5',\n    title: 'Product Design',\n    description: 'Innovative consumer electronics that blend form and function seamlessly.',\n    category: 'Product Design',\n    image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop',\n    tags: ['Electronics', 'Innovation', 'Design'],\n    year: '2024'\n  },\n  {\n    id: '6',\n    title: 'Interior Spaces',\n    description: 'Thoughtfully designed interior spaces that prioritize comfort and functionality.',\n    category: 'Interior Design',\n    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop',\n    tags: ['Interior', 'Residential', 'Comfort'],\n    year: '2023'\n  }\n];\n\nexport default function Example() {\n  const [selectedCategory, setSelectedCategory] = useState<string>('All');\n  const [isAutoPlay, setIsAutoPlay] = useState<boolean>(false);\n  const [hoveredProject, setHoveredProject] = useState<string | null>(null);\n\n  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];\n  \n  const filteredProjects = selectedCategory === 'All' \n    ? projects \n    : projects.filter(p => p.category === selectedCategory);\n\n  const galleryItems = filteredProjects.map(project => ({\n    image: project.image,\n    text: project.title\n  }));\n\n  useEffect(() => {\n    let interval: NodeJS.Timeout",
+      "scores": {
+        "propCorrectness": 0.125,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.7083333333333334
+      },
+      "inputTokens": 6120,
+      "outputTokens": 1024
+    },
+    {
+      "component": "CircularGallery",
+      "prompt": "complex-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport CircularGallery from './CircularGallery';\n\nexport default function Example() {\n  const portfolioItems = [\n    { image: '/api/placeholder/400/300', text: 'Mountain Vista' },\n    { image: '/api/placeholder/400/301', text: 'Ocean Waves' },\n    { image: '/api/placeholder/400/302', text: 'Forest Path' },\n    { image: '/api/placeholder/400/303', text: 'Desert Sunset' },\n    { image: '/api/placeholder/400/304', text: 'City Lights' },\n    { image: '/api/placeholder/400/305', text: 'Snowy Peaks' },\n    { image: '/api/placeholder/400/306', text: 'Tropical Beach' },\n    { image: '/api/placeholder/400/307', text: 'Autumn Valley' }\n  ];\n\n  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900\">\n      {/* Header Section */}\n      <div className=\"relative z-10 pt-16 pb-8\">\n        <div className=\"max-w-4xl mx-auto px-6 text-center\">\n          <h1 className=\"text-5xl md:text-6xl font-bold text-white mb-6\">\n            Photography\n            <span className=\"bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent\"> Portfolio</span>\n          </h1>\n          <p className=\"text-xl text-gray-300 mb-4 max-w-2xl mx-auto\">\n            Explore my collection of landscape photography captured from around the world\n          </p>\n          <div className=\"flex items-center justify-center gap-2 text-gray-400\">\n            <svg className=\"w-5 h-5\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\" />\n              <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z\" />\n            </svg>\n            <span>Drag or scroll to navigate</span>\n          </div>\n        </div>\n      </div>\n\n      {/* Gallery Section */}\n      <div className=\"relative\">\n        {/* Background decoration */}\n        <div className=\"absolute inset-0 overflow-hidden\">\n          <div className=\"absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl\"></div>\n          <div className=\"absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl\"></div>\n        </div>\n\n        {/* Gallery Container */}\n        <div className=\"relative z-10 h-[600px] mx-4 md:mx-8\">\n          <CircularGallery\n            items={portfolioItems}\n            bend={2.5}\n            textColor=\"#e5e7eb\"\n            borderRadius={0.08}\n            font=\"bold 24px system-ui, -apple-system, sans-serif\"\n            scrollSpeed={2.5}\n            scrollEase={0.08}\n          />\n        </div>\n\n        {/* Stats Section */}\n        <div className=\"relative z-10 max-w-4xl mx-auto px-6 mt-16 pb-20\">\n          <div className=\"grid grid-cols-1 md:grid-cols-3 gap-8\">\n            <div className=\"text-center\">\n              ",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 834,
+      "outputTokens": 1024
+    },
+    {
+      "component": "InfiniteMenu",
+      "prompt": "basic-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport React from 'react';\nimport InfiniteMenu from './InfiniteMenu';\n\nconst Example = () => {\n  const menuItems = [\n    {\n      image: 'https://picsum.photos/512/512?random=1',\n      link: 'https://github.com',\n      title: 'GitHub',\n      description: 'Code collaboration platform for developers worldwide'\n    },\n    {\n      image: 'https://picsum.photos/512/512?random=2',\n      link: 'https://stackoverflow.com',\n      title: 'Stack Overflow',\n      description: 'Developer community for coding questions and answers'\n    },\n    {\n      image: 'https://picsum.photos/512/512?random=3',\n      link: 'https://dribbble.com',\n      title: 'Dribbble',\n      description: 'Creative community showcasing design work and inspiration'\n    },\n    {\n      image: 'https://picsum.photos/512/512?random=4',\n      link: 'https://behance.net',\n      title: 'Behance',\n      description: 'Portfolio platform for creative professionals'\n    },\n    {\n      image: 'https://picsum.photos/512/512?random=5',\n      link: 'https://codepen.io',\n      title: 'CodePen',\n      description: 'Frontend playground for HTML, CSS, and JavaScript'\n    },\n    {\n      image: 'https://picsum.photos/512/512?random=6',\n      link: 'https://figma.com',\n      title: 'Figma',\n      description: 'Collaborative design tool for teams and individuals'\n    },\n    {\n      image: 'https://picsum.photos/512/512?random=7',\n      link: 'https://notion.so',\n      title: 'Notion',\n      description: 'All-in-one workspace for notes, tasks, and collaboration'\n    },\n    {\n      image: 'https://picsum.photos/512/512?random=8',\n      link: 'https://vercel.com',\n      title: 'Vercel',\n      description: 'Platform for frontend deployment and collaboration'\n    }\n  ];\n\n  return (\n    <div className=\"w-full h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900\">\n      <InfiniteMenu \n        items={menuItems}\n        scale={1.2}\n      />\n    </div>\n  );\n};\n\nexport default Example;\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 12277,
+      "outputTokens": 642
+    },
+    {
+      "component": "InfiniteMenu",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport React from 'react';\nimport InfiniteMenu from './InfiniteMenu';\n\nexport default function Example() {\n  const menuItems = [\n    {\n      image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop',\n      link: '/explore',\n      title: 'Explore',\n      description: 'Discover new adventures and hidden gems around the world'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&h=300&fit=crop',\n      link: '/technology',\n      title: 'Technology',\n      description: 'Latest innovations and breakthroughs in tech industry'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',\n      link: '/nature',\n      title: 'Nature',\n      description: 'Beautiful landscapes and wildlife photography'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=300&fit=crop',\n      link: '/food',\n      title: 'Cuisine',\n      description: 'Delicious recipes and culinary experiences from around the globe'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',\n      link: '/sports',\n      title: 'Sports',\n      description: 'Athletic achievements and sporting events coverage'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop',\n      link: '/art',\n      title: 'Art & Culture',\n      description: 'Creative expressions and cultural heritage from various civilizations'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',\n      link: '/science',\n      title: 'Science',\n      description: 'Scientific discoveries and research breakthroughs'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1486312338219-ce68e2c6b13d?w=400&h=300&fit=crop',\n      link: '/business',\n      title: 'Business',\n      description: 'Market trends and entrepreneurial success stories'\n    }\n  ];\n\n  return (\n    <div style={{ \n      height: '600px', \n      position: 'relative',\n      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',\n      borderRadius: '12px',\n      overflow: 'hidden'\n    }}>\n      <InfiniteMenu \n        items={menuItems}\n        scale={1}\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 497,
+      "outputTokens": 811
+    },
+    {
+      "component": "InfiniteMenu",
+      "prompt": "prop-customization",
+      "condition": "raw-source-only",
+      "output": "Looking at the InfiniteMenu component, I can see it accepts `items` and `scale` props. Here's a React component that uses it with custom values:\n\n```tsx\nimport React from 'react';\nimport InfiniteMenu from './InfiniteMenu';\n\nconst Example: React.FC = () => {\n  const customItems = [\n    {\n      image: 'https://picsum.photos/900/900?random=1',\n      link: 'https://github.com',\n      title: 'GitHub',\n      description: 'Code repository and collaboration platform'\n    },\n    {\n      image: 'https://picsum.photos/900/900?random=2',\n      link: 'https://stackoverflow.com',\n      title: 'Stack Overflow',\n      description: 'Developer Q&A community'\n    },\n    {\n      image: 'https://picsum.photos/900/900?random=3',\n      link: 'https://developer.mozilla.org',\n      title: 'MDN',\n      description: 'Web development documentation'\n    },\n    {\n      image: 'https://picsum.photos/900/900?random=4',\n      link: 'https://reactjs.org',\n      title: 'React',\n      description: 'JavaScript library for building UIs'\n    },\n    {\n      image: 'https://picsum.photos/900/900?random=5',\n      link: 'https://typescript.org',\n      title: 'TypeScript',\n      description: 'Typed JavaScript at scale'\n    },\n    {\n      image: 'https://picsum.photos/900/900?random=6',\n      link: 'https://webgl.org',\n      title: 'WebGL',\n      description: '3D graphics for the web'\n    }\n  ];\n\n  return (\n    <div className=\"w-full h-screen bg-black\">\n      <InfiniteMenu \n        items={customItems}\n        scale={1.5}\n      />\n    </div>\n  );\n};\n\nexport default Example;\n```\n\nThis component:\n- Sets `items` to a custom array of 6 menu items with different websites/resources\n- Sets `scale` to `1.5` (larger than the default of `1.0`)\n- Wraps the InfiniteMenu in a full-screen container with a black background\n- Each item has proper `image`, `link`, `title`, and `description` properties as required by the MenuItem interface",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 12305,
+      "outputTokens": 602
+    },
+    {
+      "component": "InfiniteMenu",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport InfiniteMenu from './InfiniteMenu';\n\nexport default function Example() {\n  const menuItems = [\n    {\n      image: '/api/placeholder/300/200',\n      link: '/products',\n      title: 'Products',\n      description: 'Explore our latest product offerings and innovations'\n    },\n    {\n      image: '/api/placeholder/300/200',\n      link: '/services',\n      title: 'Services',\n      description: 'Professional services tailored to your needs'\n    },\n    {\n      image: '/api/placeholder/300/200',\n      link: '/about',\n      title: 'About Us',\n      description: 'Learn about our company history and mission'\n    },\n    {\n      image: '/api/placeholder/300/200',\n      link: '/contact',\n      title: 'Contact',\n      description: 'Get in touch with our team of experts'\n    },\n    {\n      image: '/api/placeholder/300/200',\n      link: '/blog',\n      title: 'Blog',\n      description: 'Read our latest insights and industry news'\n    },\n    {\n      image: '/api/placeholder/300/200',\n      link: '/careers',\n      title: 'Careers',\n      description: 'Join our growing team and make an impact'\n    }\n  ];\n\n  return (\n    <div style={{ height: '800px', position: 'relative' }}>\n      <InfiniteMenu \n        items={menuItems}\n        scale={1.2}\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 525,
+      "outputTokens": 390
+    },
+    {
+      "component": "InfiniteMenu",
+      "prompt": "complex-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport { useState } from 'react';\nimport InfiniteMenu from './InfiniteMenu';\n\nconst portfolioItems = [\n  {\n    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=900&fit=crop&crop=center',\n    link: 'https://github.com/example/ecommerce-platform',\n    title: 'E-Commerce Platform',\n    description: 'Full-stack Next.js application with Stripe payments and inventory management'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=900&fit=crop&crop=center',\n    link: 'https://github.com/example/data-dashboard',\n    title: 'Analytics Dashboard',\n    description: 'Real-time data visualization platform built with React and D3.js'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=900&h=900&fit=crop&crop=center',\n    link: 'https://github.com/example/mobile-app',\n    title: 'Mobile Banking App',\n    description: 'React Native fintech application with biometric authentication'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=900&h=900&fit=crop&crop=center',\n    link: 'https://github.com/example/ai-chatbot',\n    title: 'AI Chat Assistant',\n    description: 'Intelligent conversational AI powered by OpenAI GPT and custom training'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?w=900&h=900&fit=crop&crop=center',\n    link: 'https://github.com/example/blockchain-wallet',\n    title: 'Crypto Wallet',\n    description: 'Secure multi-chain cryptocurrency wallet with DeFi integration'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=900&h=900&fit=crop&crop=center',\n    link: 'https://github.com/example/iot-dashboard',\n    title: 'IoT Control Center',\n    description: 'Industrial IoT monitoring system with real-time sensor data streams'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&h=900&fit=crop&crop=center',\n    link: 'https://github.com/example/saas-platform',\n    title: 'SaaS Platform',\n    description: 'Multi-tenant business automation platform with advanced workflow engine'\n  },\n  {\n    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=900&fit=crop&crop=center',\n    link: 'https://github.com/example/social-network',\n    title: 'Social Network',\n    description: 'Professional networking platform with video calls and collaboration tools'\n  }\n];\n\nconst Example = () => {\n  const [isMenuOpen, setIsMenuOpen] = useState(false);\n\n  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900\">\n      {/* Header */}\n      <header className=\"relative z-50 px-6 py-8\">\n        <nav className=\"flex items-center justify-between max-w-7xl mx-auto\">\n          <div className=\"flex items-center space-x-2\">\n            <div className=\"w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-lg\"></div>\n            ",
+      "scores": {
+        "propCorrectness": 0.6666666666666666,
+        "importCorrectness": true,
+        "typescriptValid": false,
+        "overall": 0.5555555555555555
+      },
+      "inputTokens": 12297,
+      "outputTokens": 1024
+    },
+    {
+      "component": "InfiniteMenu",
+      "prompt": "complex-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport InfiniteMenu from './InfiniteMenu';\n\nexport default function Example() {\n  const menuItems = [\n    {\n      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=300&fit=crop',\n      link: '/analytics',\n      title: 'Analytics',\n      description: 'Track your performance metrics and insights'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',\n      link: '/projects',\n      title: 'Projects',\n      description: 'Manage and collaborate on your projects'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop',\n      link: '/team',\n      title: 'Team',\n      description: 'Connect with your team members'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop',\n      link: '/settings',\n      title: 'Settings',\n      description: 'Configure your workspace preferences'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop',\n      link: '/finance',\n      title: 'Finance',\n      description: 'Monitor budgets and financial reports'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop',\n      link: '/calendar',\n      title: 'Calendar',\n      description: 'Schedule meetings and track deadlines'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop',\n      link: '/resources',\n      title: 'Resources',\n      description: 'Access documentation and learning materials'\n    },\n    {\n      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop',\n      link: '/support',\n      title: 'Support',\n      description: 'Get help and contact our support team'\n    }\n  ];\n\n  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900\">\n      {/* Header */}\n      <div className=\"relative z-10 pt-8 pb-4\">\n        <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\">\n          <div className=\"text-center\">\n            <h1 className=\"text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4\">\n              Command Center\n            </h1>\n            <p className=\"text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed\">\n              Navigate your workspace with our interactive 3D menu. \n              <span className=\"block mt-2 text-lg text-purple-300\">\n                Drag to rotate • Click to explore\n              </span>\n            </p>\n          </div>\n        </div>\n      </div>\n\n      {/* 3D Menu Section */}\n      <div className=\"relative z-10 px-4 sm:px-6 lg:px-8\">\n        <div className=\"max-w-6xl mx-auto\">\n          <div \n            className=\"relative bg-black/20 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl overflow-hidden\"\n            style={{ height: '700px' }}\n          >\n            {/* Ambient lighting overlay */}\n            <div",
+      "scores": {
+        "propCorrectness": 0.3333333333333333,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.7777777777777777
+      },
+      "inputTokens": 517,
+      "outputTokens": 1024
+    },
+    {
+      "component": "SoftAurora",
+      "prompt": "basic-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport SoftAurora from './SoftAurora';\n\nexport default function Example() {\n  return (\n    <div className=\"relative min-h-screen bg-black overflow-hidden\">\n      {/* Aurora Background */}\n      <div className=\"absolute inset-0\">\n        <SoftAurora\n          speed={0.8}\n          scale={2.0}\n          brightness={0.9}\n          color1=\"#00ffff\"\n          color2=\"#ff00ff\"\n          noiseFrequency={1.8}\n          noiseAmplitude={0.8}\n          bandHeight={0.4}\n          bandSpread={1.2}\n          octaveDecay={0.15}\n          layerOffset={2.5}\n          colorSpeed={0.7}\n          enableMouseInteraction={true}\n          mouseInfluence={0.3}\n        />\n      </div>\n\n      {/* Content */}\n      <div className=\"relative z-10 flex flex-col items-center justify-center min-h-screen p-8\">\n        <div className=\"text-center space-y-6 max-w-4xl\">\n          <h1 className=\"text-6xl md:text-8xl font-bold text-white/90 leading-tight\">\n            Aurora\n          </h1>\n          \n          <p className=\"text-xl md:text-2xl text-white/70 leading-relaxed\">\n            Experience the mesmerizing dance of light with our interactive aurora effect.\n            Move your cursor to influence the ethereal patterns.\n          </p>\n\n          <div className=\"flex flex-wrap justify-center gap-4 mt-12\">\n            <button className=\"px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white font-medium hover:bg-white/20 transition-all duration-300\">\n              Get Started\n            </button>\n            \n            <button className=\"px-8 py-4 bg-transparent border border-white/30 rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300\">\n              Learn More\n            </button>\n          </div>\n        </div>\n\n        {/* Feature Cards */}\n        <div className=\"grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-5xl w-full\">\n          <div className=\"bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300\">\n            <div className=\"w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4\">\n              <div className=\"w-6 h-6 bg-cyan-400 rounded-full opacity-60\"></div>\n            </div>\n            <h3 className=\"text-xl font-semibold text-white mb-3\">Interactive</h3>\n            <p className=\"text-white/60 leading-relaxed\">\n              Responsive to mouse movement, creating a dynamic and engaging visual experience.\n            </p>\n          </div>\n\n          <div className=\"bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300\">\n            <div className=\"w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mb-4\">\n              <div className=\"w-6 h-6 bg-purple-400 rounded-full opacity-60\"></div>\n            </div>\n            <h3 className=\"text-xl font-semibold text-white mb-3\">Customizable</h3>\n            <p className=\"text-white/60 leading-relaxed\">\n              Full control over colors, speed, scale, and various visual parameters.\n            </p>\n          </div>\n\n          <div className=\"bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300\">\n            <div className=\"w-12 h-12 bg-pink-400/20 ",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 3523,
+      "outputTokens": 1024
+    },
+    {
+      "component": "SoftAurora",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport SoftAurora from './SoftAurora';\n\nexport default function Example() {\n  return (\n    <div className=\"relative w-full h-screen overflow-hidden\">\n      <SoftAurora \n        color1=\"#f7f7f7\" \n        color2=\"#e100ff\" \n        speed={0.6}\n        scale={1.5}\n        brightness={1}\n        enableMouseInteraction={true}\n        mouseInfluence={0.25}\n      />\n      \n      {/* Example content overlaid on the aurora */}\n      <div className=\"absolute inset-0 flex items-center justify-center z-10\">\n        <div className=\"text-center text-white\">\n          <h1 className=\"text-6xl font-bold mb-6 drop-shadow-lg\">\n            Aurora Dreams\n          </h1>\n          <p className=\"text-xl mb-8 max-w-2xl mx-auto drop-shadow-md opacity-90\">\n            Experience the mesmerizing beauty of the northern lights with this \n            interactive WebGL aurora effect. Move your cursor to influence the flow.\n          </p>\n          <button className=\"px-8 py-3 bg-white/20 backdrop-blur-sm rounded-lg border border-white/30 hover:bg-white/30 transition-all duration-300\">\n            Explore\n          </button>\n        </div>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5333333333333333,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.8444444444444444
+      },
+      "inputTokens": 967,
+      "outputTokens": 359
+    },
+    {
+      "component": "SoftAurora",
+      "prompt": "prop-customization",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport SoftAurora from './SoftAurora';\n\nexport default function Example() {\n  return (\n    <div className=\"w-full h-screen\">\n      <SoftAurora\n        speed={1.2}\n        scale={2.8}\n        brightness={0.7}\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.26666666666666666,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.7555555555555555
+      },
+      "inputTokens": 3573,
+      "outputTokens": 91
+    },
+    {
+      "component": "SoftAurora",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport SoftAurora from './SoftAurora';\n\nexport default function Example() {\n  return (\n    <div style={{ width: '100%', height: '100vh' }}>\n      <SoftAurora \n        speed={0.8}\n        scale={2.2}\n        brightness={1.3}\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.26666666666666666,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.7555555555555555
+      },
+      "inputTokens": 1017,
+      "outputTokens": 99
+    },
+    {
+      "component": "SoftAurora",
+      "prompt": "complex-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport { useState, useEffect } from 'react';\nimport SoftAurora from './SoftAurora';\nimport { ChevronDownIcon, PlayIcon, PauseIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';\n\nexport default function Example() {\n  const [isPlaying, setIsPlaying] = useState(true);\n  const [showSettings, setShowSettings] = useState(false);\n  const [settings, setSettings] = useState({\n    speed: 0.6,\n    brightness: 1.0,\n    scale: 1.5,\n    color1: '#f7f7f7',\n    color2: '#e100ff',\n    enableMouseInteraction: true,\n    mouseInfluence: 0.25\n  });\n\n  const [stats] = useState([\n    { label: 'Active Users', value: '2,847', change: '+12%', trend: 'up' },\n    { label: 'Revenue', value: '$94,521', change: '+8%', trend: 'up' },\n    { label: 'Conversion Rate', value: '3.24%', change: '-2%', trend: 'down' },\n    { label: 'Growth Rate', value: '24.8%', change: '+5%', trend: 'up' }\n  ]);\n\n  useEffect(() => {\n    const interval = setInterval(() => {\n      // Simulate real-time data updates\n    }, 5000);\n    return () => clearInterval(interval);\n  }, []);\n\n  return (\n    <div className=\"min-h-screen bg-gray-950 text-white\">\n      {/* Navigation */}\n      <nav className=\"border-b border-gray-800 bg-gray-900/50 backdrop-blur-sm\">\n        <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\">\n          <div className=\"flex justify-between h-16\">\n            <div className=\"flex items-center\">\n              <div className=\"flex-shrink-0\">\n                <h1 className=\"text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent\">\n                  Aurora Analytics\n                </h1>\n              </div>\n            </div>\n            <div className=\"flex items-center space-x-4\">\n              <button\n                onClick={() => setShowSettings(!showSettings)}\n                className=\"p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors\"\n              >\n                <Cog6ToothIcon className=\"w-5 h-5\" />\n              </button>\n              <button\n                onClick={() => setIsPlaying(!isPlaying)}\n                className=\"flex items-center space-x-2 px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors\"\n              >\n                {isPlaying ? (\n                  <PauseIcon className=\"w-4 h-4\" />\n                ) : (\n                  <PlayIcon className=\"w-4 h-4\" />\n                )}\n                <span className=\"text-sm\">{isPlaying ? 'Pause' : 'Play'}</span>\n              </button>\n            </div>\n          </div>\n        </div>\n      </nav>\n\n      <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\">\n        {/* Hero Section with Aurora Background */}\n        <div className=\"relative overflow-hidden rounded-2xl mb-8\">\n          {/* Aurora Background */}\n          <div className=\"absolute inset-0 h-80\">\n            {isPlaying && (\n              <SoftAurora\n                speed={settings.speed}\n                brightness={settings.brightness}\n                scale={settings.scale}\n                color1={settings.color1}\n                color2={settings.color2}\n                enableMouseInteraction={settings.enableMouseInteraction}\n                mouseInfluence={settings.mouseInfluence}\n              />\n            )}\n          </div>\n          \n          {/* Content Overlay",
+      "scores": {
+        "propCorrectness": 0.5333333333333333,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.8444444444444444
+      },
+      "inputTokens": 3543,
+      "outputTokens": 1024
+    },
+    {
+      "component": "SoftAurora",
+      "prompt": "complex-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport SoftAurora from './SoftAurora';\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-gray-900\">\n      {/* Hero Section with Aurora Background */}\n      <section className=\"relative h-screen overflow-hidden\">\n        {/* Aurora Background */}\n        <div className=\"absolute inset-0\">\n          <SoftAurora \n            color1=\"#4c1d95\" \n            color2=\"#7c3aed\" \n            speed={0.4}\n            brightness={0.8}\n            noiseFrequency={1.8}\n            bandHeight={0.7}\n            enableMouseInteraction={true}\n            mouseInfluence={0.3}\n          />\n        </div>\n        \n        {/* Content Overlay */}\n        <div className=\"relative z-10 flex items-center justify-center h-full px-6\">\n          <div className=\"text-center max-w-4xl\">\n            {/* Logo/Brand */}\n            <div className=\"mb-8\">\n              <div className=\"w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full mx-auto flex items-center justify-center border border-white/20\">\n                <svg className=\"w-8 h-8 text-white\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n                  <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M13 10V3L4 14h7v7l9-11h-7z\" />\n                </svg>\n              </div>\n            </div>\n\n            {/* Hero Text */}\n            <h1 className=\"text-5xl md:text-7xl font-bold text-white mb-6 leading-tight\">\n              Aurora\n              <span className=\"block bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent\">\n                Analytics\n              </span>\n            </h1>\n            \n            <p className=\"text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed\">\n              Illuminate your data with powerful insights and beautiful visualizations\n            </p>\n\n            {/* CTA Buttons */}\n            <div className=\"flex flex-col sm:flex-row gap-4 justify-center items-center\">\n              <button className=\"px-8 py-4 bg-white text-purple-900 font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-lg backdrop-blur-sm\">\n                Start Free Trial\n              </button>\n              <button className=\"px-8 py-4 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-colors border border-white/20 backdrop-blur-sm\">\n                Watch Demo\n              </button>\n            </div>\n\n            {/* Social Proof */}\n            <div className=\"mt-12 text-gray-400\">\n              <p className=\"mb-4\">Trusted by leading companies</p>\n              <div className=\"flex justify-center items-center gap-8 opacity-60\">\n                {['TechCorp', 'DataFlow', 'Nexus'].map((company) => (\n                  <div key={company} className=\"text-lg font-medium\">\n                    {company}\n                  </div>\n                ))}\n              </div>\n            </div>\n          </div>\n        </div>\n\n        {/* Scroll Indicator */}\n        <div className=\"absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10\">\n          <div className=\"flex flex-col items-center text-white/60 animate-bounce\">\n            <span className=\"text-sm mb-2\">Scroll to explore</span>\n            <svg className=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n              <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M19 14l-7 7m0 0l-7-7m7 7",
+      "scores": {
+        "propCorrectness": 0.6,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.8666666666666667
+      },
+      "inputTokens": 987,
+      "outputTokens": 1024
+    },
+    {
+      "component": "ModelViewer",
+      "prompt": "basic-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport React from 'react';\nimport ModelViewer from './ModelViewer';\n\nconst Example: React.FC = () => {\n  const handleModelLoaded = () => {\n    console.log('3D model has finished loading!');\n  };\n\n  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 p-8\">\n      <div className=\"max-w-6xl mx-auto\">\n        <h1 className=\"text-4xl font-bold text-white mb-8 text-center\">\n          3D Model Viewer Examples\n        </h1>\n        \n        <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8\">\n          {/* Example 1: Basic GLB model */}\n          <div className=\"bg-white/10 backdrop-blur-sm rounded-lg p-6\">\n            <h2 className=\"text-xl font-semibold text-white mb-4\">Basic Model</h2>\n            <ModelViewer\n              url=\"/models/helmet.glb\"\n              width={300}\n              height={300}\n              environmentPreset=\"studio\"\n              enableMouseParallax={true}\n              enableManualRotation={true}\n              enableHoverRotation={false}\n              autoFrame={true}\n              onModelLoaded={handleModelLoaded}\n            />\n            <p className=\"text-gray-300 text-sm mt-4\">\n              A basic 3D helmet model with studio lighting and mouse interaction.\n            </p>\n          </div>\n\n          {/* Example 2: Auto-rotating model with fade-in */}\n          <div className=\"bg-white/10 backdrop-blur-sm rounded-lg p-6\">\n            <h2 className=\"text-xl font-semibold text-white mb-4\">Auto-Rotating</h2>\n            <ModelViewer\n              url=\"/models/duck.glb\"\n              width={300}\n              height={300}\n              environmentPreset=\"sunset\"\n              autoRotate={true}\n              autoRotateSpeed={0.5}\n              fadeIn={true}\n              enableManualRotation={false}\n              enableHoverRotation={true}\n              defaultRotationX={0}\n              defaultRotationY={0}\n              ambientIntensity={0.4}\n              keyLightIntensity={1.2}\n            />\n            <p className=\"text-gray-300 text-sm mt-4\">\n              An auto-rotating duck with sunset environment and fade-in effect.\n            </p>\n          </div>\n\n          {/* Example 3: Customized lighting and positioning */}\n          <div className=\"bg-white/10 backdrop-blur-sm rounded-lg p-6\">\n            <h2 className=\"text-xl font-semibold text-white mb-4\">Custom Setup</h2>\n            <ModelViewer\n              url=\"/models/robot.glb\"\n              width={300}\n              height={300}\n              environmentPreset=\"city\"\n              modelXOffset={0.1}\n              modelYOffset={-0.05}\n              defaultRotationX={-30}\n              defaultRotationY={45}\n              defaultZoom={0.8}\n              minZoomDistance={0.3}\n              maxZoomDistance={3}\n              ambientIntensity={0.2}\n              keyLightIntensity={1.5}\n              fillLightIntensity={0.7}\n              rimLightIntensity={1.0}\n              enableMouseParallax={true}\n              enableHoverRotation={true}\n              showScreenshotButton={true}\n            />\n            <p className=\"text-gray-300 text-sm mt-4\">\n              A robot model with custom lighting, positioning, and screenshot capability.\n            </p>\n          </div>\n\n          {/* Example 4: Large showcase model */}\n          <div className=\"bg-white/10 backdrop-blur-sm rounded-lg p-6 md:col-span-2 lg:col-span-3\">\n            <h2 className=\"text-2xl font-semibold text-white mb-4 text-center\">\n              ",
+      "scores": {
+        "propCorrectness": 0.95,
+        "importCorrectness": true,
+        "typescriptValid": false,
+        "overall": 0.65
+      },
+      "inputTokens": 5845,
+      "outputTokens": 1024
+    },
+    {
+      "component": "ModelViewer",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport ModelViewer from './ModelViewer';\n\nexport default function Example() {\n  const handleModelLoaded = () => {\n    console.log('3D model has finished loading');\n  };\n\n  return (\n    <div style={{ padding: '2rem', backgroundColor: '#f5f5f5' }}>\n      <h1 style={{ textAlign: 'center', marginBottom: '2rem', color: '#333' }}>\n        3D Model Viewer Examples\n      </h1>\n      \n      <div style={{ \n        display: 'grid', \n        gap: '3rem', \n        maxWidth: '1200px', \n        margin: '0 auto' \n      }}>\n        {/* Basic Model Viewer */}\n        <div style={{ textAlign: 'center' }}>\n          <h2 style={{ marginBottom: '1rem', color: '#555' }}>\n            Basic Model Viewer\n          </h2>\n          <p style={{ marginBottom: '1.5rem', color: '#666' }}>\n            A simple 3D model viewer with default settings\n          </p>\n          <ModelViewer\n            url=\"/models/example-model.glb\"\n            width={400}\n            height={400}\n            environmentPreset=\"studio\"\n            onModelLoaded={handleModelLoaded}\n          />\n        </div>\n\n        {/* Interactive Product Viewer */}\n        <div style={{ textAlign: 'center' }}>\n          <h2 style={{ marginBottom: '1rem', color: '#555' }}>\n            Interactive Product Viewer\n          </h2>\n          <p style={{ marginBottom: '1.5rem', color: '#666' }}>\n            Enhanced viewer with auto-rotation, mouse parallax, and hover effects\n          </p>\n          <ModelViewer\n            url=\"/models/product.glb\"\n            width={600}\n            height={500}\n            enableMouseParallax={true}\n            enableHoverRotation={true}\n            autoRotate={true}\n            autoRotateSpeed={0.2}\n            environmentPreset=\"sunset\"\n            fadeIn={true}\n            showScreenshotButton={true}\n            onModelLoaded={handleModelLoaded}\n          />\n        </div>\n\n        {/* Custom Positioned Model */}\n        <div style={{ textAlign: 'center' }}>\n          <h2 style={{ marginBottom: '1rem', color: '#555' }}>\n            Custom Positioned Model\n          </h2>\n          <p style={{ marginBottom: '1.5rem', color: '#666' }}>\n            Model with custom rotation, zoom, and positioning\n          </p>\n          <ModelViewer\n            url=\"/models/custom.glb\"\n            width={500}\n            height={450}\n            modelXOffset={0.1}\n            modelYOffset={-0.2}\n            defaultRotationX={-30}\n            defaultRotationY={45}\n            defaultZoom={0.8}\n            environmentPreset=\"forest\"\n            enableManualRotation={true}\n            enableManualZoom={true}\n            autoFrame={true}\n            onModelLoaded={handleModelLoaded}\n          />\n        </div>\n      </div>\n\n      <div style={{ \n        marginTop: '3rem', \n        padding: '2rem', \n        backgroundColor: '#fff', \n        borderRadius: '8px',\n        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'\n      }}>\n        <h3 style={{ marginBottom: '1rem', color: '#333' }}>\n          Usage Instructions\n        </h3>\n        <ul style={{ color: '#666', lineHeight: '1.6' }}>\n          <li>Drag to rotate the model (when manual rotation is enabled)</li>\n          <li>Scroll to zoom in and out (when manual zoom is enabled)</li>\n          <li>Move your mouse around for parallax effects (when enabled)</li>\n          <li>Click the screenshot button to capture the current view</li>\n          <li>Models support glTF/GLB, FBX, and OBJ formats</li>\n        </ul>\n      </div>\n    </div>",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 1282,
+      "outputTokens": 1024
+    },
+    {
+      "component": "ModelViewer",
+      "prompt": "prop-customization",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport ModelViewer from './ModelViewer';\n\nconst Example = () => {\n  return (\n    <div className=\"p-8\">\n      <h1 className=\"text-2xl font-bold mb-4\">Custom ModelViewer Example</h1>\n      <ModelViewer\n        url=\"/path/to/your/model.glb\"\n        width={600}\n        height={500}\n        modelXOffset={0.1}\n      />\n    </div>\n  );\n};\n\nexport default Example;\n```",
+      "scores": {
+        "propCorrectness": 0.25,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.75
+      },
+      "inputTokens": 5893,
+      "outputTokens": 128
+    },
+    {
+      "component": "ModelViewer",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport ModelViewer from './ModelViewer';\n\nexport default function Example() {\n  return (\n    <ModelViewer\n      url=\"/models/example.glb\"\n      width={600}\n      height={500}\n      modelXOffset={0.1}\n    />\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.25,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.75
+      },
+      "inputTokens": 1330,
+      "outputTokens": 76
+    },
+    {
+      "component": "ModelViewer",
+      "prompt": "complex-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport { useState } from 'react';\nimport ModelViewer from './ModelViewer';\n\nconst models = [\n  {\n    id: 'robot',\n    name: 'Retro Robot',\n    url: 'https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb',\n    description: 'An expressive retro-style robot with smooth animations',\n    category: 'Characters'\n  },\n  {\n    id: 'helmet',\n    name: 'Damaged Helmet',\n    url: 'https://threejs.org/examples/models/gltf/DamagedHelmet/DamagedHelmet.gltf',\n    description: 'A battle-worn sci-fi helmet with detailed texturing',\n    category: 'Props'\n  },\n  {\n    id: 'duck',\n    name: 'Rubber Duck',\n    url: 'https://threejs.org/examples/models/gltf/Duck/Duck.gltf',\n    description: 'A classic yellow rubber duck model',\n    category: 'Objects'\n  }\n];\n\nconst presets = [\n  { value: 'forest', label: '🌲 Forest', description: 'Natural woodland lighting' },\n  { value: 'sunset', label: '🌅 Sunset', description: 'Warm golden hour ambiance' },\n  { value: 'city', label: '🏙️ City', description: 'Urban environment lighting' },\n  { value: 'studio', label: '💡 Studio', description: 'Professional studio setup' },\n  { value: 'night', label: '🌙 Night', description: 'Cool moonlit atmosphere' },\n  { value: 'none', label: '⚫ None', description: 'No environment lighting' }\n];\n\nconst Example = () => {\n  const [selectedModel, setSelectedModel] = useState(models[0]);\n  const [environment, setEnvironment] = useState<'city' | 'sunset' | 'night' | 'dawn' | 'studio' | 'apartment' | 'forest' | 'park' | 'none'>('forest');\n  const [autoRotate, setAutoRotate] = useState(true);\n  const [showControls, setShowControls] = useState(false);\n  const [isLoading, setIsLoading] = useState(true);\n  const [viewerSettings, setViewerSettings] = useState({\n    enableMouseParallax: true,\n    enableHoverRotation: true,\n    autoRotateSpeed: 0.35,\n    ambientIntensity: 0.3,\n    keyLightIntensity: 1\n  });\n\n  const handleModelLoad = () => {\n    setIsLoading(false);\n  };\n\n  const handleModelChange = (model: typeof models[0]) => {\n    setIsLoading(true);\n    setSelectedModel(model);\n  };\n\n  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900\">\n      {/* Header */}\n      <header className=\"relative z-10 px-6 py-8\">\n        <div className=\"max-w-7xl mx-auto\">\n          <div className=\"text-center\">\n            <h1 className=\"text-4xl md:text-6xl font-bold text-white mb-4\">\n              3D Model Gallery\n            </h1>\n            <p className=\"text-xl text-slate-300 max-w-2xl mx-auto\">\n              Explore interactive 3D models with customizable lighting and environments. \n              Click and drag to rotate, scroll to zoom.\n            </p>\n          </div>\n        </div>\n      </header>\n\n      <div className=\"max-w-7xl mx-auto px-6 pb-12\">\n        <div className=\"grid lg:grid-cols-3 gap-8\">\n          {/* Main Viewer */}\n          <div className=\"lg:col-span-2\">\n            <div className=\"bg-slate-800/50 backdrop-blur-sm rounded-2xl border",
+      "scores": {
+        "propCorrectness": 0.3,
+        "importCorrectness": true,
+        "typescriptValid": false,
+        "overall": 0.43333333333333335
+      },
+      "inputTokens": 5865,
+      "outputTokens": 1024
+    },
+    {
+      "component": "ModelViewer",
+      "prompt": "complex-usage",
+      "condition": "descriptor-only",
+      "output": "```tsx\nimport React, { useState } from 'react';\nimport ModelViewer from './ModelViewer';\nimport { Camera, RotateCcw, ZoomIn, ZoomOut, Settings } from 'lucide-react';\n\nexport default function Example() {\n  const [selectedModel, setSelectedModel] = useState('/models/car.glb');\n  const [environment, setEnvironment] = useState<'city' | 'sunset' | 'night' | 'dawn' | 'studio' | 'apartment' | 'forest' | 'park' | 'none'>('studio');\n  const [autoRotate, setAutoRotate] = useState(false);\n  const [showSettings, setShowSettings] = useState(false);\n\n  const models = [\n    { name: 'Sports Car', url: '/models/car.glb', category: 'Automotive' },\n    { name: 'Gaming Chair', url: '/models/chair.glb', category: 'Furniture' },\n    { name: 'Sneaker', url: '/models/shoe.glb', category: 'Fashion' },\n    { name: 'Smartphone', url: '/models/phone.glb', category: 'Electronics' },\n  ];\n\n  const environments = [\n    { name: 'Studio', value: 'studio' as const },\n    { name: 'City', value: 'city' as const },\n    { name: 'Sunset', value: 'sunset' as const },\n    { name: 'Forest', value: 'forest' as const },\n    { name: 'Night', value: 'night' as const },\n  ];\n\n  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-gray-50 to-gray-100\">\n      {/* Header */}\n      <div className=\"bg-white shadow-sm border-b\">\n        <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\">\n          <div className=\"flex justify-between items-center py-6\">\n            <div>\n              <h1 className=\"text-3xl font-bold text-gray-900\">3D Product Gallery</h1>\n              <p className=\"text-gray-600 mt-1\">Explore our collection in interactive 3D</p>\n            </div>\n            <button\n              onClick={() => setShowSettings(!showSettings)}\n              className=\"flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors\"\n            >\n              <Settings className=\"w-4 h-4\" />\n              Settings\n            </button>\n          </div>\n        </div>\n      </div>\n\n      <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\">\n        <div className=\"grid grid-cols-1 lg:grid-cols-4 gap-8\">\n          {/* Model Selection Sidebar */}\n          <div className=\"lg:col-span-1\">\n            <div className=\"bg-white rounded-xl shadow-sm border p-6\">\n              <h2 className=\"text-lg font-semibold text-gray-900 mb-4\">Models</h2>\n              <div className=\"space-y-2\">\n                {models.map((model) => (\n                  <button\n                    key={model.url}\n                    onClick={() => setSelectedModel(model.url)}\n                    className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${\n                      selectedModel === model.url\n                        ? 'bg-blue-50 border border-blue-200 text-blue-700'\n                        : 'hover:bg-gray-50 text-gray-700'\n                    }`}\n                  >\n                    <div className=\"font-medium\">{model.name}</div>\n                    <div className=\"text-sm text-gray-500\">{model.category}</div>\n                  </button>\n                ))}\n              </div>\n            </div>\n\n            {/* Settings Panel */}\n            {showSettings && (\n              <div className",
+      "scores": {
+        "propCorrectness": 0.15,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.7166666666666667
+      },
+      "inputTokens": 1302,
+      "outputTokens": 1024
+    },
+    {
+      "component": "ShapeGrid",
+      "prompt": "basic-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport React from 'react';\nimport ShapeGrid from './ShapeGrid';\n\nconst Example: React.FC = () => {\n  return (\n    <div className=\"min-h-screen bg-gray-900 relative overflow-hidden\">\n      {/* ShapeGrid as background */}\n      <div className=\"absolute inset-0\">\n        <ShapeGrid\n          shape=\"hexagon\"\n          direction=\"diagonal\"\n          speed={0.5}\n          borderColor=\"#444\"\n          squareSize={60}\n          hoverFillColor=\"#3b82f6\"\n          hoverTrailAmount={8}\n        />\n      </div>\n\n      {/* Content overlay */}\n      <div className=\"relative z-10 flex flex-col items-center justify-center min-h-screen px-8\">\n        <div className=\"max-w-4xl mx-auto text-center\">\n          <h1 className=\"text-6xl font-bold text-white mb-6 leading-tight\">\n            Interactive\n            <span className=\"block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600\">\n              Shape Grid\n            </span>\n          </h1>\n          \n          <p className=\"text-xl text-gray-300 mb-8 leading-relaxed\">\n            Move your cursor around to interact with the animated hexagonal grid.\n            The shapes respond to your mouse movement with a beautiful trailing effect.\n          </p>\n\n          <div className=\"flex flex-col sm:flex-row gap-4 justify-center mb-12\">\n            <button className=\"px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200\">\n              Get Started\n            </button>\n            <button className=\"px-8 py-3 border border-gray-400 hover:border-white text-gray-300 hover:text-white rounded-lg font-medium transition-colors duration-200\">\n              Learn More\n            </button>\n          </div>\n\n          <div className=\"grid grid-cols-1 md:grid-cols-3 gap-8 text-left\">\n            <div className=\"bg-black/20 backdrop-blur-sm rounded-xl p-6 border border-gray-700\">\n              <div className=\"w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4\">\n                <svg className=\"w-6 h-6 text-blue-400\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n                  <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M13 10V3L4 14h7v7l9-11h-7z\" />\n                </svg>\n              </div>\n              <h3 className=\"text-xl font-semibold text-white mb-3\">Interactive</h3>\n              <p className=\"text-gray-400 leading-relaxed\">\n                Responsive grid that reacts to mouse movement with smooth animations and hover effects.\n              </p>\n            </div>\n\n            <div className=\"bg-black/20 backdrop-blur-sm rounded-xl p-6 border border-gray-700\">\n              <div className=\"w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4\">\n                <svg className=\"w-6 h-6 text-purple-400\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n                  <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z\" />\n                </svg>\n              </div>\n              ",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": false,
+        "overall": 0.6666666666666666
+      },
+      "inputTokens": 4896,
+      "outputTokens": 1024
+    },
+    {
+      "component": "ShapeGrid",
+      "prompt": "basic-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport ShapeGrid from './ShapeGrid';\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-black text-white relative\">\n      {/* ShapeGrid background */}\n      <div className=\"absolute inset-0\">\n        <ShapeGrid \n          direction=\"diagonal\"\n          speed={1}\n          borderColor=\"#333\"\n          squareSize={40}\n          hoverFillColor=\"#666\"\n          shape=\"square\"\n          hoverTrailAmount={0}\n        />\n      </div>\n      \n      {/* Content overlay */}\n      <div className=\"relative z-10 flex items-center justify-center min-h-screen p-8\">\n        <div className=\"max-w-2xl text-center\">\n          <h1 className=\"text-4xl font-bold mb-6\">\n            Animated Shape Grid\n          </h1>\n          <p className=\"text-lg mb-8 opacity-90\">\n            Move your mouse over the background to see the interactive hover effects. \n            The grid animates diagonally with smooth motion.\n          </p>\n          <div className=\"space-y-4 text-sm opacity-75\">\n            <p>• Hover over shapes to see them fill with color</p>\n            <p>• Grid animates continuously in the chosen direction</p>\n            <p>• Fully customizable shapes and colors</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 703,
+      "outputTokens": 369
+    },
+    {
+      "component": "ShapeGrid",
+      "prompt": "prop-customization",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport React from 'react';\nimport ShapeGrid from './ShapeGrid';\n\nconst Example: React.FC = () => {\n  return (\n    <div className=\"w-full h-screen\">\n      <ShapeGrid\n        direction=\"diagonal\"\n        speed={2.5}\n        borderColor=\"#4a90e2\"\n      />\n    </div>\n  );\n};\n\nexport default Example;\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.8333333333333334
+      },
+      "inputTokens": 4943,
+      "outputTokens": 103
+    },
+    {
+      "component": "ShapeGrid",
+      "prompt": "prop-customization",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport ShapeGrid from './ShapeGrid';\n\nexport default function Example() {\n  return (\n    <div style={{ width: '100%', height: '400px' }}>\n      <ShapeGrid \n        direction=\"diagonal\"\n        speed={0.8}\n        borderColor=\"#555\"\n      />\n    </div>\n  );\n}\n```",
+      "scores": {
+        "propCorrectness": 0.5,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 0.8333333333333334
+      },
+      "inputTokens": 750,
+      "outputTokens": 90
+    },
+    {
+      "component": "ShapeGrid",
+      "prompt": "complex-usage",
+      "condition": "raw-source-only",
+      "output": "```tsx\nimport React, { useState } from 'react';\nimport ShapeGrid from './ShapeGrid';\nimport { ChevronDownIcon, PlayIcon, PauseIcon } from '@heroicons/react/24/outline';\n\nconst Example: React.FC = () => {\n  const [isPlaying, setIsPlaying] = useState(true);\n  const [currentShape, setCurrentShape] = useState<'square' | 'hexagon' | 'circle' | 'triangle'>('hexagon');\n  const [currentDirection, setCurrentDirection] = useState<'diagonal' | 'up' | 'right' | 'down' | 'left'>('diagonal');\n  const [speed, setSpeed] = useState(2);\n\n  const shapes = [\n    { value: 'hexagon' as const, label: 'Hexagon' },\n    { value: 'square' as const, label: 'Square' },\n    { value: 'circle' as const, label: 'Circle' },\n    { value: 'triangle' as const, label: 'Triangle' },\n  ];\n\n  const directions = [\n    { value: 'diagonal' as const, label: 'Diagonal' },\n    { value: 'right' as const, label: 'Right' },\n    { value: 'left' as const, label: 'Left' },\n    { value: 'up' as const, label: 'Up' },\n    { value: 'down' as const, label: 'Down' },\n  ];\n\n  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900\">\n      {/* Background Grid */}\n      <div className=\"absolute inset-0\">\n        <ShapeGrid\n          shape={currentShape}\n          direction={currentDirection}\n          speed={isPlaying ? speed : 0}\n          borderColor=\"#4c1d95\"\n          hoverFillColor=\"rgba(147, 51, 234, 0.3)\"\n          squareSize={60}\n          hoverTrailAmount={8}\n        />\n      </div>\n\n      {/* Content Overlay */}\n      <div className=\"relative z-10 min-h-screen flex flex-col\">\n        {/* Header */}\n        <header className=\"p-6\">\n          <nav className=\"max-w-7xl mx-auto flex items-center justify-between\">\n            <div className=\"flex items-center space-x-4\">\n              <div className=\"w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center\">\n                <span className=\"text-white font-bold text-lg\">G</span>\n              </div>\n              <span className=\"text-white font-semibold text-xl\">GridMotion</span>\n            </div>\n            \n            <div className=\"hidden md:flex items-center space-x-8\">\n              <a href=\"#\" className=\"text-gray-300 hover:text-white transition-colors\">Features</a>\n              <a href=\"#\" className=\"text-gray-300 hover:text-white transition-colors\">Pricing</a>\n              <a href=\"#\" className=\"text-gray-300 hover:text-white transition-colors\">About</a>\n              <button className=\"bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors\">\n                Get Started\n              </button>\n            </div>\n          </nav>\n        </header>\n\n        {/* Main Content */}\n        <main className=\"flex-1 flex items-center justify-center p-6\">\n          <div className=\"max-w-4xl mx-auto text-center\">\n            <h1 className=\"text-5xl md:text-7xl font-bold text-white mb-6 leading-tight\">\n              Dynamic\n              <span className=\"bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent\">\n                {' '}Grid{' '}\n              </span>\n              Animations\n            </h1>\n            \n            <p className=\"text-",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": false,
+        "overall": 0.6666666666666666
+      },
+      "inputTokens": 4916,
+      "outputTokens": 1024
+    },
+    {
+      "component": "ShapeGrid",
+      "prompt": "complex-usage",
+      "condition": "descriptor-only",
+      "output": "```jsx\nimport ShapeGrid from './ShapeGrid';\n\nexport default function Example() {\n  return (\n    <div className=\"min-h-screen bg-gray-900 text-white\">\n      {/* Hero Section with ShapeGrid Background */}\n      <section className=\"relative h-screen flex items-center justify-center overflow-hidden\">\n        {/* Background Grid */}\n        <div className=\"absolute inset-0 opacity-30\">\n          <ShapeGrid \n            shape=\"hexagon\"\n            direction=\"diagonal\"\n            speed={0.8}\n            borderColor=\"#374151\"\n            hoverFillColor=\"#3b82f6\"\n            squareSize={60}\n            hoverTrailAmount={3}\n          />\n        </div>\n\n        {/* Hero Content */}\n        <div className=\"relative z-10 text-center max-w-4xl mx-auto px-6\">\n          <h1 className=\"text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent\">\n            TechFlow\n          </h1>\n          <p className=\"text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto\">\n            Next-generation development platform powered by AI and designed for the future\n          </p>\n          <div className=\"flex flex-col sm:flex-row gap-4 justify-center\">\n            <button className=\"px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-lg transition-colors\">\n              Get Started\n            </button>\n            <button className=\"px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg font-semibold text-lg transition-colors\">\n              Watch Demo\n            </button>\n          </div>\n        </div>\n\n        {/* Scroll Indicator */}\n        <div className=\"absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce\">\n          <div className=\"w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center\">\n            <div className=\"w-1 h-3 bg-gray-400 rounded-full mt-2\"></div>\n          </div>\n        </div>\n      </section>\n\n      {/* Features Section */}\n      <section className=\"relative py-20 bg-gray-800\">\n        {/* Subtle background grid */}\n        <div className=\"absolute inset-0 opacity-10\">\n          <ShapeGrid \n            shape=\"square\"\n            direction=\"right\"\n            speed={0.3}\n            borderColor=\"#4b5563\"\n            hoverFillColor=\"#10b981\"\n            squareSize={40}\n            hoverTrailAmount={0}\n          />\n        </div>\n\n        <div className=\"relative z-10 max-w-6xl mx-auto px-6\">\n          <h2 className=\"text-4xl font-bold text-center mb-16\">Powerful Features</h2>\n          \n          <div className=\"grid md:grid-cols-3 gap-8\">\n            <div className=\"p-8 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-700\">\n              <div className=\"w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-6\">\n                <svg className=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">\n                  <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M13 10V3L4 14h7v7l9-11h-7z\" />\n                </svg>\n              </div>\n              <h3 className=\"text-xl font-semibold mb-4\">Lightning Fast</h3>\n              <p className=\"text-gray-400\">Built with performance in mind, delivering results at unprecedented speed.</p>\n            </div>\n\n            <div className=\"p-8 bg-",
+      "scores": {
+        "propCorrectness": 1,
+        "importCorrectness": true,
+        "typescriptValid": true,
+        "overall": 1
+      },
+      "inputTokens": 723,
+      "outputTokens": 1024
+    }
+  ],
+  "summary": {
+    "byCondition": {
+      "raw-source-only": {
+        "avgOverall": 0.7972815764482432,
+        "avgPropCorrectness": 0.6696225071225071,
+        "importRate": 1,
+        "tsRate": 0.7222222222222222,
+        "avgInputTokens": 5741.611111111111
+      },
+      "descriptor-only": {
+        "avgOverall": 0.8885090218423554,
+        "avgPropCorrectness": 0.6655270655270655,
+        "importRate": 1,
+        "tsRate": 1,
+        "avgInputTokens": 869.1111111111111
+      }
+    },
+    "byComponent": {
+      "Counter": {
+        "raw-source-only": {
+          "avgOverall": 0.8290598290598291,
+          "avgPropCorrectness": 0.4871794871794872,
+          "avgInputTokens": 1701
+        },
+        "descriptor-only": {
+          "avgOverall": 0.8717948717948718,
+          "avgPropCorrectness": 0.6153846153846154,
+          "avgInputTokens": 844
+        }
+      },
+      "CircularGallery": {
+        "raw-source-only": {
+          "avgOverall": 0.9027777777777778,
+          "avgPropCorrectness": 0.7083333333333334,
+          "avgInputTokens": 6123.333333333333
+        },
+        "descriptor-only": {
+          "avgOverall": 0.9444444444444445,
+          "avgPropCorrectness": 0.8333333333333334,
+          "avgInputTokens": 837.3333333333334
+        }
+      },
+      "InfiniteMenu": {
+        "raw-source-only": {
+          "avgOverall": 0.8518518518518517,
+          "avgPropCorrectness": 0.8888888888888888,
+          "avgInputTokens": 12293
+        },
+        "descriptor-only": {
+          "avgOverall": 0.9259259259259259,
+          "avgPropCorrectness": 0.7777777777777778,
+          "avgInputTokens": 513
+        }
+      },
+      "SoftAurora": {
+        "raw-source-only": {
+          "avgOverall": 0.8666666666666667,
+          "avgPropCorrectness": 0.6,
+          "avgInputTokens": 3546.3333333333335
+        },
+        "descriptor-only": {
+          "avgOverall": 0.8222222222222223,
+          "avgPropCorrectness": 0.4666666666666666,
+          "avgInputTokens": 990.3333333333334
+        }
+      },
+      "ModelViewer": {
+        "raw-source-only": {
+          "avgOverall": 0.611111111111111,
+          "avgPropCorrectness": 0.5,
+          "avgInputTokens": 5867.666666666667
+        },
+        "descriptor-only": {
+          "avgOverall": 0.8222222222222223,
+          "avgPropCorrectness": 0.4666666666666666,
+          "avgInputTokens": 1304.6666666666667
+        }
+      },
+      "ShapeGrid": {
+        "raw-source-only": {
+          "avgOverall": 0.7222222222222222,
+          "avgPropCorrectness": 0.8333333333333334,
+          "avgInputTokens": 4918.333333333333
+        },
+        "descriptor-only": {
+          "avgOverall": 0.9444444444444445,
+          "avgPropCorrectness": 0.8333333333333334,
+          "avgInputTokens": 725.3333333333334
+        }
+      }
+    },
+    "tokenEfficiency": {
+      "raw-source-only": {
+        "avgInputTokens": 5741.611111111111,
+        "avgOverall": 0.7972815764482432,
+        "scorePerKToken": 0.1388602538589476
+      },
+      "descriptor-only": {
+        "avgInputTokens": 869.1111111111111,
+        "avgOverall": 0.8885090218423554,
+        "scorePerKToken": 1.0223192529508052
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "name": "SoftAurora",
+  "slug": "soft-aurora",
+  "description": "A WebGL aurora borealis background effect using OGL with Perlin noise. Renders a soft, animated gradient aurora with configurable colors, noise, and optional mouse interaction.",
+  "category": "backgrounds",
+  "props": {
+    "speed": {
+      "type": "number",
+      "default": 0.6,
+      "description": "Animation speed of the aurora movement."
+    },
+    "scale": {
+      "type": "number",
+      "default": 1.5,
+      "description": "Scale of the aurora effect."
+    },
+    "brightness": {
+      "type": "number",
+      "default": 1,
+      "description": "Brightness multiplier for the aurora colors."
+    },
+    "color1": {
+      "type": "string",
+      "default": "#f7f7f7",
+      "description": "First aurora color in hex format."
+    },
+    "color2": {
+      "type": "string",
+      "default": "#e100ff",
+      "description": "Second aurora color in hex format."
+    },
+    "noiseFrequency": {
+      "type": "number",
+      "default": 2.5,
+      "description": "Frequency of the Perlin noise pattern."
+    },
+    "noiseAmplitude": {
+      "type": "number",
+      "default": 1,
+      "description": "Amplitude of the noise displacement."
+    },
+    "bandHeight": {
+      "type": "number",
+      "default": 0.5,
+      "description": "Height of the aurora band."
+    },
+    "bandSpread": {
+      "type": "number",
+      "default": 1,
+      "description": "Spread/width of the aurora band."
+    },
+    "octaveDecay": {
+      "type": "number",
+      "default": 0.1,
+      "description": "Decay factor for Perlin noise octaves."
+    },
+    "layerOffset": {
+      "type": "number",
+      "default": 0,
+      "description": "Offset between the two color layers."
+    },
+    "colorSpeed": {
+      "type": "number",
+      "default": 1,
+      "description": "Speed of the color transition animation."
+    },
+    "enableMouseInteraction": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable mouse-based interaction with the aurora."
+    },
+    "mouseInfluence": {
+      "type": "number",
+      "default": 0.25,
+      "description": "Strength of mouse influence on the aurora distortion."
+    }
+  },
+  "examples": [
+    {
+      "title": "Basic aurora",
+      "code": "<SoftAurora color1=\"#f7f7f7\" color2=\"#e100ff\" speed={0.6} />"
+    },
+    {
+      "title": "Custom colors with interaction",
+      "code": "<SoftAurora color1=\"#00ff88\" color2=\"#0066ff\" speed={0.8} brightness={1.2} enableMouseInteraction mouseInfluence={0.5} />"
+    }
+  ],
+  "aiPromptHint": "SoftAurora fills its parent container. Set the parent to have explicit width/height. Use color1 and color2 to control the aurora gradient. enableMouseInteraction adds cursor-reactive distortion."
+}

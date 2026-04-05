@@ -6,6 +6,11 @@ vi.mock("../../../hooks/use-reduced-motion", () => ({
   useReducedMotion: () => true,
 }));
 
+// Mock canvas getContext — jsdom doesn't implement it
+HTMLCanvasElement.prototype.getContext = vi.fn(
+  () => null,
+) as unknown as typeof HTMLCanvasElement.prototype.getContext;
+
 // Mock ResizeObserver
 const observeMock = vi.fn();
 const disconnectMock = vi.fn();

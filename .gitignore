@@ -35,3 +35,23 @@ coverage/
 # Misc
 *.tsbuildinfo
 *.log
+
+# Eval — generated outputs (not source)
+scripts/eval/results/
+scripts/eval/visual/screenshots/
+scripts/eval/visual/render-app/_render/
+scripts/eval/visual/render-app/node_modules/
+scripts/eval/visual/compare-app/node_modules/
+scripts/eval/visual/compare-app/.next/
+scripts/eval/visual/compare-app/components/usage/
+scripts/eval/visual/compare-app/package-lock.json
+scripts/eval/visual/render-app/package-lock.json
+
+# Claude Code project memory
+.claude/
+
+# Stray resource files
+astronaut-astronomy-helmet-svgrepo-com.svg
+astronomy-moon-rover-robot-svgrepo-com.svg
+astronomy-planet-saturn-svgrepo-com.svg
+worldOutlineHigh-pixels.svg

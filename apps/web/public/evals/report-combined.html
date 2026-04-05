@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>uiUniverse — Cross-Model Eval Summary</title>
+<style>
+  
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; padding: 2rem 4rem; line-height: 1.6; max-width: 1600px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #222; }
+    .header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(135deg, #ee502c, #ff8a5c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .header .subtitle { font-size: 1.05rem; color: #999; margin-bottom: 0.5rem; }
+    .header .meta { color: #666; font-size: 0.85rem; }
+    .section-title { font-size: 1.15rem; font-weight: 700; color: #ccc; margin-bottom: 1rem; margin-top: 2.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #1a1a1a; }
+    .section-desc { color: #777; font-size: 0.85rem; margin-bottom: 1.5rem; }
+    .key-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+    .stat-card { background: #111; border: 1px solid #222; padding: 1.5rem; text-align: center; }
+    .stat-card .stat-value { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+    .stat-card .stat-label { font-size: 0.8rem; color: #888; }
+    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .chart-card { background: #111; border: 1px solid #222; padding: 1.25rem; }
+    .chart-card h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 1rem; font-weight: 600; }
+    .chart-full { grid-column: 1 / -1; }
+    .chart-svg { width: 100%; height: auto; }
+    .eval-card { background: #111; border: 1px solid #222; margin-bottom: 1.5rem; overflow: hidden; max-width: 100%; }
+    .eval-card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: #161616; border-bottom: 1px solid #222; }
+    .component-name { font-weight: 700; font-size: 0.95rem; color: #ee502c; }
+    .prompt-name { font-size: 0.8rem; color: #777; font-style: italic; }
+    .conditions-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: hidden; }
+    .condition-col { padding: 1.25rem; border-right: 1px solid #1a1a1a; min-width: 0; overflow: hidden; }
+    .condition-col:last-child { border-right: none; }
+    .condition-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-weight: 700; }
+    .score-bar { position: relative; height: 22px; background: #1a1a1a; margin-bottom: 0.5rem; overflow: hidden; }
+    .score-fill { height: 100%; }
+    .score-text { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .score-details { font-size: 0.7rem; color: #999; margin-bottom: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .badge { display: inline-block; padding: 1px 6px; font-size: 0.65rem; font-weight: 700; border-radius: 2px; }
+    .badge-pass { background: #22c55e; color: #000; }
+    .badge-fail { background: #ef4444; color: #fff; }
+    .code-block { background: #0d0d0d; border: 1px solid #1a1a1a; padding: 0.75rem; overflow-x: auto; overflow-y: auto; max-height: 280px; min-width: 0; }
+    .code-block pre { margin: 0; min-width: 0; }
+    .code-block code { font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace; font-size: 0.72rem; line-height: 1.6; color: #b0b0b0; white-space: pre; }
+    .token-count { font-size: 0.65rem; color: #555; margin-top: 0.5rem; text-align: right; }
+    .footer { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #222; color: #555; font-size: 0.8rem; }
+    .footer a { color: #ee502c; text-decoration: none; }
+    @media (max-width: 900px) {
+      .conditions-row { grid-template-columns: 1fr; }
+      .key-stats { grid-template-columns: repeat(2, 1fr); }
+      .charts-grid { grid-template-columns: 1fr; }
+      body { padding: 1rem; }
+    }
+
+  .findings { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+  .finding { background: #111; border: 1px solid #222; padding: 1.5rem; }
+  .finding .finding-num { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .finding .finding-text { font-size: 0.85rem; color: #999; line-height: 1.5; }
+  table { width: 100%; border-collapse: collapse; background: #111; border: 1px solid #222; margin-bottom: 2rem; }
+  th { background: #161616; padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #888; border-bottom: 1px solid #222; }
+  td { padding: 0.75rem 1rem; border-bottom: 1px solid #1a1a1a; font-size: 0.85rem; }
+  tr:last-child td { border-bottom: none; }
+  .model-links { display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; }
+  .model-links a { color: #ee502c; text-decoration: none; padding: 0.5rem 1.5rem; border: 1px solid #ee502c33; font-size: 0.85rem; }
+  .model-links a:hover { background: #ee502c15; }
+  @media (max-width: 900px) { .findings { grid-template-columns: 1fr; } }
+</style></head>
+<body>
+  <div class="header">
+    <h1>Cross-Model Eval Summary</h1>
+    <div class="subtitle">AI Descriptors improve code generation quality across models while consuming 6x fewer tokens</div>
+    <div class="meta">
+      Models: <strong>Claude Sonnet 4 &amp; Gemini 2.5 Flash</strong> &middot;
+      72 total eval runs &middot;
+      6 components &middot;
+      April 4, 2026
+    </div>
+  </div>
+
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-num" style="color:#22c55e">6.5x</div>
+      <div class="finding-text">Fewer input tokens on average when using AI descriptors instead of raw source code. Consistent across both Claude and Gemini.</div>
+    </div>
+    <div class="finding">
+      <div class="finding-num" style="color:#eab308">+7pp</div>
+      <div class="finding-text">Average quality improvement with descriptors. The lightweight JSON contract captures the API surface better than hundreds of lines of implementation code.</div>
+    </div>
+    <div class="finding">
+      <div class="finding-num" style="color:#3b82f6">2</div>
+      <div class="finding-text">Models tested. The pattern holds across model providers — descriptors are a model-agnostic improvement to component distribution.</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Model Comparison</h2>
+  <table>
+    <thead><tr>
+      <th>Model</th>
+      <th>Raw Score</th>
+      <th>Descriptor Score</th>
+      <th>Raw Tokens</th>
+      <th>Desc Tokens</th>
+      <th>Token Ratio</th>
+      <th>Efficiency Gain</th>
+      <th>Raw TS Valid</th>
+      <th>Desc TS Valid</th>
+    </tr></thead>
+    <tbody><tr>
+        <td style="color:#ee502c;font-weight:700">Claude Sonnet 4</td>
+        <td>80%</td>
+        <td style="color:#22c55e;font-weight:700">89%</td>
+        <td>5742</td>
+        <td style="color:#22c55e;font-weight:700">869</td>
+        <td style="color:#22c55e;font-weight:700">6.6x</td>
+        <td style="color:#3b82f6;font-weight:700">7.4x</td>
+        <td>72%</td>
+        <td style="color:#22c55e;font-weight:700">100%</td>
+      </tr><tr>
+        <td style="color:#4285f4;font-weight:700">Gemini 2.5 Flash</td>
+        <td>72%</td>
+        <td style="color:#22c55e;font-weight:700">77%</td>
+        <td>5246</td>
+        <td style="color:#22c55e;font-weight:700">823</td>
+        <td style="color:#22c55e;font-weight:700">6.4x</td>
+        <td style="color:#3b82f6;font-weight:700">6.8x</td>
+        <td>56%</td>
+        <td style="color:#22c55e;font-weight:700">72%</td>
+      </tr></tbody>
+  </table>
+
+  <h2 class="section-title">Cross-Model Analytics</h2>
+  <div class="charts-grid">
+    <div class="chart-card"><h3>Quality Score by Model</h3><svg viewBox="0 0 700 320" class="chart-svg"><line x1="60" y1="240" x2="670" y2="240" stroke="#1a1a1a"/><text x="52" y="244" text-anchor="end" fill="#555" font-size="10">0%</text><line x1="60" y1="187.5" x2="670" y2="187.5" stroke="#1a1a1a"/><text x="52" y="191.5" text-anchor="end" fill="#555" font-size="10">25%</text><line x1="60" y1="135" x2="670" y2="135" stroke="#1a1a1a"/><text x="52" y="139" text-anchor="end" fill="#555" font-size="10">50%</text><line x1="60" y1="82.5" x2="670" y2="82.5" stroke="#1a1a1a"/><text x="52" y="86.5" text-anchor="end" fill="#555" font-size="10">75%</text><line x1="60" y1="30" x2="670" y2="30" stroke="#1a1a1a"/><text x="52" y="34" text-anchor="end" fill="#555" font-size="10">100%</text><rect x="154.5" y="72.57086894586894" width="50" height="167.42913105413106" fill="#ef4444" rx="3" opacity="0.85"><animate attributeName="height" from="0" to="167.42913105413106" dur="0.5s" fill="freeze" begin="0s"/><animate attributeName="y" from="240" to="72.57086894586894" dur="0.5s" fill="freeze" begin="0s"/></rect><text x="179.5" y="66.57086894586894" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">80%</text><rect x="212.5" y="53.41310541310537" width="50" height="186.58689458689463" fill="#22c55e" rx="3" opacity="0.85"><animate attributeName="height" from="0" to="186.58689458689463" dur="0.5s" fill="freeze" begin="0.12s"/><animate attributeName="y" from="240" to="53.41310541310537" dur="0.5s" fill="freeze" begin="0.12s"/></rect><text x="237.5" y="47.41310541310537" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">89%</text><text x="212.5" y="260" text-anchor="middle" fill="#ee502c" font-size="12" font-weight="700">Claude Sonnet 4</text><rect x="459.5" y="88.25106837606836" width="50" height="151.74893162393164" fill="#ef4444" rx="3" opacity="0.85"><animate attributeName="height" from="0" to="151.74893162393164" dur="0.5s" fill="freeze" begin="0.24s"/><animate attributeName="y" from="240" to="88.25106837606836" dur="0.5s" fill="freeze" begin="0.24s"/></rect><text x="484.5" y="82.25106837606836" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">72%</text><rect x="517.5" y="77.27991452991449" width="50" height="162.7200854700855" fill="#22c55e" rx="3" opacity="0.85"><animate attributeName="height" from="0" to="162.7200854700855" dur="0.5s" fill="freeze" begin="0.36s"/><animate attributeName="y" from="240" to="77.27991452991449" dur="0.5s" fill="freeze" begin="0.36s"/></rect><text x="542.5" y="71.27991452991449" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">77%</text><text x="517.5" y="260" text-anchor="middle" fill="#4285f4" font-size="12" font-weight="700">Gemini 2.5 Flash</text><rect x="60" y="302" width="10" height="10" fill="#ef4444" rx="2"/><text x="74" y="311" fill="#888" font-size="10">Raw Source</text><rect x="180" y="302" width="10" height="10" fill="#22c55e" rx="2"/><text x="194" y="311" fill="#888" font-size="10">AI Descriptor</text></svg></div>
+    <div class="chart-card"><h3>Token Consumption by Model</h3><svg viewBox="0 0 700 320" class="chart-svg"><line x1="60" y1="240" x2="670" y2="240" stroke="#1a1a1a"/><text x="52" y="244" text-anchor="end" fill="#555" font-size="10">0</text><line x1="60" y1="187.5" x2="670" y2="187.5" stroke="#1a1a1a"/><text x="52" y="191.5" text-anchor="end" fill="#555" font-size="10">1435</text><line x1="60" y1="135" x2="670" y2="135" stroke="#1a1a1a"/><text x="52" y="139" text-anchor="end" fill="#555" font-size="10">2871</text><line x1="60" y1="82.5" x2="670" y2="82.5" stroke="#1a1a1a"/><text x="52" y="86.5" text-anchor="end" fill="#555" font-size="10">4306</text><line x1="60" y1="30" x2="670" y2="30" stroke="#1a1a1a"/><text x="52" y="34" text-anchor="end" fill="#555" font-size="10">5742</text><rect x="154.5" y="30" width="50" height="210" fill="#ef4444" rx="3" opacity="0.85"><animate attributeName="height" from="0" to="210" dur="0.5s" fill="freeze" begin="0s"/><animate attributeName="y" from="240" to="30" dur="0.5s" fill="freeze" begin="0s"/></rect><text x="179.5" y="24" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">5742</text><rect x="212.5" y="208.21217428325383" width="50" height="31.787825716746166" fill="#22c55e" rx="3" opacity="0.85"><animate attributeName="height" from="0" to="31.787825716746166" dur="0.5s" fill="freeze" begin="0.12s"/><animate attributeName="y" from="240" to="208.21217428325383" dur="0.5s" fill="freeze" begin="0.12s"/></rect><text x="237.5" y="202.21217428325383" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">869</text><text x="212.5" y="260" text-anchor="middle" fill="#ee502c" font-size="12" font-weight="700">Claude Sonnet 4</text><rect x="459.5" y="48.13108980251383" width="50" height="191.86891019748617" fill="#ef4444" rx="3" opacity="0.85"><animate attributeName="height" from="0" to="191.86891019748617" dur="0.5s" fill="freeze" begin="0.24s"/><animate attributeName="y" from="240" to="48.13108980251383" dur="0.5s" fill="freeze" begin="0.24s"/></rect><text x="484.5" y="42.13108980251383" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">5246</text><rect x="517.5" y="209.9027566788261" width="50" height="30.097243321173885" fill="#22c55e" rx="3" opacity="0.85"><animate attributeName="height" from="0" to="30.097243321173885" dur="0.5s" fill="freeze" begin="0.36s"/><animate attributeName="y" from="240" to="209.9027566788261" dur="0.5s" fill="freeze" begin="0.36s"/></rect><text x="542.5" y="203.9027566788261" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">823</text><text x="517.5" y="260" text-anchor="middle" fill="#4285f4" font-size="12" font-weight="700">Gemini 2.5 Flash</text><rect x="60" y="302" width="10" height="10" fill="#ef4444" rx="2"/><text x="74" y="311" fill="#888" font-size="10">Raw Source</text><rect x="180" y="302" width="10" height="10" fill="#22c55e" rx="2"/><text x="194" y="311" fill="#888" font-size="10">AI Descriptor</text></svg></div>
+  </div>
+
+  <h2 class="section-title">Detailed Reports</h2>
+  <p class="section-desc">Individual model reports with full side-by-side code comparisons:</p>
+  <div class="model-links">
+    <a href="report-claude.html">Claude Sonnet 4 Full Report &rarr;</a><a href="report-gemini.html">Gemini 2.5 Flash Full Report &rarr;</a>
+  </div>
+
+  <div class="footer">
+    <p>Generated by <a href="https://github.com/Sdunga1/ui-universe">uiUniverse</a> eval harness</p>
+    <p style="margin-top:0.25rem;">Reproduce: <code>pnpm eval:comparative && pnpm eval:comparative:gemini && pnpm eval:report:comparative</code></p>
+  </div>
+</body></html>
