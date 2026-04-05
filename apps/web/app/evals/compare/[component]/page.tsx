@@ -295,7 +295,7 @@ export default function ComponentComparePage() {
   const slug = params.component as string;
   const comp = getComponent(slug);
 
-  const [model, setModel] = useState<string>(availableModels[0]);
+  const [model, setModel] = useState<string>(availableModels[0] ?? "claude");
   const [sessions, setSessions] = useState<EvalSession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string>("");
   const [stats, setStats] = useState<ComponentStats | null>(null);
