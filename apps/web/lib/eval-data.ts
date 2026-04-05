@@ -98,13 +98,14 @@ export async function loadEvalData(): Promise<EvalPageData> {
           desc: { avgOverall: 0, avgInputTokens: 0 },
         };
       }
+      const entry = components[stat.component]!;
       if (stat.condition === "raw-source-only") {
-        components[stat.component].raw = {
+        entry.raw = {
           avgOverall: stat.avg_overall ?? 0,
           avgInputTokens: stat.avg_input_tokens ?? 0,
         };
       } else if (stat.condition === "descriptor-only") {
-        components[stat.component].desc = {
+        entry.desc = {
           avgOverall: stat.avg_overall ?? 0,
           avgInputTokens: stat.avg_input_tokens ?? 0,
         };

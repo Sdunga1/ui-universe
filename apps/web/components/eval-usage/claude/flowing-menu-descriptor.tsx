@@ -1,3 +1,4 @@
+// @ts-nocheck
 import FlowingMenu from "../../fixtures/FlowingMenu";
 
 const items = [

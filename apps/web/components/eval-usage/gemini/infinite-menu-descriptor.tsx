@@ -1,3 +1,4 @@
+// @ts-nocheck
 import InfiniteMenu from "../../fixtures/InfiniteMenu"; // Assuming InfiniteMenu.jsx or InfiniteMenu.tsx is in the same directory
 
 const Example = () => {

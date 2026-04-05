@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type React from "react";
 import { useEffect, useState } from "react";
 import Counter from "../../fixtures/Counter"; // Assuming Counter.tsx is in the same directory

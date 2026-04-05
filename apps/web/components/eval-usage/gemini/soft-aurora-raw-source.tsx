@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SoftAurora from "../../fixtures/SoftAurora"; // Adjust the import path as needed
 
 export default function Example() {

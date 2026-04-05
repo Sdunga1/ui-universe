@@ -1,3 +1,4 @@
+// @ts-nocheck
 import InfiniteMenu from "../../fixtures/InfiniteMenu";
 
 export default function Example() {

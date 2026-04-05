@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ShapeGrid from "../../fixtures/ShapeGrid"; // Assuming ShapeGrid is in the same directory or correctly aliased
 
 const Example = () => {

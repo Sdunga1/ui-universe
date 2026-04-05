@@ -307,7 +307,7 @@ export default function ComponentComparePage() {
       .then(({ sessions: s }: { sessions: EvalSession[] }) => {
         if (s?.length) {
           setSessions(s);
-          setActiveSessionId(s[0].id); // latest session
+          setActiveSessionId(s[0]!.id); // latest session — length check guards access
         }
       })
       .catch(() => {});

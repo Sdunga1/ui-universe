@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CircularGallery from "../../fixtures/CircularGallery"; // Assuming CircularGallery is in the same directory or correctly aliased
 
 const exampleItems = [

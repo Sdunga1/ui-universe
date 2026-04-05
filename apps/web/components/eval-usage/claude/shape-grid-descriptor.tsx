@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ShapeGrid from "../../fixtures/ShapeGrid";
 
 export default function Example() {

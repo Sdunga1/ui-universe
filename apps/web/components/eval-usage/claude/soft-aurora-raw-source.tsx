@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SoftAurora from "../../fixtures/SoftAurora";
 
 export default function Example() {

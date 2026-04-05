@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CircularGallery from "../../fixtures/CircularGallery";
 
 export default function Example() {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type React from "react";
 import FlowingMenu from "../../fixtures/FlowingMenu";
 

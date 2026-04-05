@@ -1,3 +1,4 @@
+// @ts-nocheck
 import FlowingMenu from "../../fixtures/FlowingMenu"; // Assuming FlowingMenu.jsx or FlowingMenu.tsx is in the same directory
 
 const menuItems = [

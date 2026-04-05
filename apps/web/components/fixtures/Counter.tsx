@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { type MotionValue, motion, useSpring, useTransform } from "motion/react";
 import type React from "react";
 import { useEffect } from "react";

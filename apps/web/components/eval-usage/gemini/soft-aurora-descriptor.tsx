@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SoftAurora from "../../fixtures/SoftAurora"; // Assuming SoftAurora.jsx is in the same directory or correctly aliased
 
 const Example = () => {

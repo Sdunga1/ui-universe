@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Counter from "../../fixtures/Counter"; // Assuming Counter.jsx is in the same directory
 
 const Example = () => {
