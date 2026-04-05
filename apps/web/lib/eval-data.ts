@@ -60,6 +60,8 @@ function emptyData(): EvalPageData {
 }
 
 export async function loadEvalData(): Promise<EvalPageData> {
+  if (!supabase) return emptyData();
+
   // Fetch all runs ordered by timestamp descending
   const { data: allRuns, error: runsError } = await supabase
     .from("eval_runs")

@@ -11,6 +11,8 @@ export interface EvalSession {
 }
 
 export async function GET() {
+  if (!supabase) return NextResponse.json({ sessions: [] });
+
   const { data: runs, error } = await supabase
     .from("eval_runs")
     .select("id, run_timestamp, model_slug")

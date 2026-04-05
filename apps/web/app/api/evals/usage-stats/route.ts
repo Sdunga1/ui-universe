@@ -11,6 +11,10 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "runId required" }, { status: 400 });
   }
 
+  if (!supabase) {
+    return NextResponse.json({ stats: {} });
+  }
+
   const { data, error } = await supabase
     .from("eval_usage_stats")
     .select(
