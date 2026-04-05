@@ -183,8 +183,8 @@ function ComponentChart({ data }: { data: EvalPageData }) {
 
 // ── Page ──
 
-export default function EvalsPage() {
-  const data = loadEvalData();
+export default async function EvalsPage() {
+  const data = await loadEvalData();
 
   return (
     <div className="min-h-screen">
@@ -220,6 +220,22 @@ export default function EvalsPage() {
             <div className="text-4xl font-extrabold text-blue-400">{data.models.length}</div>
             <div className="mt-1 text-sm text-[var(--muted)]">Models tested (cross-provider)</div>
           </div>
+        </div>
+
+        {/* Live Comparisons */}
+        <h2 className="mb-4 mt-10 border-b border-[var(--border)] pb-2 text-lg font-bold text-white">
+          Live Comparisons
+        </h2>
+        <p className="mb-4 text-sm text-[var(--muted)]">
+          See AI-rendered components side by side — raw source vs descriptor:
+        </p>
+        <div className="mb-10">
+          <Link
+            href="/evals/compare"
+            className="inline-flex items-center gap-2 border border-[var(--accent)] px-5 py-2.5 text-sm font-medium text-[var(--accent)] transition-colors hover:bg-[var(--accent)]/10"
+          >
+            View Live Component Comparisons →
+          </Link>
         </div>
 
         {/* Model comparison table */}

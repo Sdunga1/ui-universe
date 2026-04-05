@@ -123,6 +123,8 @@ import { FadeUp } from "@ui-universe/ui/animations";
 
 ## Architecture
 
+![Architecture](docs/architecture.svg)
+
 ```
 uiUniverse/
 ├── packages/

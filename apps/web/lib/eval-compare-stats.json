@@ -1,0 +1,228 @@
+{
+  "gemini": {
+    "counter": {
+      "raw-source": {
+        "inputTokens": 6065,
+        "outputTokens": 2380,
+        "overall": 0.9743589743589745,
+        "propCorrectness": 0.9230769230769231,
+        "iterations": 3,
+        "iterationErrors": [
+          "Unterminated string at line 70: This example showcases the `Counter` component's smooth numerical animations.",
+          "Unterminated string at line 70: This example showcases the 'Counter' component's smooth numerical animations."
+        ]
+      },
+      "descriptor": {
+        "inputTokens": 797,
+        "outputTokens": 1195,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "circular-gallery": {
+      "raw-source": {
+        "inputTokens": 5672,
+        "outputTokens": 527,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 752,
+        "outputTokens": 465,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "infinite-menu": {
+      "raw-source": {
+        "inputTokens": 11242,
+        "outputTokens": 1689,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 464,
+        "outputTokens": 664,
+        "overall": 0.8888888888888888,
+        "propCorrectness": 0.6666666666666666,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "soft-aurora": {
+      "raw-source": {
+        "inputTokens": 3275,
+        "outputTokens": 474,
+        "overall": 0.8444444444444444,
+        "propCorrectness": 0.5333333333333333,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 916,
+        "outputTokens": 486,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "flowing-menu": {
+      "raw-source": {
+        "inputTokens": 1866,
+        "outputTokens": 1023,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 823,
+        "outputTokens": 505,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "shape-grid": {
+      "raw-source": {
+        "inputTokens": 4382,
+        "outputTokens": 457,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 3113,
+        "outputTokens": 1563,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 3,
+        "iterationErrors": [
+          "Unterminated string at line 46: animate in a diagonal direction. We're currently using hexagons with a subtle tr",
+          "Unterminated string at line 46: animate in a diagonal direction. We're currently using hexagons with a subtle tr"
+        ]
+      }
+    }
+  },
+  "claude": {
+    "counter": {
+      "raw-source": {
+        "inputTokens": 1679,
+        "outputTokens": 1311,
+        "overall": 0.9743589743589745,
+        "propCorrectness": 0.9230769230769231,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 822,
+        "outputTokens": 791,
+        "overall": 0.9487179487179488,
+        "propCorrectness": 0.8461538461538461,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "circular-gallery": {
+      "raw-source": {
+        "inputTokens": 6100,
+        "outputTokens": 695,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 814,
+        "outputTokens": 356,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "infinite-menu": {
+      "raw-source": {
+        "inputTokens": 12277,
+        "outputTokens": 786,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 497,
+        "outputTokens": 618,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "soft-aurora": {
+      "raw-source": {
+        "inputTokens": 3523,
+        "outputTokens": 1228,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 967,
+        "outputTokens": 361,
+        "overall": 0.8222222222222223,
+        "propCorrectness": 0.4666666666666667,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "flowing-menu": {
+      "raw-source": {
+        "inputTokens": 2090,
+        "outputTokens": 482,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 849,
+        "outputTokens": 384,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    },
+    "shape-grid": {
+      "raw-source": {
+        "inputTokens": 4896,
+        "outputTokens": 940,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      },
+      "descriptor": {
+        "inputTokens": 703,
+        "outputTokens": 471,
+        "overall": 1,
+        "propCorrectness": 1,
+        "iterations": 1,
+        "iterationErrors": []
+      }
+    }
+  }
+}

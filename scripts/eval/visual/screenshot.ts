@@ -1,44 +1,39 @@
 /**
  * Visual Eval Pipeline
  *
- * Takes AI-generated code from eval results, renders each snippet in
- * a real browser via Vite + Playwright, and captures screenshots.
+ * Uses a persistent Vite render-app to render AI-generated code snippets
+ * and capture screenshots via Playwright.
  *
  * Usage:
- *   pnpm eval:visual                    # screenshots for comparative eval
+ *   pnpm eval:visual                       # screenshots for comparative eval
  *   pnpm eval:visual -- --source=original  # screenshots for original eval
  */
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import react from "@vitejs/plugin-react";
 import { chromium } from "playwright";
-import { type InlineConfig, type ViteDevServer, createServer } from "vite";
+import { type ViteDevServer, createServer } from "vite";
 
 const ROOT = resolve(process.cwd());
 const RESULTS_DIR = resolve(ROOT, "scripts/eval/results");
 const FIXTURES_DIR = resolve(ROOT, "scripts/eval/fixtures");
 const SCREENSHOTS_DIR = resolve(ROOT, "scripts/eval/visual/screenshots");
-// Place temp dir at monorepo root so it inherits node_modules resolution
-const TEMP_DIR = resolve(ROOT, ".tmp-visual-render");
+const RENDER_APP_DIR = resolve(ROOT, "scripts/eval/visual/render-app");
+const RENDER_DIR = resolve(RENDER_APP_DIR, "_render");
 
 // ── Helpers ──
 
 function extractCode(output: string): string {
-  // The output may contain nested code fences. Find the outermost one.
   const lines = output.split("\n");
   let inBlock = false;
-  let lang = "";
   const codeLines: string[] = [];
 
   for (const line of lines) {
     if (!inBlock && /^```(?:tsx?|jsx?)/.test(line.trim())) {
       inBlock = true;
-      lang = line.trim();
       continue;
     }
     if (inBlock && line.trim() === "```") {
-      // End of the outermost block
       break;
     }
     if (inBlock) {
@@ -50,7 +45,6 @@ function extractCode(output: string): string {
     return codeLines.join("\n").trim();
   }
 
-  // Fallback: return the whole output
   return output.trim();
 }
 
@@ -59,28 +53,24 @@ function slugify(s: string): string {
 }
 
 /**
- * Transforms generated code so it works as a renderable module.
- * - Replaces relative component imports with our temp component path
- * - Strips `export default` and wraps in a named export
- * - Handles both `import X from './X'` and `import { X } from '@ui-universe/ui'`
+ * Transforms generated code so imports resolve to the _render/Component file.
  */
 function prepareUsageCode(code: string, componentName: string): string {
-  // Replace all import paths that reference the component to use our temp file
   let prepared = code;
 
-  // Handle: import X from './X' or import X from "./X"
+  // import X from './X' → import X from './Component'
   prepared = prepared.replace(
     new RegExp(`from\\s+['"]\\.\\/.*?${componentName}.*?['"]`, "g"),
     `from './Component'`,
   );
 
-  // Handle: import { X } from '@ui-universe/ui'  →  import X from './Component'
+  // import { X } from '@ui-universe/ui' → import Component from './Component'
   prepared = prepared.replace(
     /import\s*\{[^}]*\}\s*from\s*['"]@ui-universe\/ui['"]/g,
     `import Component from './Component'`,
   );
 
-  // If it still imports the component name from a package, redirect
+  // Any remaining imports of the component name from packages
   prepared = prepared.replace(
     new RegExp(`from\\s+['"][^'"]*${componentName}[^'"]*['"]`, "gi"),
     `from './Component'`,
@@ -89,135 +79,67 @@ function prepareUsageCode(code: string, componentName: string): string {
   return prepared;
 }
 
-/**
- * Creates a temporary Vite project that renders a single component.
- */
-function writeRenderProject(
-  componentName: string,
-  componentSource: string,
-  usageCode: string,
-  label: string,
-): string {
-  const projectDir = resolve(TEMP_DIR, slugify(`${componentName}-${label}`));
-  if (existsSync(projectDir)) rmSync(projectDir, { recursive: true });
-  mkdirSync(projectDir, { recursive: true });
-
-  // 1. Component source file
-  writeFileSync(resolve(projectDir, "Component.tsx"), componentSource);
-
-  // 2. Usage code (the AI-generated snippet)
-  const preparedUsage = prepareUsageCode(usageCode, componentName);
-  writeFileSync(resolve(projectDir, "Usage.tsx"), preparedUsage);
-
-  // 3. Entry point that renders the usage
-  const entryCode = `
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-
-// Error boundary
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { error: null };
-  }
-  static getDerivedStateFromError(error) {
-    return { error: error.message };
-  }
-  render() {
-    if (this.state.error) {
-      return React.createElement('div', {
-        style: {
-          padding: '2rem',
-          color: '#ef4444',
-          fontFamily: 'monospace',
-          fontSize: '14px',
-          background: '#0a0a0a',
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }
-      }, 'Render Error: ' + this.state.error);
-    }
-    return this.props.children;
-  }
+/** Creates a minimal valid GLB binary that Three.js GLTFLoader can parse. */
+function makeMinimalGLB(): Buffer {
+  const json = '{"asset":{"version":"2.0"},"scenes":[{"nodes":[]}],"scene":0}';
+  const paddedLen = Math.ceil(json.length / 4) * 4;
+  const jsonPadded = json.padEnd(paddedLen, " ");
+  const jsonBytes = Buffer.from(jsonPadded, "utf-8");
+  const totalLen = 12 + 8 + jsonBytes.length;
+  const buf = Buffer.alloc(totalLen);
+  buf.writeUInt32LE(0x46546c67, 0); // magic "glTF"
+  buf.writeUInt32LE(2, 4); // version 2
+  buf.writeUInt32LE(totalLen, 8);
+  buf.writeUInt32LE(jsonBytes.length, 12);
+  buf.writeUInt32LE(0x4e4f534a, 16); // chunk type "JSON"
+  jsonBytes.copy(buf, 20);
+  return buf;
 }
 
-// Dynamic import of the usage code
-const UsageModule = await import('./Usage.tsx');
-const UsageComponent = UsageModule.default || UsageModule.Example || (() => React.createElement('div', null, 'No default export found'));
+/**
+ * Finds the component source file for a given eval result.
+ */
+function findComponentSource(
+  componentName: string,
+  sourceType: "comparative" | "original",
+): string | null {
+  if (sourceType === "comparative") {
+    const fixtureSlug = componentName
+      .replace(/([A-Z])/g, "-$1")
+      .toLowerCase()
+      .replace(/^-/, "");
+    const fixturePath = resolve(FIXTURES_DIR, `${fixtureSlug}.source.tsx`);
+    if (existsSync(fixturePath)) {
+      return readFileSync(fixturePath, "utf-8");
+    }
+    return null;
+  }
 
-const container = document.getElementById('root');
-const root = createRoot(container);
-root.render(
-  React.createElement(ErrorBoundary, null,
-    React.createElement('div', {
-      style: {
-        background: '#0a0a0a',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2rem',
-        color: '#e5e5e5',
-        fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-      }
-    },
-      React.createElement('div', {
-        style: { width: '100%', maxWidth: '800px' }
-      },
-        React.createElement(UsageComponent)
-      )
-    )
-  )
-);
+  // Original eval — ui-universe components
+  const uiSrc = resolve(ROOT, "packages/ui/src/components");
+  const searchDirs = ["animations", "text", "backgrounds", "sections"];
+  const slug = componentName
+    .replace(/([A-Z])/g, "-$1")
+    .toLowerCase()
+    .replace(/^-/, "");
 
-// Signal to Playwright that rendering is done
-window.__RENDER_DONE__ = true;
-`;
+  for (const dir of searchDirs) {
+    const candidate = resolve(uiSrc, dir, slug, `${slug}.tsx`);
+    if (existsSync(candidate)) {
+      return readFileSync(candidate, "utf-8");
+    }
+  }
 
-  writeFileSync(resolve(projectDir, "main.jsx"), entryCode);
-
-  // 4. index.html
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>${componentName} - ${label}</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #e5e5e5; }
-  </style>
-</head>
-<body>
-  <div id="root"></div>
-  <script type="module" src="./main.jsx"></script>
-</body>
-</html>`;
-
-  writeFileSync(resolve(projectDir, "index.html"), html);
-
-  return projectDir;
+  return null;
 }
 
 // ── Vite Server ──
 
-async function startViteServer(projectDir: string): Promise<ViteDevServer> {
-  const config: InlineConfig = {
-    root: projectDir,
-    configFile: false,
-    plugins: [react()],
-    server: {
-      port: 0, // random available port
-      strictPort: false,
-      host: "127.0.0.1",
-      hmr: false,
-    },
-    logLevel: "silent",
-  };
-
-  const server = await createServer(config);
+async function startRenderAppServer(): Promise<ViteDevServer> {
+  const server = await createServer({
+    root: RENDER_APP_DIR,
+    configFile: resolve(RENDER_APP_DIR, "vite.config.ts"),
+  });
   await server.listen();
   return server;
 }
@@ -235,17 +157,45 @@ async function screenshotResults(results: EvalResult[], sourceType: "comparative
   console.log(`\n  Visual Eval — Screenshotting ${results.length} results\n`);
 
   mkdirSync(SCREENSHOTS_DIR, { recursive: true });
-  mkdirSync(TEMP_DIR, { recursive: true });
+  mkdirSync(RENDER_DIR, { recursive: true });
 
-  const browser = await chromium.launch({ headless: true });
+  // 1. Start the persistent render-app Vite server (single cold start)
+  console.log("  Starting render-app server...");
+  const startTime = Date.now();
+  const server = await startRenderAppServer();
+  const address = server.httpServer?.address();
+  if (!address || typeof address === "string") {
+    throw new Error("Could not get render-app server address");
+  }
+  const baseUrl = `http://127.0.0.1:${(address as { port: number }).port}`;
+  console.log(`  Server ready at ${baseUrl} (${Date.now() - startTime}ms)\n`);
+
+  // 2. Launch browser with WebGL support
+  const browser = await chromium.launch({
+    headless: true,
+    args: ["--use-gl=swiftshader", "--enable-webgl", "--ignore-gpu-blocklist"],
+  });
   const context = await browser.newContext({
     viewport: { width: 1280, height: 720 },
-    deviceScaleFactor: 2,
+    deviceScaleFactor: 1,
+  });
+
+  // Pre-create a single page with GLB/GLTF route interception
+  const page = await context.newPage();
+  await page.route("**/*.glb", (route) => {
+    route.fulfill({ body: makeMinimalGLB(), contentType: "model/gltf-binary" });
+  });
+  await page.route("**/*.gltf", (route) => {
+    route.fulfill({
+      body: JSON.stringify({ asset: { version: "2.0" }, scenes: [{ nodes: [] }], scene: 0 }),
+      contentType: "model/gltf+json",
+    });
   });
 
   let success = 0;
   let failed = 0;
 
+  // 3. Loop through results — write files, reload, screenshot
   for (let i = 0; i < results.length; i++) {
     const result = results[i];
     const code = extractCode(result.output);
@@ -253,7 +203,6 @@ async function screenshotResults(results: EvalResult[], sourceType: "comparative
     const screenshotName = `${slugify(result.component)}-${slugify(label)}.png`;
     const screenshotPath = resolve(SCREENSHOTS_DIR, screenshotName);
 
-    // Skip if code is too short (likely truncated/invalid)
     if (code.length < 30) {
       console.log(`  [${i + 1}/${results.length}] SKIP ${result.component} / ${label} (too short)`);
       failed++;
@@ -263,62 +212,29 @@ async function screenshotResults(results: EvalResult[], sourceType: "comparative
     console.log(`  [${i + 1}/${results.length}] ${result.component} / ${label}`);
 
     // Find component source
-    let componentSource = "";
-    if (sourceType === "comparative") {
-      // Map component name to fixture slug (e.g. "ShapeGrid" → "shape-grid")
-      const fixtureSlug = result.component
-        .replace(/([A-Z])/g, "-$1")
-        .toLowerCase()
-        .replace(/^-/, "");
-      const fixturePath = resolve(FIXTURES_DIR, `${fixtureSlug}.source.tsx`);
-      if (existsSync(fixturePath)) {
-        componentSource = readFileSync(fixturePath, "utf-8");
-      } else {
-        console.log(`    ⚠ No fixture found for ${result.component}, skipping`);
-        failed++;
-        continue;
-      }
-    } else {
-      // Original eval — our ui-universe components
-      const uiSrc = resolve(ROOT, "packages/ui/src/components");
-      // Try to find the component source
-      const searchDirs = ["animations", "text", "backgrounds", "sections"];
-      for (const dir of searchDirs) {
-        const slug = result.component
-          .replace(/([A-Z])/g, "-$1")
-          .toLowerCase()
-          .replace(/^-/, "");
-        const candidate = resolve(uiSrc, dir, slug, `${slug}.tsx`);
-        if (existsSync(candidate)) {
-          componentSource = readFileSync(candidate, "utf-8");
-          break;
-        }
-      }
-      if (!componentSource) {
-        console.log(`    ⚠ Could not find source for ${result.component}, skipping`);
-        failed++;
-        continue;
-      }
+    const componentSource = findComponentSource(result.component, sourceType);
+    if (!componentSource) {
+      console.log(`    ⚠ No source found for ${result.component}, skipping`);
+      failed++;
+      continue;
     }
 
-    let server: ViteDevServer | null = null;
     try {
-      const projectDir = writeRenderProject(result.component, componentSource, code, label);
-      server = await startViteServer(projectDir);
+      // Write component + usage to _render/
+      writeFileSync(resolve(RENDER_DIR, "Component.tsx"), componentSource);
+      writeFileSync(resolve(RENDER_DIR, "Usage.tsx"), prepareUsageCode(code, result.component));
 
-      const address = server.httpServer?.address();
-      if (!address || typeof address === "string") {
-        throw new Error("Could not get server address");
-      }
-      const url = `http://127.0.0.1:${address.port}`;
+      // Invalidate Vite's module graph so it serves fresh files
+      server.moduleGraph.invalidateAll();
 
-      const page = await context.newPage();
+      // Small delay for file system to settle before navigation
+      await new Promise((r) => setTimeout(r, 100));
 
-      // Navigate and wait for render
-      await page.goto(url, { waitUntil: "networkidle", timeout: 15000 });
+      // Navigate (full page load picks up the new files)
+      await page.goto(baseUrl, { waitUntil: "networkidle", timeout: 25000 });
 
-      // Wait a bit for animations to settle
-      await page.waitForTimeout(1500);
+      // Wait for animations and WebGL to initialize
+      await page.waitForTimeout(3000);
 
       // Check for render errors
       const hasError = await page.evaluate(() => {
@@ -334,27 +250,19 @@ async function screenshotResults(results: EvalResult[], sourceType: "comparative
       }
 
       await page.screenshot({ path: screenshotPath, type: "png" });
-      await page.close();
-
       console.log(`    ✓ Saved: ${screenshotName}`);
       success++;
     } catch (err) {
       console.log(`    ✗ Failed: ${(err as Error).message.slice(0, 120)}`);
       failed++;
-    } finally {
-      if (server) {
-        await server.close();
-      }
     }
   }
 
-  // Cleanup temp directory
-  if (existsSync(TEMP_DIR)) {
-    rmSync(TEMP_DIR, { recursive: true });
-  }
-
+  // 4. Cleanup
+  await page.close();
   await context.close();
   await browser.close();
+  await server.close();
 
   console.log(`\n  Done: ${success} screenshots, ${failed} failed`);
   console.log(`  Screenshots: ${SCREENSHOTS_DIR}\n`);
@@ -367,7 +275,6 @@ async function main() {
   const isOriginal = sourceArg === "original";
 
   if (isOriginal) {
-    // Screenshot the original eval (ui-universe components)
     const files = readdirSync(RESULTS_DIR)
       .filter((f) => f.startsWith("eval-") && f.endsWith(".json") && !f.includes("comparative"))
       .sort()
@@ -381,7 +288,6 @@ async function main() {
     const report = JSON.parse(readFileSync(resolve(RESULTS_DIR, files[0]), "utf-8"));
     await screenshotResults(report.results, "original");
   } else {
-    // Screenshot the comparative eval (external components)
     const claudeFile = readdirSync(RESULTS_DIR)
       .filter((f) => f.includes("comparative-claude") && f.endsWith(".json"))
       .sort()
@@ -394,16 +300,9 @@ async function main() {
 
     const report = JSON.parse(readFileSync(resolve(RESULTS_DIR, claudeFile), "utf-8"));
 
-    // Filter to components most likely to render successfully
-    // Counter + ShapeGrid are pure React/Canvas, no WebGL deps
-    const renderableComponents = ["Counter", "ShapeGrid", "SoftAurora"];
-    const filtered = report.results.filter(
-      (r: EvalResult) => renderableComponents.includes(r.component) && r.prompt === "basic-usage",
-    );
+    const filtered = report.results.filter((r: EvalResult) => r.prompt === "basic-usage");
 
-    console.log(
-      `  Filtering to ${filtered.length} renderable results (${renderableComponents.join(", ")}, basic-usage only)`,
-    );
+    console.log(`  Screenshotting ${filtered.length} basic-usage results (all components)`);
 
     await screenshotResults(filtered, "comparative");
   }

@@ -1,0 +1,50 @@
+{
+  "name": "FlowingMenu",
+  "slug": "flowing-menu",
+  "description": "A vertical full-height menu where each item reveals a horizontal marquee with text and images on hover. Uses edge detection to animate the marquee in from the closest edge (top or bottom).",
+  "category": "sections",
+  "props": {
+    "items": {
+      "type": "{ link: string; text: string; image: string }[]",
+      "required": true,
+      "description": "Array of menu items. Each item has a link URL, display text, and background image URL for the marquee."
+    },
+    "speed": {
+      "type": "number",
+      "default": 15,
+      "description": "Duration in seconds for the marquee to complete one full loop. Lower values = faster scrolling."
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#fff",
+      "description": "Color of the menu item text in the default (non-hovered) state."
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "#060010",
+      "description": "Background color of the entire menu container."
+    },
+    "marqueeBgColor": {
+      "type": "string",
+      "default": "#fff",
+      "description": "Background color of the marquee overlay that appears on hover."
+    },
+    "marqueeTextColor": {
+      "type": "string",
+      "default": "#060010",
+      "description": "Text color inside the marquee overlay."
+    },
+    "borderColor": {
+      "type": "string",
+      "default": "#fff",
+      "description": "Color of the border between menu items."
+    }
+  },
+  "examples": [
+    {
+      "title": "Basic Usage",
+      "code": "import FlowingMenu from './FlowingMenu';\n\nconst items = [\n  { link: '#', text: 'Mojave', image: 'https://picsum.photos/600/400?random=1' },\n  { link: '#', text: 'Sonoma', image: 'https://picsum.photos/600/400?random=2' },\n  { link: '#', text: 'Monterey', image: 'https://picsum.photos/600/400?random=3' },\n  { link: '#', text: 'Sequoia', image: 'https://picsum.photos/600/400?random=4' }\n];\n\nexport default function Example() {\n  return (\n    <div style={{ height: '600px', position: 'relative' }}>\n      <FlowingMenu items={items} />\n    </div>\n  );\n}"
+    }
+  ],
+  "aiPromptHint": "FlowingMenu must be inside a container with explicit height (e.g. h-[600px] or h-screen). Each item in the items array needs link, text, and image properties. The component uses GSAP for animations. Import as default import."
+}

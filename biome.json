@@ -48,8 +48,11 @@
       "pnpm-lock.yaml",
       "scripts/eval/fixtures/*.source.tsx",
       "scripts/eval/results",
-      ".tmp-visual-render",
-      "scripts/eval/visual/screenshots"
+      "scripts/eval/visual/render-app",
+      "scripts/eval/visual/compare-app",
+      "scripts/eval/visual/screenshots",
+      "apps/web/components/eval-usage",
+      "apps/web/components/fixtures"
     ]
   }
 }

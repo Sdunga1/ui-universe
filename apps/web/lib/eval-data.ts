@@ -1,5 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { resolve } from "node:path";
+import { supabase } from "./supabase";
 
 export interface EvalModelSummary {
   model: string;
@@ -48,79 +47,104 @@ function shortName(m: string): string {
   return m;
 }
 
-function slug(m: string): string {
-  if (m.includes("claude")) return "claude";
-  if (m.includes("gemini")) return "gemini";
-  return "unknown";
+function emptyData(): EvalPageData {
+  return {
+    models: [],
+    totalRuns: 0,
+    totalComponents: 0,
+    avgTokenRatio: 1,
+    avgQualityGain: 0,
+    componentNames: [],
+    generatedAt: new Date().toISOString(),
+  };
 }
 
-export function loadEvalData(): EvalPageData {
-  const resultsDir = resolve(process.cwd(), "../../scripts/eval/results");
-  const allFiles = readdirSync(resultsDir).filter(
-    (f) => f.startsWith("comparative-") && f.endsWith(".json"),
-  );
+export async function loadEvalData(): Promise<EvalPageData> {
+  // Fetch all runs ordered by timestamp descending
+  const { data: allRuns, error: runsError } = await supabase
+    .from("eval_runs")
+    .select("*")
+    .order("run_timestamp", { ascending: false });
 
-  const claudeFile = allFiles
-    .filter((f) => f.includes("claude"))
-    .sort()
-    .reverse()[0];
-  const geminiFile = allFiles
-    .filter((f) => f.includes("gemini"))
-    .sort()
-    .reverse()[0];
+  if (runsError || !allRuns?.length) {
+    return emptyData();
+  }
 
-  const modelFiles = [claudeFile, geminiFile].filter(Boolean) as string[];
-  const models: EvalModelSummary[] = [];
+  // Pick the latest run per model_slug
+  const latestBySlug: Record<string, (typeof allRuns)[0]> = {};
+  for (const run of allRuns) {
+    if (!latestBySlug[run.model_slug]) {
+      latestBySlug[run.model_slug] = run;
+    }
+  }
 
-  for (const file of modelFiles) {
-    const report = JSON.parse(readFileSync(resolve(resultsDir, file), "utf-8"));
-    const raw = report.summary.byCondition["raw-source-only"] ?? {};
-    const desc = report.summary.byCondition["descriptor-only"] ?? {};
-    const rawEff = report.summary.tokenEfficiency["raw-source-only"] ?? {};
-    const descEff = report.summary.tokenEfficiency["descriptor-only"] ?? {};
+  const selectedRuns = Object.values(latestBySlug);
+  const runIds = selectedRuns.map((r) => r.id);
 
-    const tokenRatio =
-      raw.avgInputTokens && desc.avgInputTokens ? raw.avgInputTokens / desc.avgInputTokens : 1;
-    const effGain =
-      rawEff.scorePerKToken && descEff.scorePerKToken
-        ? descEff.scorePerKToken / rawEff.scorePerKToken
-        : 1;
+  // Fetch component stats for the selected runs
+  const { data: componentStats } = await supabase
+    .from("eval_component_stats")
+    .select("*")
+    .in("run_id", runIds);
+
+  const models: EvalModelSummary[] = selectedRuns.map((run) => {
+    const stats = componentStats?.filter((s) => s.run_id === run.id) ?? [];
 
     const components: EvalModelSummary["components"] = {};
-    for (const [comp, conds] of Object.entries(
-      report.summary.byComponent as Record<string, Record<string, any>>,
-    )) {
-      components[comp] = {
-        raw: {
-          avgOverall: conds["raw-source-only"]?.avgOverall ?? 0,
-          avgInputTokens: conds["raw-source-only"]?.avgInputTokens ?? 0,
-        },
-        desc: {
-          avgOverall: conds["descriptor-only"]?.avgOverall ?? 0,
-          avgInputTokens: conds["descriptor-only"]?.avgInputTokens ?? 0,
-        },
-      };
+    for (const stat of stats) {
+      if (!components[stat.component]) {
+        components[stat.component] = {
+          raw: { avgOverall: 0, avgInputTokens: 0 },
+          desc: { avgOverall: 0, avgInputTokens: 0 },
+        };
+      }
+      if (stat.condition === "raw-source-only") {
+        components[stat.component].raw = {
+          avgOverall: stat.avg_overall ?? 0,
+          avgInputTokens: stat.avg_input_tokens ?? 0,
+        };
+      } else if (stat.condition === "descriptor-only") {
+        components[stat.component].desc = {
+          avgOverall: stat.avg_overall ?? 0,
+          avgInputTokens: stat.avg_input_tokens ?? 0,
+        };
+      }
     }
 
-    models.push({
-      model: report.model,
-      modelShort: shortName(report.model),
-      slug: slug(report.model),
-      totalRuns: report.results.length,
-      timestamp: report.timestamp,
-      raw,
-      desc,
-      tokenRatio,
-      efficiencyGain: effGain,
+    return {
+      model: run.model,
+      modelShort: shortName(run.model),
+      slug: run.model_slug,
+      totalRuns: run.total_results,
+      timestamp: run.run_timestamp,
+      raw: {
+        avgOverall: run.raw_avg_overall ?? 0,
+        avgPropCorrectness: run.raw_avg_prop_correctness ?? 0,
+        importRate: run.raw_import_rate ?? 0,
+        tsRate: run.raw_ts_rate ?? 0,
+        avgInputTokens: run.raw_avg_input_tokens ?? 0,
+      },
+      desc: {
+        avgOverall: run.desc_avg_overall ?? 0,
+        avgPropCorrectness: run.desc_avg_prop_correctness ?? 0,
+        importRate: run.desc_import_rate ?? 0,
+        tsRate: run.desc_ts_rate ?? 0,
+        avgInputTokens: run.desc_avg_input_tokens ?? 0,
+      },
+      tokenRatio: run.token_ratio ?? 1,
+      efficiencyGain: run.efficiency_gain ?? 1,
       components,
-    });
-  }
+    };
+  });
 
   const allComponentNames = [...new Set(models.flatMap((m) => Object.keys(m.components)))];
   const totalRuns = models.reduce((s, m) => s + m.totalRuns, 0);
-  const avgTokenRatio = models.reduce((s, m) => s + m.tokenRatio, 0) / models.length;
+  const avgTokenRatio =
+    models.length > 0 ? models.reduce((s, m) => s + m.tokenRatio, 0) / models.length : 1;
   const avgQualityGain =
-    models.reduce((s, m) => s + (m.desc.avgOverall - m.raw.avgOverall), 0) / models.length;
+    models.length > 0
+      ? models.reduce((s, m) => s + (m.desc.avgOverall - m.raw.avgOverall), 0) / models.length
+      : 0;
 
   return {
     models,
