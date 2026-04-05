@@ -1,0 +1,2594 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>uiUniverse Eval — Claude Sonnet 4</title><style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; padding: 2rem 4rem; line-height: 1.6; max-width: 1600px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #222; }
+    .header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(135deg, #ee502c, #ff8a5c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .header .subtitle { font-size: 1.05rem; color: #999; margin-bottom: 0.5rem; }
+    .header .meta { color: #666; font-size: 0.85rem; }
+    .section-title { font-size: 1.15rem; font-weight: 700; color: #ccc; margin-bottom: 1rem; margin-top: 2.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #1a1a1a; }
+    .section-desc { color: #777; font-size: 0.85rem; margin-bottom: 1.5rem; }
+    .key-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+    .stat-card { background: #111; border: 1px solid #222; padding: 1.5rem; text-align: center; }
+    .stat-card .stat-value { font-size: 2.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+    .stat-card .stat-label { font-size: 0.8rem; color: #888; }
+    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .chart-card { background: #111; border: 1px solid #222; padding: 1.25rem; }
+    .chart-card h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 1rem; font-weight: 600; }
+    .chart-full { grid-column: 1 / -1; }
+    .chart-svg { width: 100%; height: auto; }
+    .eval-card { background: #111; border: 1px solid #222; margin-bottom: 1.5rem; overflow: hidden; max-width: 100%; }
+    .eval-card-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: #161616; border-bottom: 1px solid #222; }
+    .component-name { font-weight: 700; font-size: 0.95rem; color: #ee502c; }
+    .prompt-name { font-size: 0.8rem; color: #777; font-style: italic; }
+    .conditions-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: hidden; }
+    .condition-col { padding: 1.25rem; border-right: 1px solid #1a1a1a; min-width: 0; overflow: hidden; }
+    .condition-col:last-child { border-right: none; }
+    .condition-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-weight: 700; }
+    .score-bar { position: relative; height: 22px; background: #1a1a1a; margin-bottom: 0.5rem; overflow: hidden; }
+    .score-fill { height: 100%; }
+    .score-text { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .score-details { font-size: 0.7rem; color: #999; margin-bottom: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .badge { display: inline-block; padding: 1px 6px; font-size: 0.65rem; font-weight: 700; border-radius: 2px; }
+    .badge-pass { background: #22c55e; color: #000; }
+    .badge-fail { background: #ef4444; color: #fff; }
+    .code-block { background: #0d0d0d; border: 1px solid #1a1a1a; padding: 0.75rem; overflow-x: auto; overflow-y: auto; max-height: 280px; min-width: 0; }
+    .code-block pre { margin: 0; min-width: 0; }
+    .code-block code { font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace; font-size: 0.72rem; line-height: 1.6; color: #b0b0b0; white-space: pre; }
+    .token-count { font-size: 0.65rem; color: #555; margin-top: 0.5rem; text-align: right; }
+    .footer { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #222; color: #555; font-size: 0.8rem; }
+    .footer a { color: #ee502c; text-decoration: none; }
+    @media (max-width: 900px) {
+      .conditions-row { grid-template-columns: 1fr; }
+      .key-stats { grid-template-columns: repeat(2, 1fr); }
+      .charts-grid { grid-template-columns: 1fr; }
+      body { padding: 1rem; }
+    }
+</style></head>
+<body>
+  <div class="header">
+    <h1 style="background:linear-gradient(135deg, #ee502c, #ee502c88);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Claude Sonnet 4 — Eval Report</h1>
+    <div class="subtitle">Source Code vs AI Descriptor</div>
+    <div class="meta">36 eval runs &middot; 6 components &middot; April 4, 2026</div>
+  </div>
+  <div class="key-stats">
+    <div class="stat-card"><div class="stat-value" style="color:#22c55e">6.6x</div><div class="stat-label">Fewer tokens with descriptor</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:#eab308">89%</div><div class="stat-label">Descriptor quality score</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:#eab308">80%</div><div class="stat-label">Raw source quality score</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:#3b82f6">7.4x</div><div class="stat-label">Better token efficiency</div></div>
+  </div>
+  <h2 class="section-title">Analytics</h2>
+  <div class="charts-grid">
+    <div class="chart-card"><h3>Quality Score</h3><svg viewBox="0 0 600 300" class="chart-svg"><line x1="60" y1="230" x2="570" y2="230" stroke="#1a1a1a"/><text x="52" y="234" text-anchor="end" fill="#555" font-size="10">0%</text><line x1="60" y1="180" x2="570" y2="180" stroke="#1a1a1a"/><text x="52" y="184" text-anchor="end" fill="#555" font-size="10">25%</text><line x1="60" y1="130" x2="570" y2="130" stroke="#1a1a1a"/><text x="52" y="134" text-anchor="end" fill="#555" font-size="10">50%</text><line x1="60" y1="80" x2="570" y2="80" stroke="#1a1a1a"/><text x="52" y="84" text-anchor="end" fill="#555" font-size="10">75%</text><line x1="60" y1="30" x2="570" y2="30" stroke="#1a1a1a"/><text x="52" y="34" text-anchor="end" fill="#555" font-size="10">100%</text><rect x="215" y="70.54368471035136" width="80" height="159.45631528964864" fill="#ef4444" rx="3" opacity="0.9"><animate attributeName="height" from="0" to="159.45631528964864" dur="0.5s" fill="freeze" begin="0s"/><animate attributeName="y" from="230" to="70.54368471035136" dur="0.5s" fill="freeze" begin="0s"/></rect><text x="255" y="62.54368471035136" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">80%</text><text x="255" y="248" text-anchor="middle" fill="#999" font-size="10">Raw Source</text><rect x="335" y="52.29819563152893" width="80" height="177.70180436847107" fill="#22c55e" rx="3" opacity="0.9"><animate attributeName="height" from="0" to="177.70180436847107" dur="0.5s" fill="freeze" begin="0.2s"/><animate attributeName="y" from="230" to="52.29819563152893" dur="0.5s" fill="freeze" begin="0.2s"/></rect><text x="375" y="44.29819563152893" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">89%</text><text x="375" y="248" text-anchor="middle" fill="#999" font-size="10">Descriptor</text><text x="300" y="292" text-anchor="middle" fill="#666" font-size="11">Overall Quality Score</text></svg></div>
+    <div class="chart-card"><h3>Token Consumption</h3><svg viewBox="0 0 600 300" class="chart-svg"><line x1="60" y1="230" x2="570" y2="230" stroke="#1a1a1a"/><text x="52" y="234" text-anchor="end" fill="#555" font-size="10">0</text><line x1="60" y1="180" x2="570" y2="180" stroke="#1a1a1a"/><text x="52" y="184" text-anchor="end" fill="#555" font-size="10">1435</text><line x1="60" y1="130" x2="570" y2="130" stroke="#1a1a1a"/><text x="52" y="134" text-anchor="end" fill="#555" font-size="10">2871</text><line x1="60" y1="80" x2="570" y2="80" stroke="#1a1a1a"/><text x="52" y="84" text-anchor="end" fill="#555" font-size="10">4306</text><line x1="60" y1="30" x2="570" y2="30" stroke="#1a1a1a"/><text x="52" y="34" text-anchor="end" fill="#555" font-size="10">5742</text><rect x="215" y="30" width="80" height="200" fill="#ef4444" rx="3" opacity="0.9"><animate attributeName="height" from="0" to="200" dur="0.5s" fill="freeze" begin="0s"/><animate attributeName="y" from="230" to="30" dur="0.5s" fill="freeze" begin="0s"/></rect><text x="255" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">5742</text><text x="255" y="248" text-anchor="middle" fill="#999" font-size="10">Raw Source</text><rect x="335" y="199.72588026976555" width="80" height="30.274119730234446" fill="#22c55e" rx="3" opacity="0.9"><animate attributeName="height" from="0" to="30.274119730234446" dur="0.5s" fill="freeze" begin="0.2s"/><animate attributeName="y" from="230" to="199.72588026976555" dur="0.5s" fill="freeze" begin="0.2s"/></rect><text x="375" y="191.72588026976555" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">869</text><text x="375" y="248" text-anchor="middle" fill="#999" font-size="10">Descriptor</text><text x="300" y="292" text-anchor="middle" fill="#666" font-size="11">Average Input Tokens</text></svg></div>
+    <div class="chart-card"><h3>Token Efficiency</h3><svg viewBox="0 0 600 260" class="chart-svg"><line x1="60" y1="190" x2="570" y2="190" stroke="#1a1a1a"/><text x="52" y="194" text-anchor="end" fill="#555" font-size="10">0.0</text><line x1="60" y1="150" x2="570" y2="150" stroke="#1a1a1a"/><text x="52" y="154" text-anchor="end" fill="#555" font-size="10">0.3</text><line x1="60" y1="110" x2="570" y2="110" stroke="#1a1a1a"/><text x="52" y="114" text-anchor="end" fill="#555" font-size="10">0.6</text><line x1="60" y1="70" x2="570" y2="70" stroke="#1a1a1a"/><text x="52" y="74" text-anchor="end" fill="#555" font-size="10">0.9</text><line x1="60" y1="30" x2="570" y2="30" stroke="#1a1a1a"/><text x="52" y="34" text-anchor="end" fill="#555" font-size="10">1.2</text><rect x="215" y="171.8895120471557" width="80" height="18.110487952844306" fill="#ef4444" rx="3" opacity="0.9"><animate attributeName="height" from="0" to="18.110487952844306" dur="0.5s" fill="freeze" begin="0s"/><animate attributeName="y" from="190" to="171.8895120471557" dur="0.5s" fill="freeze" begin="0s"/></rect><text x="255" y="163.8895120471557" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">0.14</text><text x="255" y="208" text-anchor="middle" fill="#999" font-size="10">Raw Source</text><rect x="335" y="56.66666666666666" width="80" height="133.33333333333334" fill="#22c55e" rx="3" opacity="0.9"><animate attributeName="height" from="0" to="133.33333333333334" dur="0.5s" fill="freeze" begin="0.2s"/><animate attributeName="y" from="190" to="56.66666666666666" dur="0.5s" fill="freeze" begin="0.2s"/></rect><text x="375" y="48.66666666666666" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">1.02</text><text x="375" y="208" text-anchor="middle" fill="#999" font-size="10">Descriptor</text><text x="300" y="252" text-anchor="middle" fill="#666" font-size="11">Score per 1K Input Tokens (higher = more efficient)</text></svg></div>
+    <div class="chart-card"><h3>Per-Component</h3><svg viewBox="0 0 700 340" class="chart-svg"><line x1="130" y1="20" x2="130" y2="290" stroke="#1a1a1a"/><text x="130" y="308" text-anchor="middle" fill="#555" font-size="10">0%</text><line x1="265" y1="20" x2="265" y2="290" stroke="#1a1a1a"/><text x="265" y="308" text-anchor="middle" fill="#555" font-size="10">25%</text><line x1="400" y1="20" x2="400" y2="290" stroke="#1a1a1a"/><text x="400" y="308" text-anchor="middle" fill="#555" font-size="10">50%</text><line x1="535" y1="20" x2="535" y2="290" stroke="#1a1a1a"/><text x="535" y="308" text-anchor="middle" fill="#555" font-size="10">75%</text><line x1="670" y1="20" x2="670" y2="290" stroke="#1a1a1a"/><text x="670" y="308" text-anchor="middle" fill="#555" font-size="10">100%</text><text x="120" y="46.5" text-anchor="end" fill="#ccc" font-size="11" font-weight="600">Counter</text><rect x="130" y="24.5" width="447.69230769230774" height="16" fill="#ef4444" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="447.69230769230774" dur="0.5s" fill="freeze" begin="0s"/></rect><text x="583.6923076923077" y="37.5" fill="#aaa" font-size="9" font-weight="600">83% (1701 tok)</text><rect x="130" y="44.5" width="470.7692307692308" height="16" fill="#22c55e" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="470.7692307692308" dur="0.5s" fill="freeze" begin="0.08s"/></rect><text x="606.7692307692307" y="57.5" fill="#aaa" font-size="9" font-weight="600">87% (844 tok)</text><text x="120" y="91.5" text-anchor="end" fill="#ccc" font-size="11" font-weight="600">CircularGallery</text><rect x="130" y="69.5" width="487.5" height="16" fill="#ef4444" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="487.5" dur="0.5s" fill="freeze" begin="0.16s"/></rect><text x="623.5" y="82.5" fill="#aaa" font-size="9" font-weight="600">90% (6123 tok)</text><rect x="130" y="89.5" width="510.00000000000006" height="16" fill="#22c55e" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="510.00000000000006" dur="0.5s" fill="freeze" begin="0.24s"/></rect><text x="646" y="102.5" fill="#aaa" font-size="9" font-weight="600">94% (837 tok)</text><text x="120" y="136.5" text-anchor="end" fill="#ccc" font-size="11" font-weight="600">InfiniteMenu</text><rect x="130" y="114.5" width="459.99999999999994" height="16" fill="#ef4444" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="459.99999999999994" dur="0.5s" fill="freeze" begin="0.32s"/></rect><text x="596" y="127.5" fill="#aaa" font-size="9" font-weight="600">85% (12293 tok)</text><rect x="130" y="134.5" width="500" height="16" fill="#22c55e" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="500" dur="0.5s" fill="freeze" begin="0.4s"/></rect><text x="636" y="147.5" fill="#aaa" font-size="9" font-weight="600">93% (513 tok)</text><text x="120" y="181.5" text-anchor="end" fill="#ccc" font-size="11" font-weight="600">SoftAurora</text><rect x="130" y="159.5" width="468" height="16" fill="#ef4444" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="468" dur="0.5s" fill="freeze" begin="0.48s"/></rect><text x="604" y="172.5" fill="#aaa" font-size="9" font-weight="600">87% (3546 tok)</text><rect x="130" y="179.5" width="444.00000000000006" height="16" fill="#22c55e" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="444.00000000000006" dur="0.5s" fill="freeze" begin="0.56s"/></rect><text x="580" y="192.5" fill="#aaa" font-size="9" font-weight="600">82% (990 tok)</text><text x="120" y="226.5" text-anchor="end" fill="#ccc" font-size="11" font-weight="600">ModelViewer</text><rect x="130" y="204.5" width="329.99999999999994" height="16" fill="#ef4444" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="329.99999999999994" dur="0.5s" fill="freeze" begin="0.64s"/></rect><text x="465.99999999999994" y="217.5" fill="#aaa" font-size="9" font-weight="600">61% (5868 tok)</text><rect x="130" y="224.5" width="444.00000000000006" height="16" fill="#22c55e" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="444.00000000000006" dur="0.5s" fill="freeze" begin="0.72s"/></rect><text x="580" y="237.5" fill="#aaa" font-size="9" font-weight="600">82% (1305 tok)</text><text x="120" y="271.5" text-anchor="end" fill="#ccc" font-size="11" font-weight="600">ShapeGrid</text><rect x="130" y="249.5" width="390" height="16" fill="#ef4444" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="390" dur="0.5s" fill="freeze" begin="0.8s"/></rect><text x="526" y="262.5" fill="#aaa" font-size="9" font-weight="600">72% (4918 tok)</text><rect x="130" y="269.5" width="510.00000000000006" height="16" fill="#22c55e" rx="2" opacity="0.85"><animate attributeName="width" from="0" to="510.00000000000006" dur="0.5s" fill="freeze" begin="0.88s"/></rect><text x="646" y="282.5" fill="#aaa" font-size="9" font-weight="600">94% (725 tok)</text><rect x="130" y="326" width="10" height="10" fill="#ef4444" rx="2"/><text x="144" y="335" fill="#888" font-size="10">Raw Source</text><rect x="290" y="326" width="10" height="10" fill="#22c55e" rx="2"/><text x="304" y="335" fill="#888" font-size="10">Descriptor</text></svg></div>
+  </div>
+  <h2 class="section-title">Side-by-Side: Generated Code</h2>
+  <p class="section-desc">Left: <span style="color:#ef4444">raw source code</span> given to LLM. Right: <span style="color:#22c55e">AI descriptor JSON</span>. Same prompt, same model.</p>
+  
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">Counter</span>
+          <span class="prompt-name">basic-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:94.87179487179488%;background:#22c55e"></div><span class="score-text">95%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#eab308;color:#000">85%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import React from 'react';
+import Counter from './Counter';
+
+export default function Example() {
+  const [count, setCount] = React.useState(1234.56);
+  const [revenue, setRevenue] = React.useState(987654.32);
+  const [downloads, setDownloads] = React.useState(42069);
+
+  React.useEffect(() =&gt; {
+    const interval = setInterval(() =&gt; {
+      setCount(prev =&gt; prev + Math.random() * 10 - 5);
+      setRevenue(prev =&gt; prev + Math.random() * 1000 - 500);
+      setDownloads(prev =&gt; Math.max(0, prev + Math.floor(Math.random() * 100)));
+    }, 2000);
+
+    return () =&gt; clearInterval(interval);
+  }, []);
+
+  return (
+    &lt;div style={{ 
+      padding: '2rem', 
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      backgroundColor: '#f5f5f5',
+      minHeight: '100vh'
+    }}&gt;
+      &lt;h1 style={{ marginBottom: '2rem', color: '#333' }}&gt;Counter Component Examples&lt;/h1&gt;
+      
+      &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}&gt;
+        {/* Basic Counter */}
+        &lt;div&gt;
+          &lt;h2 style={{ marginBottom: '1rem', color: '#666' }}&gt;Basic Counter&lt;/h2&gt;
+          &lt;Counter 
+            value={count}
+            fontSize={60}
+            textColor=&quot;#2563eb&quot;
+            fontWeight=&quot;bold&quot;
+            containerStyle={{
+              backgroundColor: 'white',
+              padding: '1rem',
+              borderRadius: '12px',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+            }}
+          /&gt;
+        &lt;/div&gt;
+
+        {/* Revenue Counter */}
+        &lt;div&gt;
+          &lt;h2 style={{ marginBottom: '1rem', color: '#666' }}&gt;Revenue Dashboard&lt;/h2&gt;
+          &lt;div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}&gt;
+            &lt;span style={{ fontSize: '24px', color: '#16a34a', fontWeight: 'bold' }}&gt;$&lt;/span&gt;
+            &lt;Counter 
+              value={revenue}
+              fontSize={48}
+              textColor=&quot;#16a34a&quot;
+              fontWeight=&quot;600&quot;
+              containerStyle={{
+                backgroundColor: 'white',
+                border: '2px solid #dcfce7',
+                borderRadius: '8px'
+              }}
+              gradientFrom=&quot;#16a34a&quot;
+              gradientHeight={12}
+            /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        {/* Downloads Counter */}
+        &lt;div&gt;
+          &lt;h2 style={{ marginBottom: '1rem', color: '#666' }}&gt;Total Downloads&lt;/h2&gt;
+          &lt;div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}&gt;
+            &lt;Counter 
+              value={downloads}
+              fontSize={72}
+              textColor=&quot;#7c3aed&quot;
+              fontWeight=&quot;800&quot;
+              gap={4}
+              containerStyle={{
+                backgroundColor: '#faf5ff',
+                border: '3px solid #e9d5ff',
+                borderRadius: '16px'
+              }}
+              gradientFrom=&quot;#7c3aed&quot;
+              gradientTo=&quot;transparent&quot;
+              gradientHeight={20}
+            /&gt;
+            &lt;span style={{ fontSize: '24px', color: '#7c3aed', marginLeft: '0.5rem' }}&gt;
+              downloads
+            &lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        {/* Small Counter */}
+        &lt;div&gt;
+          &lt;h2 style={{ marginBottom: '1rem', color: '#666' }}&gt;Compact View&lt;/h2&gt;
+          &lt;div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}&gt;
+            &lt;div&gt;
+              &lt;div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '0.5rem' }}&gt;
+                Active Users
+              &lt;/div&gt;</code></pre></div>
+            <div class="token-count">1679 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:97.43589743589745%;background:#22c55e"></div><span class="score-text">97%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">92%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import Counter from './Counter';
+
+export default function Example() {
+  return (
+    &lt;div style={{
+      padding: '40px',
+      backgroundColor: '#1a1a1a',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '40px',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}&gt;
+      &lt;div style={{ textAlign: 'center' }}&gt;
+        &lt;h2 style={{ color: 'white', marginBottom: '20px', fontSize: '24px' }}&gt;
+          Basic Counter
+        &lt;/h2&gt;
+        &lt;Counter 
+          value={1234} 
+          fontSize={60} 
+          textColor=&quot;white&quot; 
+          fontWeight={700}
+          gradientFrom=&quot;#1a1a1a&quot;
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;div style={{ textAlign: 'center' }}&gt;
+        &lt;h2 style={{ color: 'white', marginBottom: '20px', fontSize: '24px' }}&gt;
+          Large Revenue Counter
+        &lt;/h2&gt;
+        &lt;Counter 
+          value={987654} 
+          fontSize={80} 
+          textColor=&quot;#00ff88&quot; 
+          fontWeight={800}
+          gap={12}
+          borderRadius={8}
+          horizontalPadding={16}
+          gradientFrom=&quot;#1a1a1a&quot;
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;div style={{ textAlign: 'center' }}&gt;
+        &lt;h2 style={{ color: 'white', marginBottom: '20px', fontSize: '24px' }}&gt;
+          Custom Places (Two Digits)
+        &lt;/h2&gt;
+        &lt;Counter 
+          value={42} 
+          places={[10, 1]} 
+          fontSize={100} 
+          textColor=&quot;#ff6b6b&quot; 
+          fontWeight={900}
+          gap={16}
+          padding={8}
+          gradientFrom=&quot;#1a1a1a&quot;
+          gradientHeight={24}
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;div style={{ textAlign: 'center' }}&gt;
+        &lt;h2 style={{ color: 'white', marginBottom: '20px', fontSize: '24px' }}&gt;
+          Compact Style
+        &lt;/h2&gt;
+        &lt;Counter 
+          value={999} 
+          fontSize={40} 
+          textColor=&quot;#ffd700&quot; 
+          fontWeight={600}
+          gap={4}
+          borderRadius={6}
+          horizontalPadding={12}
+          gradientFrom=&quot;#1a1a1a&quot;
+          gradientHeight={12}
+        /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">822 input / 656 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">Counter</span>
+          <span class="prompt-name">prop-customization</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:79.48717948717949%;background:#eab308"></div><span class="score-text">79%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">38%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import React from 'react';
+import Counter from './Counter';
+
+export default function Example() {
+  return (
+    &lt;div style={{ padding: '20px' }}&gt;
+      &lt;Counter 
+        value={12345.67}
+        fontSize={60}
+        padding={10}
+        gap={12}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">1725 input / 92 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:79.48717948717949%;background:#eab308"></div><span class="score-text">79%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">38%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import Counter from './Counter';
+
+export default function Example() {
+  return (
+    &lt;Counter 
+      value={9876}
+      fontSize={75}
+      padding={12}
+      gap={15}
+    /&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">868 input / 63 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">Counter</span>
+          <span class="prompt-name">complex-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:74.35897435897436%;background:#eab308"></div><span class="score-text">74%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">23%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import { useState, useEffect } from 'react';
+import Counter from './Counter';
+
+interface MetricCardProps {
+  title: string;
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  change?: number;
+  changeLabel?: string;
+  icon: React.ReactNode;
+  color: 'blue' | 'green' | 'purple' | 'orange';
+}
+
+function MetricCard({ title, value, suffix = '', prefix = '', change, changeLabel, icon, color }: MetricCardProps) {
+  const colorClasses = {
+    blue: {
+      bg: 'bg-blue-50',
+      icon: 'text-blue-600',
+      counter: 'text-blue-900',
+      change: change &amp;&amp; change &gt; 0 ? 'text-green-600' : 'text-red-500'
+    },
+    green: {
+      bg: 'bg-green-50',
+      icon: 'text-green-600',
+      counter: 'text-green-900',
+      change: change &amp;&amp; change &gt; 0 ? 'text-green-600' : 'text-red-500'
+    },
+    purple: {
+      bg: 'bg-purple-50',
+      icon: 'text-purple-600',
+      counter: 'text-purple-900',
+      change: change &amp;&amp; change &gt; 0 ? 'text-green-600' : 'text-red-500'
+    },
+    orange: {
+      bg: 'bg-orange-50',
+      icon: 'text-orange-600',
+      counter: 'text-orange-900',
+      change: change &amp;&amp; change &gt; 0 ? 'text-green-600' : 'text-red-500'
+    }
+  };
+
+  const classes = colorClasses[color];
+
+  return (
+    &lt;div className={`${classes.bg} rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow`}&gt;
+      &lt;div className=&quot;flex items-center justify-between mb-4&quot;&gt;
+        &lt;div className={`p-2 rounded-lg bg-white ${classes.icon}`}&gt;
+          {icon}
+        &lt;/div&gt;
+        {change !== undefined &amp;&amp; (
+          &lt;div className={`flex items-center gap-1 text-sm font-medium ${classes.change}`}&gt;
+            {change &gt; 0 ? (
+              &lt;svg className=&quot;w-4 h-4&quot; fill=&quot;currentColor&quot; viewBox=&quot;0 0 20 20&quot;&gt;
+                &lt;path fillRule=&quot;evenodd&quot; d=&quot;M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z&quot; clipRule=&quot;evenodd&quot; /&gt;
+              &lt;/svg&gt;
+            ) : (
+              &lt;svg className=&quot;w-4 h-4&quot; fill=&quot;currentColor&quot; viewBox=&quot;0 0 20 20&quot;&gt;
+                &lt;path fillRule=&quot;evenodd&quot; d=&quot;M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z&quot; clipRule=&quot;evenodd&quot; /&gt;
+              &lt;/svg&gt;
+            )}
+            {Math.abs(change)}%
+          &lt;/div&gt;
+        )}
+      &lt;/div&gt;
+      
+      &lt;div className=&quot;space-y-2&quot;&gt;
+        &lt;h3 className=&quot;text-sm font-medium text-gray-600&quot;&gt;{title}&lt;/h3&gt;
+        &lt;div className=&quot;flex items-baseline gap-1&quot;&gt;
+          {prefix &amp;&amp; &lt;span className={`text-2xl font-bold ${classes.counter}`}&gt;{prefix}&lt;/span&gt;}
+          &lt;Counter
+            value={</code></pre></div>
+            <div class="token-count">1699 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:84.61538461538461%;background:#eab308"></div><span class="score-text">85%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">54%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```jsx
+import Counter from './Counter';
+import { TrendingUp, TrendingDown, Users, DollarSign, ShoppingCart, Eye } from 'lucide-react';
+
+export default function Example() {
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6&quot;&gt;
+      &lt;div className=&quot;max-w-7xl mx-auto&quot;&gt;
+        {/* Header */}
+        &lt;div className=&quot;mb-8&quot;&gt;
+          &lt;h1 className=&quot;text-4xl font-bold text-white mb-2&quot;&gt;Analytics Dashboard&lt;/h1&gt;
+          &lt;p className=&quot;text-slate-300&quot;&gt;Real-time business metrics and performance indicators&lt;/p&gt;
+        &lt;/div&gt;
+
+        {/* Main Stats Grid */}
+        &lt;div className=&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8&quot;&gt;
+          {/* Revenue Card */}
+          &lt;div className=&quot;bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20&quot;&gt;
+            &lt;div className=&quot;flex items-center justify-between mb-4&quot;&gt;
+              &lt;div className=&quot;p-3 bg-green-500/20 rounded-lg&quot;&gt;
+                &lt;DollarSign className=&quot;w-6 h-6 text-green-400&quot; /&gt;
+              &lt;/div&gt;
+              &lt;div className=&quot;flex items-center text-green-400 text-sm&quot;&gt;
+                &lt;TrendingUp className=&quot;w-4 h-4 mr-1&quot; /&gt;
+                +12.5%
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div className=&quot;mb-2&quot;&gt;
+              &lt;div className=&quot;text-slate-300 text-sm mb-1&quot;&gt;Revenue&lt;/div&gt;
+              &lt;div className=&quot;flex items-center&quot;&gt;
+                &lt;span className=&quot;text-white text-2xl font-bold mr-1&quot;&gt;$&lt;/span&gt;
+                &lt;Counter 
+                  value={847392} 
+                  fontSize={32} 
+                  textColor=&quot;white&quot; 
+                  fontWeight={700}
+                  gradientFrom=&quot;#1e293b&quot;
+                /&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          {/* Users Card */}
+          &lt;div className=&quot;bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20&quot;&gt;
+            &lt;div className=&quot;flex items-center justify-between mb-4&quot;&gt;
+              &lt;div className=&quot;p-3 bg-blue-500/20 rounded-lg&quot;&gt;
+                &lt;Users className=&quot;w-6 h-6 text-blue-400&quot; /&gt;
+              &lt;/div&gt;
+              &lt;div className=&quot;flex items-center text-blue-400 text-sm&quot;&gt;
+                &lt;TrendingUp className=&quot;w-4 h-4 mr-1&quot; /&gt;
+                +8.2%
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div className=&quot;mb-2&quot;&gt;
+              &lt;div className=&quot;text-slate-300 text-sm mb-1&quot;&gt;Active Users&lt;/div&gt;
+              &lt;Counter 
+                value={24567} 
+                fontSize={32} 
+                textColor=&quot;white&quot; 
+                fontWeight={700}
+                gradientFrom=&quot;#1e293b&quot;
+              /&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          {/* Orders Card */}
+          &lt;div className=&quot;bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20&quot;&gt;
+            &lt;div className=&quot;flex items-center justify-between mb-4&quot;&gt;
+              &lt;div className=&quot;p-3 bg-purple-500/20 rounded-lg&quot;&gt;
+                &lt;ShoppingCart className=&quot;w-6 h-6 text-purple-400&quot; /&gt;
+              &lt;/div&gt;
+              &lt;div className=&quot;flex items-center text-red-400 text-sm&quot;&gt;
+                &lt;TrendingDown className=&quot;w-4 h-4 mr-1&quot; /&gt;
+                -2.1%
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div className=&quot;mb-2&quot;&gt;
+              &lt;div className=&quot;text-slate-300 text-sm mb-1&quot;&gt;Orders&lt;/div&gt;
+              &lt;Counter 
+                value={3892} 
+                fontSize={32} 
+                textColor=&quot;white&quot; 
+                fontWeight={700}</code></pre></div>
+            <div class="token-count">842 input / 1024 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">CircularGallery</span>
+          <span class="prompt-name">basic-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import CircularGallery from './CircularGallery';
+
+const exampleItems = [
+  {
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&amp;h=600&amp;fit=crop',
+    text: 'Mountain Peak'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&amp;h=600&amp;fit=crop',
+    text: 'Ocean Waves'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&amp;h=600&amp;fit=crop',
+    text: 'Forest Trail'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&amp;h=600&amp;fit=crop',
+    text: 'Desert Dunes'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&amp;h=600&amp;fit=crop',
+    text: 'City Lights'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800&amp;h=600&amp;fit=crop',
+    text: 'Autumn Leaves'
+  }
+];
+
+export default function Example() {
+  return (
+    &lt;div className=&quot;w-full h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900&quot;&gt;
+      &lt;div className=&quot;absolute inset-0 flex flex-col&quot;&gt;
+        {/* Header */}
+        &lt;div className=&quot;z-10 p-8 text-center&quot;&gt;
+          &lt;h1 className=&quot;text-4xl font-bold text-white mb-2&quot;&gt;
+            Interactive Gallery
+          &lt;/h1&gt;
+          &lt;p className=&quot;text-gray-300 text-lg&quot;&gt;
+            Scroll or drag to explore • Curved layout with smooth animations
+          &lt;/p&gt;
+        &lt;/div&gt;
+
+        {/* Gallery Container */}
+        &lt;div className=&quot;flex-1 relative&quot;&gt;
+          &lt;CircularGallery
+            items={exampleItems}
+            bend={2}
+            textColor=&quot;#ffffff&quot;
+            borderRadius={0.08}
+            font=&quot;bold 28px system-ui&quot;
+            scrollSpeed={1.8}
+            scrollEase={0.08}
+          /&gt;
+        &lt;/div&gt;
+
+        {/* Footer */}
+        &lt;div className=&quot;z-10 p-6 text-center&quot;&gt;
+          &lt;p className=&quot;text-gray-400 text-sm&quot;&gt;
+            Use mouse wheel, touch gestures, or click and drag to navigate
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">6100 input / 876 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import CircularGallery from './CircularGallery';
+
+export default function Example() {
+  const galleryItems = [
+    { image: 'https://picsum.photos/400/300?random=1', text: 'Mountain Vista' },
+    { image: 'https://picsum.photos/400/300?random=2', text: 'Ocean Waves' },
+    { image: 'https://picsum.photos/400/300?random=3', text: 'Forest Path' },
+    { image: 'https://picsum.photos/400/300?random=4', text: 'City Lights' },
+    { image: 'https://picsum.photos/400/300?random=5', text: 'Desert Dunes' },
+    { image: 'https://picsum.photos/400/300?random=6', text: 'Snowy Peaks' },
+    { image: 'https://picsum.photos/400/300?random=7', text: 'Tropical Beach' },
+    { image: 'https://picsum.photos/400/300?random=8', text: 'Urban Street' }
+  ];
+
+  return (
+    &lt;div style={{ 
+      height: '600px', 
+      position: 'relative',
+      width: '100%',
+      backgroundColor: '#1a1a1a'
+    }}&gt;
+      &lt;CircularGallery
+        items={galleryItems}
+        bend={3}
+        textColor=&quot;#ffffff&quot;
+        borderRadius={0.05}
+        font=&quot;bold 24px Figtree&quot;
+        scrollSpeed={2}
+        scrollEase={0.05}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">814 input / 421 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">CircularGallery</span>
+          <span class="prompt-name">prop-customization</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import CircularGallery from './CircularGallery';
+
+export default function Example() {
+  const customItems = [
+    { image: 'https://picsum.photos/seed/10/800/600', text: 'Mountain View' },
+    { image: 'https://picsum.photos/seed/20/800/600', text: 'City Lights' },
+    { image: 'https://picsum.photos/seed/30/800/600', text: 'Ocean Waves' },
+    { image: 'https://picsum.photos/seed/40/800/600', text: 'Forest Path' },
+    { image: 'https://picsum.photos/seed/50/800/600', text: 'Desert Dunes' },
+    { image: 'https://picsum.photos/seed/60/800/600', text: 'Snowy Peak' },
+  ];
+
+  return (
+    &lt;div className=&quot;w-full h-screen bg-gradient-to-br from-purple-900 to-blue-900&quot;&gt;
+      &lt;CircularGallery
+        items={customItems}
+        bend={1.5}
+        textColor=&quot;#ff6b6b&quot;
+        borderRadius={0.15}
+        font=&quot;bold 28px Arial&quot;
+        scrollSpeed={1.5}
+        scrollEase={0.08}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">6150 input / 345 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:83.33333333333334%;background:#eab308"></div><span class="score-text">83%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">50%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import React from 'react';
+import CircularGallery from './CircularGallery';
+
+export default function Example() {
+  return (
+    &lt;div style={{ height: '600px', position: 'relative' }}&gt;
+      &lt;CircularGallery
+        bend={5}
+        textColor=&quot;#ff6b6b&quot;
+        borderRadius={0.15}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">864 input / 108 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">CircularGallery</span>
+          <span class="prompt-name">complex-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:70.83333333333334%;background:#eab308"></div><span class="score-text">71%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">13%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import { useState, useEffect } from 'react';
+import CircularGallery from './CircularGallery';
+import { ChevronLeftIcon, ChevronRightIcon, PlayIcon, PauseIcon } from '@heroicons/react/24/outline';
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  tags: string[];
+  year: string;
+}
+
+const projects: Project[] = [
+  {
+    id: '1',
+    title: 'Modern Architecture',
+    description: 'A stunning residential complex that redefines urban living with sustainable design principles.',
+    category: 'Architecture',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&amp;h=600&amp;fit=crop',
+    tags: ['Residential', 'Sustainable', 'Modern'],
+    year: '2024'
+  },
+  {
+    id: '2',
+    title: 'Digital Art Installation',
+    description: 'An immersive digital experience combining light, sound, and interactive elements.',
+    category: 'Digital Art',
+    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&amp;h=600&amp;fit=crop',
+    tags: ['Interactive', 'Installation', 'Technology'],
+    year: '2023'
+  },
+  {
+    id: '3',
+    title: 'Brand Identity System',
+    description: 'Complete visual identity redesign for a sustainable fashion brand.',
+    category: 'Branding',
+    image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&amp;h=600&amp;fit=crop',
+    tags: ['Identity', 'Fashion', 'Sustainability'],
+    year: '2024'
+  },
+  {
+    id: '4',
+    title: 'Urban Photography',
+    description: 'A series capturing the essence of city life through candid street photography.',
+    category: 'Photography',
+    image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&amp;h=600&amp;fit=crop',
+    tags: ['Street', 'Urban', 'Documentary'],
+    year: '2023'
+  },
+  {
+    id: '5',
+    title: 'Product Design',
+    description: 'Innovative consumer electronics that blend form and function seamlessly.',
+    category: 'Product Design',
+    image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&amp;h=600&amp;fit=crop',
+    tags: ['Electronics', 'Innovation', 'Design'],
+    year: '2024'
+  },
+  {
+    id: '6',
+    title: 'Interior Spaces',
+    description: 'Thoughtfully designed interior spaces that prioritize comfort and functionality.',
+    category: 'Interior Design',
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&amp;h=600&amp;fit=crop',
+    tags: ['Interior', 'Residential', 'Comfort'],
+    year: '2023'
+  }
+];
+
+export default function Example() {
+  const [selectedCategory, setSelectedCategory] = useState&lt;string&gt;('All');
+  const [isAutoPlay, setIsAutoPlay] = useState&lt;boolean&gt;(false);
+  const [hoveredProject, setHoveredProject] = useState&lt;string | null&gt;(null);
+
+  const categories = ['All', ...Array.from(new Set(projects.map(p =&gt; p.category)))];
+  
+  const filteredProjects = selectedCategory === 'All' 
+    ? projects 
+    : projects.filter(p =&gt; p.category === selectedCategory);
+
+  const galleryItems = filteredProjects.map(project =&gt; ({
+    image: project.image,
+    text: project.title
+  }));
+
+  useEffect(() =&gt; {
+    let interval: NodeJS.Timeout</code></pre></div>
+            <div class="token-count">6120 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```jsx
+import CircularGallery from './CircularGallery';
+
+export default function Example() {
+  const portfolioItems = [
+    { image: '/api/placeholder/400/300', text: 'Mountain Vista' },
+    { image: '/api/placeholder/400/301', text: 'Ocean Waves' },
+    { image: '/api/placeholder/400/302', text: 'Forest Path' },
+    { image: '/api/placeholder/400/303', text: 'Desert Sunset' },
+    { image: '/api/placeholder/400/304', text: 'City Lights' },
+    { image: '/api/placeholder/400/305', text: 'Snowy Peaks' },
+    { image: '/api/placeholder/400/306', text: 'Tropical Beach' },
+    { image: '/api/placeholder/400/307', text: 'Autumn Valley' }
+  ];
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900&quot;&gt;
+      {/* Header Section */}
+      &lt;div className=&quot;relative z-10 pt-16 pb-8&quot;&gt;
+        &lt;div className=&quot;max-w-4xl mx-auto px-6 text-center&quot;&gt;
+          &lt;h1 className=&quot;text-5xl md:text-6xl font-bold text-white mb-6&quot;&gt;
+            Photography
+            &lt;span className=&quot;bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent&quot;&gt; Portfolio&lt;/span&gt;
+          &lt;/h1&gt;
+          &lt;p className=&quot;text-xl text-gray-300 mb-4 max-w-2xl mx-auto&quot;&gt;
+            Explore my collection of landscape photography captured from around the world
+          &lt;/p&gt;
+          &lt;div className=&quot;flex items-center justify-center gap-2 text-gray-400&quot;&gt;
+            &lt;svg className=&quot;w-5 h-5&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+              &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M15 12a3 3 0 11-6 0 3 3 0 016 0z&quot; /&gt;
+              &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z&quot; /&gt;
+            &lt;/svg&gt;
+            &lt;span&gt;Drag or scroll to navigate&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      {/* Gallery Section */}
+      &lt;div className=&quot;relative&quot;&gt;
+        {/* Background decoration */}
+        &lt;div className=&quot;absolute inset-0 overflow-hidden&quot;&gt;
+          &lt;div className=&quot;absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl&quot;&gt;&lt;/div&gt;
+          &lt;div className=&quot;absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+
+        {/* Gallery Container */}
+        &lt;div className=&quot;relative z-10 h-[600px] mx-4 md:mx-8&quot;&gt;
+          &lt;CircularGallery
+            items={portfolioItems}
+            bend={2.5}
+            textColor=&quot;#e5e7eb&quot;
+            borderRadius={0.08}
+            font=&quot;bold 24px system-ui, -apple-system, sans-serif&quot;
+            scrollSpeed={2.5}
+            scrollEase={0.08}
+          /&gt;
+        &lt;/div&gt;
+
+        {/* Stats Section */}
+        &lt;div className=&quot;relative z-10 max-w-4xl mx-auto px-6 mt-16 pb-20&quot;&gt;
+          &lt;div className=&quot;grid grid-cols-1 md:grid-cols-3 gap-8&quot;&gt;
+            &lt;div className=&quot;text-center&quot;&gt;</code></pre></div>
+            <div class="token-count">834 input / 1024 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">InfiniteMenu</span>
+          <span class="prompt-name">basic-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import React from 'react';
+import InfiniteMenu from './InfiniteMenu';
+
+const Example = () =&gt; {
+  const menuItems = [
+    {
+      image: 'https://picsum.photos/512/512?random=1',
+      link: 'https://github.com',
+      title: 'GitHub',
+      description: 'Code collaboration platform for developers worldwide'
+    },
+    {
+      image: 'https://picsum.photos/512/512?random=2',
+      link: 'https://stackoverflow.com',
+      title: 'Stack Overflow',
+      description: 'Developer community for coding questions and answers'
+    },
+    {
+      image: 'https://picsum.photos/512/512?random=3',
+      link: 'https://dribbble.com',
+      title: 'Dribbble',
+      description: 'Creative community showcasing design work and inspiration'
+    },
+    {
+      image: 'https://picsum.photos/512/512?random=4',
+      link: 'https://behance.net',
+      title: 'Behance',
+      description: 'Portfolio platform for creative professionals'
+    },
+    {
+      image: 'https://picsum.photos/512/512?random=5',
+      link: 'https://codepen.io',
+      title: 'CodePen',
+      description: 'Frontend playground for HTML, CSS, and JavaScript'
+    },
+    {
+      image: 'https://picsum.photos/512/512?random=6',
+      link: 'https://figma.com',
+      title: 'Figma',
+      description: 'Collaborative design tool for teams and individuals'
+    },
+    {
+      image: 'https://picsum.photos/512/512?random=7',
+      link: 'https://notion.so',
+      title: 'Notion',
+      description: 'All-in-one workspace for notes, tasks, and collaboration'
+    },
+    {
+      image: 'https://picsum.photos/512/512?random=8',
+      link: 'https://vercel.com',
+      title: 'Vercel',
+      description: 'Platform for frontend deployment and collaboration'
+    }
+  ];
+
+  return (
+    &lt;div className=&quot;w-full h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900&quot;&gt;
+      &lt;InfiniteMenu 
+        items={menuItems}
+        scale={1.2}
+      /&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default Example;</code></pre></div>
+            <div class="token-count">12277 input / 642 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import React from 'react';
+import InfiniteMenu from './InfiniteMenu';
+
+export default function Example() {
+  const menuItems = [
+    {
+      image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&amp;h=300&amp;fit=crop',
+      link: '/explore',
+      title: 'Explore',
+      description: 'Discover new adventures and hidden gems around the world'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&amp;h=300&amp;fit=crop',
+      link: '/technology',
+      title: 'Technology',
+      description: 'Latest innovations and breakthroughs in tech industry'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&amp;h=300&amp;fit=crop',
+      link: '/nature',
+      title: 'Nature',
+      description: 'Beautiful landscapes and wildlife photography'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&amp;h=300&amp;fit=crop',
+      link: '/food',
+      title: 'Cuisine',
+      description: 'Delicious recipes and culinary experiences from around the globe'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&amp;h=300&amp;fit=crop',
+      link: '/sports',
+      title: 'Sports',
+      description: 'Athletic achievements and sporting events coverage'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&amp;h=300&amp;fit=crop',
+      link: '/art',
+      title: 'Art &amp; Culture',
+      description: 'Creative expressions and cultural heritage from various civilizations'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&amp;h=300&amp;fit=crop',
+      link: '/science',
+      title: 'Science',
+      description: 'Scientific discoveries and research breakthroughs'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1486312338219-ce68e2c6b13d?w=400&amp;h=300&amp;fit=crop',
+      link: '/business',
+      title: 'Business',
+      description: 'Market trends and entrepreneurial success stories'
+    }
+  ];
+
+  return (
+    &lt;div style={{ 
+      height: '600px', 
+      position: 'relative',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      borderRadius: '12px',
+      overflow: 'hidden'
+    }}&gt;
+      &lt;InfiniteMenu 
+        items={menuItems}
+        scale={1}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">497 input / 811 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">InfiniteMenu</span>
+          <span class="prompt-name">prop-customization</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import React from 'react';
+import InfiniteMenu from './InfiniteMenu';
+
+const Example: React.FC = () =&gt; {
+  const customItems = [
+    {
+      image: 'https://picsum.photos/900/900?random=1',
+      link: 'https://github.com',
+      title: 'GitHub',
+      description: 'Code repository and collaboration platform'
+    },
+    {
+      image: 'https://picsum.photos/900/900?random=2',
+      link: 'https://stackoverflow.com',
+      title: 'Stack Overflow',
+      description: 'Developer Q&amp;A community'
+    },
+    {
+      image: 'https://picsum.photos/900/900?random=3',
+      link: 'https://developer.mozilla.org',
+      title: 'MDN',
+      description: 'Web development documentation'
+    },
+    {
+      image: 'https://picsum.photos/900/900?random=4',
+      link: 'https://reactjs.org',
+      title: 'React',
+      description: 'JavaScript library for building UIs'
+    },
+    {
+      image: 'https://picsum.photos/900/900?random=5',
+      link: 'https://typescript.org',
+      title: 'TypeScript',
+      description: 'Typed JavaScript at scale'
+    },
+    {
+      image: 'https://picsum.photos/900/900?random=6',
+      link: 'https://webgl.org',
+      title: 'WebGL',
+      description: '3D graphics for the web'
+    }
+  ];
+
+  return (
+    &lt;div className=&quot;w-full h-screen bg-black&quot;&gt;
+      &lt;InfiniteMenu 
+        items={customItems}
+        scale={1.5}
+      /&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default Example;</code></pre></div>
+            <div class="token-count">12305 input / 602 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import InfiniteMenu from './InfiniteMenu';
+
+export default function Example() {
+  const menuItems = [
+    {
+      image: '/api/placeholder/300/200',
+      link: '/products',
+      title: 'Products',
+      description: 'Explore our latest product offerings and innovations'
+    },
+    {
+      image: '/api/placeholder/300/200',
+      link: '/services',
+      title: 'Services',
+      description: 'Professional services tailored to your needs'
+    },
+    {
+      image: '/api/placeholder/300/200',
+      link: '/about',
+      title: 'About Us',
+      description: 'Learn about our company history and mission'
+    },
+    {
+      image: '/api/placeholder/300/200',
+      link: '/contact',
+      title: 'Contact',
+      description: 'Get in touch with our team of experts'
+    },
+    {
+      image: '/api/placeholder/300/200',
+      link: '/blog',
+      title: 'Blog',
+      description: 'Read our latest insights and industry news'
+    },
+    {
+      image: '/api/placeholder/300/200',
+      link: '/careers',
+      title: 'Careers',
+      description: 'Join our growing team and make an impact'
+    }
+  ];
+
+  return (
+    &lt;div style={{ height: '800px', position: 'relative' }}&gt;
+      &lt;InfiniteMenu 
+        items={menuItems}
+        scale={1.2}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">525 input / 390 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">InfiniteMenu</span>
+          <span class="prompt-name">complex-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:55.55555555555555%;background:#ef4444"></div><span class="score-text">56%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">67%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-fail">FAIL</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import { useState } from 'react';
+import InfiniteMenu from './InfiniteMenu';
+
+const portfolioItems = [
+  {
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&amp;h=900&amp;fit=crop&amp;crop=center',
+    link: 'https://github.com/example/ecommerce-platform',
+    title: 'E-Commerce Platform',
+    description: 'Full-stack Next.js application with Stripe payments and inventory management'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&amp;h=900&amp;fit=crop&amp;crop=center',
+    link: 'https://github.com/example/data-dashboard',
+    title: 'Analytics Dashboard',
+    description: 'Real-time data visualization platform built with React and D3.js'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=900&amp;h=900&amp;fit=crop&amp;crop=center',
+    link: 'https://github.com/example/mobile-app',
+    title: 'Mobile Banking App',
+    description: 'React Native fintech application with biometric authentication'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=900&amp;h=900&amp;fit=crop&amp;crop=center',
+    link: 'https://github.com/example/ai-chatbot',
+    title: 'AI Chat Assistant',
+    description: 'Intelligent conversational AI powered by OpenAI GPT and custom training'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?w=900&amp;h=900&amp;fit=crop&amp;crop=center',
+    link: 'https://github.com/example/blockchain-wallet',
+    title: 'Crypto Wallet',
+    description: 'Secure multi-chain cryptocurrency wallet with DeFi integration'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=900&amp;h=900&amp;fit=crop&amp;crop=center',
+    link: 'https://github.com/example/iot-dashboard',
+    title: 'IoT Control Center',
+    description: 'Industrial IoT monitoring system with real-time sensor data streams'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&amp;h=900&amp;fit=crop&amp;crop=center',
+    link: 'https://github.com/example/saas-platform',
+    title: 'SaaS Platform',
+    description: 'Multi-tenant business automation platform with advanced workflow engine'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&amp;h=900&amp;fit=crop&amp;crop=center',
+    link: 'https://github.com/example/social-network',
+    title: 'Social Network',
+    description: 'Professional networking platform with video calls and collaboration tools'
+  }
+];
+
+const Example = () =&gt; {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900&quot;&gt;
+      {/* Header */}
+      &lt;header className=&quot;relative z-50 px-6 py-8&quot;&gt;
+        &lt;nav className=&quot;flex items-center justify-between max-w-7xl mx-auto&quot;&gt;
+          &lt;div className=&quot;flex items-center space-x-2&quot;&gt;
+            &lt;div className=&quot;w-8 h-8 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-lg&quot;&gt;&lt;/div&gt;</code></pre></div>
+            <div class="token-count">12297 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:77.77777777777777%;background:#eab308"></div><span class="score-text">78%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">33%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```jsx
+import InfiniteMenu from './InfiniteMenu';
+
+export default function Example() {
+  const menuItems = [
+    {
+      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&amp;h=300&amp;fit=crop',
+      link: '/analytics',
+      title: 'Analytics',
+      description: 'Track your performance metrics and insights'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&amp;h=300&amp;fit=crop',
+      link: '/projects',
+      title: 'Projects',
+      description: 'Manage and collaborate on your projects'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&amp;h=300&amp;fit=crop',
+      link: '/team',
+      title: 'Team',
+      description: 'Connect with your team members'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&amp;h=300&amp;fit=crop',
+      link: '/settings',
+      title: 'Settings',
+      description: 'Configure your workspace preferences'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&amp;h=300&amp;fit=crop',
+      link: '/finance',
+      title: 'Finance',
+      description: 'Monitor budgets and financial reports'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&amp;h=300&amp;fit=crop',
+      link: '/calendar',
+      title: 'Calendar',
+      description: 'Schedule meetings and track deadlines'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&amp;h=300&amp;fit=crop',
+      link: '/resources',
+      title: 'Resources',
+      description: 'Access documentation and learning materials'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&amp;h=300&amp;fit=crop',
+      link: '/support',
+      title: 'Support',
+      description: 'Get help and contact our support team'
+    }
+  ];
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900&quot;&gt;
+      {/* Header */}
+      &lt;div className=&quot;relative z-10 pt-8 pb-4&quot;&gt;
+        &lt;div className=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+          &lt;div className=&quot;text-center&quot;&gt;
+            &lt;h1 className=&quot;text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4&quot;&gt;
+              Command Center
+            &lt;/h1&gt;
+            &lt;p className=&quot;text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed&quot;&gt;
+              Navigate your workspace with our interactive 3D menu. 
+              &lt;span className=&quot;block mt-2 text-lg text-purple-300&quot;&gt;
+                Drag to rotate • Click to explore
+              &lt;/span&gt;
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      {/* 3D Menu Section */}
+      &lt;div className=&quot;relative z-10 px-4 sm:px-6 lg:px-8&quot;&gt;
+        &lt;div className=&quot;max-w-6xl mx-auto&quot;&gt;
+          &lt;div 
+            className=&quot;relative bg-black/20 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl overflow-hidden&quot;
+            style={{ height: '700px' }}
+          &gt;
+            {/* Ambient lighting overlay */}
+            &lt;div</code></pre></div>
+            <div class="token-count">517 input / 1024 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">SoftAurora</span>
+          <span class="prompt-name">basic-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import SoftAurora from './SoftAurora';
+
+export default function Example() {
+  return (
+    &lt;div className=&quot;relative min-h-screen bg-black overflow-hidden&quot;&gt;
+      {/* Aurora Background */}
+      &lt;div className=&quot;absolute inset-0&quot;&gt;
+        &lt;SoftAurora
+          speed={0.8}
+          scale={2.0}
+          brightness={0.9}
+          color1=&quot;#00ffff&quot;
+          color2=&quot;#ff00ff&quot;
+          noiseFrequency={1.8}
+          noiseAmplitude={0.8}
+          bandHeight={0.4}
+          bandSpread={1.2}
+          octaveDecay={0.15}
+          layerOffset={2.5}
+          colorSpeed={0.7}
+          enableMouseInteraction={true}
+          mouseInfluence={0.3}
+        /&gt;
+      &lt;/div&gt;
+
+      {/* Content */}
+      &lt;div className=&quot;relative z-10 flex flex-col items-center justify-center min-h-screen p-8&quot;&gt;
+        &lt;div className=&quot;text-center space-y-6 max-w-4xl&quot;&gt;
+          &lt;h1 className=&quot;text-6xl md:text-8xl font-bold text-white/90 leading-tight&quot;&gt;
+            Aurora
+          &lt;/h1&gt;
+          
+          &lt;p className=&quot;text-xl md:text-2xl text-white/70 leading-relaxed&quot;&gt;
+            Experience the mesmerizing dance of light with our interactive aurora effect.
+            Move your cursor to influence the ethereal patterns.
+          &lt;/p&gt;
+
+          &lt;div className=&quot;flex flex-wrap justify-center gap-4 mt-12&quot;&gt;
+            &lt;button className=&quot;px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white font-medium hover:bg-white/20 transition-all duration-300&quot;&gt;
+              Get Started
+            &lt;/button&gt;
+            
+            &lt;button className=&quot;px-8 py-4 bg-transparent border border-white/30 rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300&quot;&gt;
+              Learn More
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        {/* Feature Cards */}
+        &lt;div className=&quot;grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-5xl w-full&quot;&gt;
+          &lt;div className=&quot;bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300&quot;&gt;
+            &lt;div className=&quot;w-12 h-12 bg-cyan-400/20 rounded-lg flex items-center justify-center mb-4&quot;&gt;
+              &lt;div className=&quot;w-6 h-6 bg-cyan-400 rounded-full opacity-60&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;h3 className=&quot;text-xl font-semibold text-white mb-3&quot;&gt;Interactive&lt;/h3&gt;
+            &lt;p className=&quot;text-white/60 leading-relaxed&quot;&gt;
+              Responsive to mouse movement, creating a dynamic and engaging visual experience.
+            &lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;div className=&quot;bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300&quot;&gt;
+            &lt;div className=&quot;w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mb-4&quot;&gt;
+              &lt;div className=&quot;w-6 h-6 bg-purple-400 rounded-full opacity-60&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;h3 className=&quot;text-xl font-semibold text-white mb-3&quot;&gt;Customizable&lt;/h3&gt;
+            &lt;p className=&quot;text-white/60 leading-relaxed&quot;&gt;
+              Full control over colors, speed, scale, and various visual parameters.
+            &lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;div className=&quot;bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-all duration-300&quot;&gt;
+            &lt;div className=&quot;w-12 h-12 bg-pink-400/20</code></pre></div>
+            <div class="token-count">3523 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:84.44444444444444%;background:#eab308"></div><span class="score-text">84%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">53%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import SoftAurora from './SoftAurora';
+
+export default function Example() {
+  return (
+    &lt;div className=&quot;relative w-full h-screen overflow-hidden&quot;&gt;
+      &lt;SoftAurora 
+        color1=&quot;#f7f7f7&quot; 
+        color2=&quot;#e100ff&quot; 
+        speed={0.6}
+        scale={1.5}
+        brightness={1}
+        enableMouseInteraction={true}
+        mouseInfluence={0.25}
+      /&gt;
+      
+      {/* Example content overlaid on the aurora */}
+      &lt;div className=&quot;absolute inset-0 flex items-center justify-center z-10&quot;&gt;
+        &lt;div className=&quot;text-center text-white&quot;&gt;
+          &lt;h1 className=&quot;text-6xl font-bold mb-6 drop-shadow-lg&quot;&gt;
+            Aurora Dreams
+          &lt;/h1&gt;
+          &lt;p className=&quot;text-xl mb-8 max-w-2xl mx-auto drop-shadow-md opacity-90&quot;&gt;
+            Experience the mesmerizing beauty of the northern lights with this 
+            interactive WebGL aurora effect. Move your cursor to influence the flow.
+          &lt;/p&gt;
+          &lt;button className=&quot;px-8 py-3 bg-white/20 backdrop-blur-sm rounded-lg border border-white/30 hover:bg-white/30 transition-all duration-300&quot;&gt;
+            Explore
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">967 input / 359 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">SoftAurora</span>
+          <span class="prompt-name">prop-customization</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:75.55555555555556%;background:#eab308"></div><span class="score-text">76%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">27%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import SoftAurora from './SoftAurora';
+
+export default function Example() {
+  return (
+    &lt;div className=&quot;w-full h-screen&quot;&gt;
+      &lt;SoftAurora
+        speed={1.2}
+        scale={2.8}
+        brightness={0.7}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">3573 input / 91 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:75.55555555555556%;background:#eab308"></div><span class="score-text">76%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">27%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import SoftAurora from './SoftAurora';
+
+export default function Example() {
+  return (
+    &lt;div style={{ width: '100%', height: '100vh' }}&gt;
+      &lt;SoftAurora 
+        speed={0.8}
+        scale={2.2}
+        brightness={1.3}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">1017 input / 99 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">SoftAurora</span>
+          <span class="prompt-name">complex-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:84.44444444444444%;background:#eab308"></div><span class="score-text">84%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">53%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import { useState, useEffect } from 'react';
+import SoftAurora from './SoftAurora';
+import { ChevronDownIcon, PlayIcon, PauseIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+
+export default function Example() {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const [settings, setSettings] = useState({
+    speed: 0.6,
+    brightness: 1.0,
+    scale: 1.5,
+    color1: '#f7f7f7',
+    color2: '#e100ff',
+    enableMouseInteraction: true,
+    mouseInfluence: 0.25
+  });
+
+  const [stats] = useState([
+    { label: 'Active Users', value: '2,847', change: '+12%', trend: 'up' },
+    { label: 'Revenue', value: '$94,521', change: '+8%', trend: 'up' },
+    { label: 'Conversion Rate', value: '3.24%', change: '-2%', trend: 'down' },
+    { label: 'Growth Rate', value: '24.8%', change: '+5%', trend: 'up' }
+  ]);
+
+  useEffect(() =&gt; {
+    const interval = setInterval(() =&gt; {
+      // Simulate real-time data updates
+    }, 5000);
+    return () =&gt; clearInterval(interval);
+  }, []);
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gray-950 text-white&quot;&gt;
+      {/* Navigation */}
+      &lt;nav className=&quot;border-b border-gray-800 bg-gray-900/50 backdrop-blur-sm&quot;&gt;
+        &lt;div className=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+          &lt;div className=&quot;flex justify-between h-16&quot;&gt;
+            &lt;div className=&quot;flex items-center&quot;&gt;
+              &lt;div className=&quot;flex-shrink-0&quot;&gt;
+                &lt;h1 className=&quot;text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent&quot;&gt;
+                  Aurora Analytics
+                &lt;/h1&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div className=&quot;flex items-center space-x-4&quot;&gt;
+              &lt;button
+                onClick={() =&gt; setShowSettings(!showSettings)}
+                className=&quot;p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors&quot;
+              &gt;
+                &lt;Cog6ToothIcon className=&quot;w-5 h-5&quot; /&gt;
+              &lt;/button&gt;
+              &lt;button
+                onClick={() =&gt; setIsPlaying(!isPlaying)}
+                className=&quot;flex items-center space-x-2 px-3 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors&quot;
+              &gt;
+                {isPlaying ? (
+                  &lt;PauseIcon className=&quot;w-4 h-4&quot; /&gt;
+                ) : (
+                  &lt;PlayIcon className=&quot;w-4 h-4&quot; /&gt;
+                )}
+                &lt;span className=&quot;text-sm&quot;&gt;{isPlaying ? 'Pause' : 'Play'}&lt;/span&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/nav&gt;
+
+      &lt;div className=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+        {/* Hero Section with Aurora Background */}
+        &lt;div className=&quot;relative overflow-hidden rounded-2xl mb-8&quot;&gt;
+          {/* Aurora Background */}
+          &lt;div className=&quot;absolute inset-0 h-80&quot;&gt;
+            {isPlaying &amp;&amp; (
+              &lt;SoftAurora
+                speed={settings.speed}
+                brightness={settings.brightness}
+                scale={settings.scale}
+                color1={settings.color1}
+                color2={settings.color2}
+                enableMouseInteraction={settings.enableMouseInteraction}
+                mouseInfluence={settings.mouseInfluence}
+              /&gt;
+            )}
+          &lt;/div&gt;
+          
+          {/* Content Overlay</code></pre></div>
+            <div class="token-count">3543 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:86.66666666666667%;background:#eab308"></div><span class="score-text">87%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">60%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```jsx
+import SoftAurora from './SoftAurora';
+
+export default function Example() {
+  return (
+    &lt;div className=&quot;min-h-screen bg-gray-900&quot;&gt;
+      {/* Hero Section with Aurora Background */}
+      &lt;section className=&quot;relative h-screen overflow-hidden&quot;&gt;
+        {/* Aurora Background */}
+        &lt;div className=&quot;absolute inset-0&quot;&gt;
+          &lt;SoftAurora 
+            color1=&quot;#4c1d95&quot; 
+            color2=&quot;#7c3aed&quot; 
+            speed={0.4}
+            brightness={0.8}
+            noiseFrequency={1.8}
+            bandHeight={0.7}
+            enableMouseInteraction={true}
+            mouseInfluence={0.3}
+          /&gt;
+        &lt;/div&gt;
+        
+        {/* Content Overlay */}
+        &lt;div className=&quot;relative z-10 flex items-center justify-center h-full px-6&quot;&gt;
+          &lt;div className=&quot;text-center max-w-4xl&quot;&gt;
+            {/* Logo/Brand */}
+            &lt;div className=&quot;mb-8&quot;&gt;
+              &lt;div className=&quot;w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full mx-auto flex items-center justify-center border border-white/20&quot;&gt;
+                &lt;svg className=&quot;w-8 h-8 text-white&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+                  &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M13 10V3L4 14h7v7l9-11h-7z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            {/* Hero Text */}
+            &lt;h1 className=&quot;text-5xl md:text-7xl font-bold text-white mb-6 leading-tight&quot;&gt;
+              Aurora
+              &lt;span className=&quot;block bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent&quot;&gt;
+                Analytics
+              &lt;/span&gt;
+            &lt;/h1&gt;
+            
+            &lt;p className=&quot;text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed&quot;&gt;
+              Illuminate your data with powerful insights and beautiful visualizations
+            &lt;/p&gt;
+
+            {/* CTA Buttons */}
+            &lt;div className=&quot;flex flex-col sm:flex-row gap-4 justify-center items-center&quot;&gt;
+              &lt;button className=&quot;px-8 py-4 bg-white text-purple-900 font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-lg backdrop-blur-sm&quot;&gt;
+                Start Free Trial
+              &lt;/button&gt;
+              &lt;button className=&quot;px-8 py-4 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-colors border border-white/20 backdrop-blur-sm&quot;&gt;
+                Watch Demo
+              &lt;/button&gt;
+            &lt;/div&gt;
+
+            {/* Social Proof */}
+            &lt;div className=&quot;mt-12 text-gray-400&quot;&gt;
+              &lt;p className=&quot;mb-4&quot;&gt;Trusted by leading companies&lt;/p&gt;
+              &lt;div className=&quot;flex justify-center items-center gap-8 opacity-60&quot;&gt;
+                {['TechCorp', 'DataFlow', 'Nexus'].map((company) =&gt; (
+                  &lt;div key={company} className=&quot;text-lg font-medium&quot;&gt;
+                    {company}
+                  &lt;/div&gt;
+                ))}
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        {/* Scroll Indicator */}
+        &lt;div className=&quot;absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10&quot;&gt;
+          &lt;div className=&quot;flex flex-col items-center text-white/60 animate-bounce&quot;&gt;
+            &lt;span className=&quot;text-sm mb-2&quot;&gt;Scroll to explore&lt;/span&gt;
+            &lt;svg className=&quot;w-6 h-6&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+              &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M19 14l-7 7m0 0l-7-7m7 7</code></pre></div>
+            <div class="token-count">987 input / 1024 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">ModelViewer</span>
+          <span class="prompt-name">basic-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:65%;background:#ef4444"></div><span class="score-text">65%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">95%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-fail">FAIL</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import React from 'react';
+import ModelViewer from './ModelViewer';
+
+const Example: React.FC = () =&gt; {
+  const handleModelLoaded = () =&gt; {
+    console.log('3D model has finished loading!');
+  };
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-gray-900 to-gray-700 p-8&quot;&gt;
+      &lt;div className=&quot;max-w-6xl mx-auto&quot;&gt;
+        &lt;h1 className=&quot;text-4xl font-bold text-white mb-8 text-center&quot;&gt;
+          3D Model Viewer Examples
+        &lt;/h1&gt;
+        
+        &lt;div className=&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8&quot;&gt;
+          {/* Example 1: Basic GLB model */}
+          &lt;div className=&quot;bg-white/10 backdrop-blur-sm rounded-lg p-6&quot;&gt;
+            &lt;h2 className=&quot;text-xl font-semibold text-white mb-4&quot;&gt;Basic Model&lt;/h2&gt;
+            &lt;ModelViewer
+              url=&quot;/models/helmet.glb&quot;
+              width={300}
+              height={300}
+              environmentPreset=&quot;studio&quot;
+              enableMouseParallax={true}
+              enableManualRotation={true}
+              enableHoverRotation={false}
+              autoFrame={true}
+              onModelLoaded={handleModelLoaded}
+            /&gt;
+            &lt;p className=&quot;text-gray-300 text-sm mt-4&quot;&gt;
+              A basic 3D helmet model with studio lighting and mouse interaction.
+            &lt;/p&gt;
+          &lt;/div&gt;
+
+          {/* Example 2: Auto-rotating model with fade-in */}
+          &lt;div className=&quot;bg-white/10 backdrop-blur-sm rounded-lg p-6&quot;&gt;
+            &lt;h2 className=&quot;text-xl font-semibold text-white mb-4&quot;&gt;Auto-Rotating&lt;/h2&gt;
+            &lt;ModelViewer
+              url=&quot;/models/duck.glb&quot;
+              width={300}
+              height={300}
+              environmentPreset=&quot;sunset&quot;
+              autoRotate={true}
+              autoRotateSpeed={0.5}
+              fadeIn={true}
+              enableManualRotation={false}
+              enableHoverRotation={true}
+              defaultRotationX={0}
+              defaultRotationY={0}
+              ambientIntensity={0.4}
+              keyLightIntensity={1.2}
+            /&gt;
+            &lt;p className=&quot;text-gray-300 text-sm mt-4&quot;&gt;
+              An auto-rotating duck with sunset environment and fade-in effect.
+            &lt;/p&gt;
+          &lt;/div&gt;
+
+          {/* Example 3: Customized lighting and positioning */}
+          &lt;div className=&quot;bg-white/10 backdrop-blur-sm rounded-lg p-6&quot;&gt;
+            &lt;h2 className=&quot;text-xl font-semibold text-white mb-4&quot;&gt;Custom Setup&lt;/h2&gt;
+            &lt;ModelViewer
+              url=&quot;/models/robot.glb&quot;
+              width={300}
+              height={300}
+              environmentPreset=&quot;city&quot;
+              modelXOffset={0.1}
+              modelYOffset={-0.05}
+              defaultRotationX={-30}
+              defaultRotationY={45}
+              defaultZoom={0.8}
+              minZoomDistance={0.3}
+              maxZoomDistance={3}
+              ambientIntensity={0.2}
+              keyLightIntensity={1.5}
+              fillLightIntensity={0.7}
+              rimLightIntensity={1.0}
+              enableMouseParallax={true}
+              enableHoverRotation={true}
+              showScreenshotButton={true}
+            /&gt;
+            &lt;p className=&quot;text-gray-300 text-sm mt-4&quot;&gt;
+              A robot model with custom lighting, positioning, and screenshot capability.
+            &lt;/p&gt;
+          &lt;/div&gt;
+
+          {/* Example 4: Large showcase model */}
+          &lt;div className=&quot;bg-white/10 backdrop-blur-sm rounded-lg p-6 md:col-span-2 lg:col-span-3&quot;&gt;
+            &lt;h2 className=&quot;text-2xl font-semibold text-white mb-4 text-center&quot;&gt;</code></pre></div>
+            <div class="token-count">5845 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```jsx
+import ModelViewer from './ModelViewer';
+
+export default function Example() {
+  const handleModelLoaded = () =&gt; {
+    console.log('3D model has finished loading');
+  };
+
+  return (
+    &lt;div style={{ padding: '2rem', backgroundColor: '#f5f5f5' }}&gt;
+      &lt;h1 style={{ textAlign: 'center', marginBottom: '2rem', color: '#333' }}&gt;
+        3D Model Viewer Examples
+      &lt;/h1&gt;
+      
+      &lt;div style={{ 
+        display: 'grid', 
+        gap: '3rem', 
+        maxWidth: '1200px', 
+        margin: '0 auto' 
+      }}&gt;
+        {/* Basic Model Viewer */}
+        &lt;div style={{ textAlign: 'center' }}&gt;
+          &lt;h2 style={{ marginBottom: '1rem', color: '#555' }}&gt;
+            Basic Model Viewer
+          &lt;/h2&gt;
+          &lt;p style={{ marginBottom: '1.5rem', color: '#666' }}&gt;
+            A simple 3D model viewer with default settings
+          &lt;/p&gt;
+          &lt;ModelViewer
+            url=&quot;/models/example-model.glb&quot;
+            width={400}
+            height={400}
+            environmentPreset=&quot;studio&quot;
+            onModelLoaded={handleModelLoaded}
+          /&gt;
+        &lt;/div&gt;
+
+        {/* Interactive Product Viewer */}
+        &lt;div style={{ textAlign: 'center' }}&gt;
+          &lt;h2 style={{ marginBottom: '1rem', color: '#555' }}&gt;
+            Interactive Product Viewer
+          &lt;/h2&gt;
+          &lt;p style={{ marginBottom: '1.5rem', color: '#666' }}&gt;
+            Enhanced viewer with auto-rotation, mouse parallax, and hover effects
+          &lt;/p&gt;
+          &lt;ModelViewer
+            url=&quot;/models/product.glb&quot;
+            width={600}
+            height={500}
+            enableMouseParallax={true}
+            enableHoverRotation={true}
+            autoRotate={true}
+            autoRotateSpeed={0.2}
+            environmentPreset=&quot;sunset&quot;
+            fadeIn={true}
+            showScreenshotButton={true}
+            onModelLoaded={handleModelLoaded}
+          /&gt;
+        &lt;/div&gt;
+
+        {/* Custom Positioned Model */}
+        &lt;div style={{ textAlign: 'center' }}&gt;
+          &lt;h2 style={{ marginBottom: '1rem', color: '#555' }}&gt;
+            Custom Positioned Model
+          &lt;/h2&gt;
+          &lt;p style={{ marginBottom: '1.5rem', color: '#666' }}&gt;
+            Model with custom rotation, zoom, and positioning
+          &lt;/p&gt;
+          &lt;ModelViewer
+            url=&quot;/models/custom.glb&quot;
+            width={500}
+            height={450}
+            modelXOffset={0.1}
+            modelYOffset={-0.2}
+            defaultRotationX={-30}
+            defaultRotationY={45}
+            defaultZoom={0.8}
+            environmentPreset=&quot;forest&quot;
+            enableManualRotation={true}
+            enableManualZoom={true}
+            autoFrame={true}
+            onModelLoaded={handleModelLoaded}
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div style={{ 
+        marginTop: '3rem', 
+        padding: '2rem', 
+        backgroundColor: '#fff', 
+        borderRadius: '8px',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+      }}&gt;
+        &lt;h3 style={{ marginBottom: '1rem', color: '#333' }}&gt;
+          Usage Instructions
+        &lt;/h3&gt;
+        &lt;ul style={{ color: '#666', lineHeight: '1.6' }}&gt;
+          &lt;li&gt;Drag to rotate the model (when manual rotation is enabled)&lt;/li&gt;
+          &lt;li&gt;Scroll to zoom in and out (when manual zoom is enabled)&lt;/li&gt;
+          &lt;li&gt;Move your mouse around for parallax effects (when enabled)&lt;/li&gt;
+          &lt;li&gt;Click the screenshot button to capture the current view&lt;/li&gt;
+          &lt;li&gt;Models support glTF/GLB, FBX, and OBJ formats&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;</code></pre></div>
+            <div class="token-count">1282 input / 1024 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">ModelViewer</span>
+          <span class="prompt-name">prop-customization</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:75%;background:#eab308"></div><span class="score-text">75%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">25%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import ModelViewer from './ModelViewer';
+
+const Example = () =&gt; {
+  return (
+    &lt;div className=&quot;p-8&quot;&gt;
+      &lt;h1 className=&quot;text-2xl font-bold mb-4&quot;&gt;Custom ModelViewer Example&lt;/h1&gt;
+      &lt;ModelViewer
+        url=&quot;/path/to/your/model.glb&quot;
+        width={600}
+        height={500}
+        modelXOffset={0.1}
+      /&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default Example;</code></pre></div>
+            <div class="token-count">5893 input / 128 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:75%;background:#eab308"></div><span class="score-text">75%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">25%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import ModelViewer from './ModelViewer';
+
+export default function Example() {
+  return (
+    &lt;ModelViewer
+      url=&quot;/models/example.glb&quot;
+      width={600}
+      height={500}
+      modelXOffset={0.1}
+    /&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">1330 input / 76 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">ModelViewer</span>
+          <span class="prompt-name">complex-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:43.333333333333336%;background:#ef4444"></div><span class="score-text">43%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">30%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-fail">FAIL</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import { useState } from 'react';
+import ModelViewer from './ModelViewer';
+
+const models = [
+  {
+    id: 'robot',
+    name: 'Retro Robot',
+    url: 'https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb',
+    description: 'An expressive retro-style robot with smooth animations',
+    category: 'Characters'
+  },
+  {
+    id: 'helmet',
+    name: 'Damaged Helmet',
+    url: 'https://threejs.org/examples/models/gltf/DamagedHelmet/DamagedHelmet.gltf',
+    description: 'A battle-worn sci-fi helmet with detailed texturing',
+    category: 'Props'
+  },
+  {
+    id: 'duck',
+    name: 'Rubber Duck',
+    url: 'https://threejs.org/examples/models/gltf/Duck/Duck.gltf',
+    description: 'A classic yellow rubber duck model',
+    category: 'Objects'
+  }
+];
+
+const presets = [
+  { value: 'forest', label: '🌲 Forest', description: 'Natural woodland lighting' },
+  { value: 'sunset', label: '🌅 Sunset', description: 'Warm golden hour ambiance' },
+  { value: 'city', label: '🏙️ City', description: 'Urban environment lighting' },
+  { value: 'studio', label: '💡 Studio', description: 'Professional studio setup' },
+  { value: 'night', label: '🌙 Night', description: 'Cool moonlit atmosphere' },
+  { value: 'none', label: '⚫ None', description: 'No environment lighting' }
+];
+
+const Example = () =&gt; {
+  const [selectedModel, setSelectedModel] = useState(models[0]);
+  const [environment, setEnvironment] = useState&lt;'city' | 'sunset' | 'night' | 'dawn' | 'studio' | 'apartment' | 'forest' | 'park' | 'none'&gt;('forest');
+  const [autoRotate, setAutoRotate] = useState(true);
+  const [showControls, setShowControls] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [viewerSettings, setViewerSettings] = useState({
+    enableMouseParallax: true,
+    enableHoverRotation: true,
+    autoRotateSpeed: 0.35,
+    ambientIntensity: 0.3,
+    keyLightIntensity: 1
+  });
+
+  const handleModelLoad = () =&gt; {
+    setIsLoading(false);
+  };
+
+  const handleModelChange = (model: typeof models[0]) =&gt; {
+    setIsLoading(true);
+    setSelectedModel(model);
+  };
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900&quot;&gt;
+      {/* Header */}
+      &lt;header className=&quot;relative z-10 px-6 py-8&quot;&gt;
+        &lt;div className=&quot;max-w-7xl mx-auto&quot;&gt;
+          &lt;div className=&quot;text-center&quot;&gt;
+            &lt;h1 className=&quot;text-4xl md:text-6xl font-bold text-white mb-4&quot;&gt;
+              3D Model Gallery
+            &lt;/h1&gt;
+            &lt;p className=&quot;text-xl text-slate-300 max-w-2xl mx-auto&quot;&gt;
+              Explore interactive 3D models with customizable lighting and environments. 
+              Click and drag to rotate, scroll to zoom.
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/header&gt;
+
+      &lt;div className=&quot;max-w-7xl mx-auto px-6 pb-12&quot;&gt;
+        &lt;div className=&quot;grid lg:grid-cols-3 gap-8&quot;&gt;
+          {/* Main Viewer */}
+          &lt;div className=&quot;lg:col-span-2&quot;&gt;
+            &lt;div className=&quot;bg-slate-800/50 backdrop-blur-sm rounded-2xl border</code></pre></div>
+            <div class="token-count">5865 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:71.66666666666667%;background:#eab308"></div><span class="score-text">72%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">15%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import React, { useState } from 'react';
+import ModelViewer from './ModelViewer';
+import { Camera, RotateCcw, ZoomIn, ZoomOut, Settings } from 'lucide-react';
+
+export default function Example() {
+  const [selectedModel, setSelectedModel] = useState('/models/car.glb');
+  const [environment, setEnvironment] = useState&lt;'city' | 'sunset' | 'night' | 'dawn' | 'studio' | 'apartment' | 'forest' | 'park' | 'none'&gt;('studio');
+  const [autoRotate, setAutoRotate] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+
+  const models = [
+    { name: 'Sports Car', url: '/models/car.glb', category: 'Automotive' },
+    { name: 'Gaming Chair', url: '/models/chair.glb', category: 'Furniture' },
+    { name: 'Sneaker', url: '/models/shoe.glb', category: 'Fashion' },
+    { name: 'Smartphone', url: '/models/phone.glb', category: 'Electronics' },
+  ];
+
+  const environments = [
+    { name: 'Studio', value: 'studio' as const },
+    { name: 'City', value: 'city' as const },
+    { name: 'Sunset', value: 'sunset' as const },
+    { name: 'Forest', value: 'forest' as const },
+    { name: 'Night', value: 'night' as const },
+  ];
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-gray-50 to-gray-100&quot;&gt;
+      {/* Header */}
+      &lt;div className=&quot;bg-white shadow-sm border-b&quot;&gt;
+        &lt;div className=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;&gt;
+          &lt;div className=&quot;flex justify-between items-center py-6&quot;&gt;
+            &lt;div&gt;
+              &lt;h1 className=&quot;text-3xl font-bold text-gray-900&quot;&gt;3D Product Gallery&lt;/h1&gt;
+              &lt;p className=&quot;text-gray-600 mt-1&quot;&gt;Explore our collection in interactive 3D&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;button
+              onClick={() =&gt; setShowSettings(!showSettings)}
+              className=&quot;flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors&quot;
+            &gt;
+              &lt;Settings className=&quot;w-4 h-4&quot; /&gt;
+              Settings
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div className=&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+        &lt;div className=&quot;grid grid-cols-1 lg:grid-cols-4 gap-8&quot;&gt;
+          {/* Model Selection Sidebar */}
+          &lt;div className=&quot;lg:col-span-1&quot;&gt;
+            &lt;div className=&quot;bg-white rounded-xl shadow-sm border p-6&quot;&gt;
+              &lt;h2 className=&quot;text-lg font-semibold text-gray-900 mb-4&quot;&gt;Models&lt;/h2&gt;
+              &lt;div className=&quot;space-y-2&quot;&gt;
+                {models.map((model) =&gt; (
+                  &lt;button
+                    key={model.url}
+                    onClick={() =&gt; setSelectedModel(model.url)}
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                      selectedModel === model.url
+                        ? 'bg-blue-50 border border-blue-200 text-blue-700'
+                        : 'hover:bg-gray-50 text-gray-700'
+                    }`}
+                  &gt;
+                    &lt;div className=&quot;font-medium&quot;&gt;{model.name}&lt;/div&gt;
+                    &lt;div className=&quot;text-sm text-gray-500&quot;&gt;{model.category}&lt;/div&gt;
+                  &lt;/button&gt;
+                ))}
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            {/* Settings Panel */}
+            {showSettings &amp;&amp; (
+              &lt;div className</code></pre></div>
+            <div class="token-count">1302 input / 1024 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">ShapeGrid</span>
+          <span class="prompt-name">basic-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:66.66666666666666%;background:#ef4444"></div><span class="score-text">67%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-fail">FAIL</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import React from 'react';
+import ShapeGrid from './ShapeGrid';
+
+const Example: React.FC = () =&gt; {
+  return (
+    &lt;div className=&quot;min-h-screen bg-gray-900 relative overflow-hidden&quot;&gt;
+      {/* ShapeGrid as background */}
+      &lt;div className=&quot;absolute inset-0&quot;&gt;
+        &lt;ShapeGrid
+          shape=&quot;hexagon&quot;
+          direction=&quot;diagonal&quot;
+          speed={0.5}
+          borderColor=&quot;#444&quot;
+          squareSize={60}
+          hoverFillColor=&quot;#3b82f6&quot;
+          hoverTrailAmount={8}
+        /&gt;
+      &lt;/div&gt;
+
+      {/* Content overlay */}
+      &lt;div className=&quot;relative z-10 flex flex-col items-center justify-center min-h-screen px-8&quot;&gt;
+        &lt;div className=&quot;max-w-4xl mx-auto text-center&quot;&gt;
+          &lt;h1 className=&quot;text-6xl font-bold text-white mb-6 leading-tight&quot;&gt;
+            Interactive
+            &lt;span className=&quot;block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600&quot;&gt;
+              Shape Grid
+            &lt;/span&gt;
+          &lt;/h1&gt;
+          
+          &lt;p className=&quot;text-xl text-gray-300 mb-8 leading-relaxed&quot;&gt;
+            Move your cursor around to interact with the animated hexagonal grid.
+            The shapes respond to your mouse movement with a beautiful trailing effect.
+          &lt;/p&gt;
+
+          &lt;div className=&quot;flex flex-col sm:flex-row gap-4 justify-center mb-12&quot;&gt;
+            &lt;button className=&quot;px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200&quot;&gt;
+              Get Started
+            &lt;/button&gt;
+            &lt;button className=&quot;px-8 py-3 border border-gray-400 hover:border-white text-gray-300 hover:text-white rounded-lg font-medium transition-colors duration-200&quot;&gt;
+              Learn More
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div className=&quot;grid grid-cols-1 md:grid-cols-3 gap-8 text-left&quot;&gt;
+            &lt;div className=&quot;bg-black/20 backdrop-blur-sm rounded-xl p-6 border border-gray-700&quot;&gt;
+              &lt;div className=&quot;w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4&quot;&gt;
+                &lt;svg className=&quot;w-6 h-6 text-blue-400&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+                  &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M13 10V3L4 14h7v7l9-11h-7z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              &lt;h3 className=&quot;text-xl font-semibold text-white mb-3&quot;&gt;Interactive&lt;/h3&gt;
+              &lt;p className=&quot;text-gray-400 leading-relaxed&quot;&gt;
+                Responsive grid that reacts to mouse movement with smooth animations and hover effects.
+              &lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;bg-black/20 backdrop-blur-sm rounded-xl p-6 border border-gray-700&quot;&gt;
+              &lt;div className=&quot;w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4&quot;&gt;
+                &lt;svg className=&quot;w-6 h-6 text-purple-400&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+                  &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;</code></pre></div>
+            <div class="token-count">4896 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import ShapeGrid from './ShapeGrid';
+
+export default function Example() {
+  return (
+    &lt;div className=&quot;min-h-screen bg-black text-white relative&quot;&gt;
+      {/* ShapeGrid background */}
+      &lt;div className=&quot;absolute inset-0&quot;&gt;
+        &lt;ShapeGrid 
+          direction=&quot;diagonal&quot;
+          speed={1}
+          borderColor=&quot;#333&quot;
+          squareSize={40}
+          hoverFillColor=&quot;#666&quot;
+          shape=&quot;square&quot;
+          hoverTrailAmount={0}
+        /&gt;
+      &lt;/div&gt;
+      
+      {/* Content overlay */}
+      &lt;div className=&quot;relative z-10 flex items-center justify-center min-h-screen p-8&quot;&gt;
+        &lt;div className=&quot;max-w-2xl text-center&quot;&gt;
+          &lt;h1 className=&quot;text-4xl font-bold mb-6&quot;&gt;
+            Animated Shape Grid
+          &lt;/h1&gt;
+          &lt;p className=&quot;text-lg mb-8 opacity-90&quot;&gt;
+            Move your mouse over the background to see the interactive hover effects. 
+            The grid animates diagonally with smooth motion.
+          &lt;/p&gt;
+          &lt;div className=&quot;space-y-4 text-sm opacity-75&quot;&gt;
+            &lt;p&gt;• Hover over shapes to see them fill with color&lt;/p&gt;
+            &lt;p&gt;• Grid animates continuously in the chosen direction&lt;/p&gt;
+            &lt;p&gt;• Fully customizable shapes and colors&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">703 input / 369 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">ShapeGrid</span>
+          <span class="prompt-name">prop-customization</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:83.33333333333334%;background:#eab308"></div><span class="score-text">83%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">50%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import React from 'react';
+import ShapeGrid from './ShapeGrid';
+
+const Example: React.FC = () =&gt; {
+  return (
+    &lt;div className=&quot;w-full h-screen&quot;&gt;
+      &lt;ShapeGrid
+        direction=&quot;diagonal&quot;
+        speed={2.5}
+        borderColor=&quot;#4a90e2&quot;
+      /&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default Example;</code></pre></div>
+            <div class="token-count">4943 input / 103 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:83.33333333333334%;background:#eab308"></div><span class="score-text">83%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#ef4444;color:#000">50%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>import ShapeGrid from './ShapeGrid';
+
+export default function Example() {
+  return (
+    &lt;div style={{ width: '100%', height: '400px' }}&gt;
+      &lt;ShapeGrid 
+        direction=&quot;diagonal&quot;
+        speed={0.8}
+        borderColor=&quot;#555&quot;
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+            <div class="token-count">750 input / 90 output tokens</div>
+          </div>
+        </div>
+      </div>
+      <div class="eval-card">
+        <div class="eval-card-header">
+          <span class="component-name">ShapeGrid</span>
+          <span class="prompt-name">complex-usage</span>
+        </div>
+        <div class="conditions-row">
+          
+          <div class="condition-col">
+            <div class="condition-label" style="color:#ef4444">Raw Source Code</div>
+            <div class="score-bar"><div class="score-fill" style="width:66.66666666666666%;background:#ef4444"></div><span class="score-text">67%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-fail">FAIL</span>
+            </div>
+            <div class="code-block"><pre><code>```tsx
+import React, { useState } from 'react';
+import ShapeGrid from './ShapeGrid';
+import { ChevronDownIcon, PlayIcon, PauseIcon } from '@heroicons/react/24/outline';
+
+const Example: React.FC = () =&gt; {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [currentShape, setCurrentShape] = useState&lt;'square' | 'hexagon' | 'circle' | 'triangle'&gt;('hexagon');
+  const [currentDirection, setCurrentDirection] = useState&lt;'diagonal' | 'up' | 'right' | 'down' | 'left'&gt;('diagonal');
+  const [speed, setSpeed] = useState(2);
+
+  const shapes = [
+    { value: 'hexagon' as const, label: 'Hexagon' },
+    { value: 'square' as const, label: 'Square' },
+    { value: 'circle' as const, label: 'Circle' },
+    { value: 'triangle' as const, label: 'Triangle' },
+  ];
+
+  const directions = [
+    { value: 'diagonal' as const, label: 'Diagonal' },
+    { value: 'right' as const, label: 'Right' },
+    { value: 'left' as const, label: 'Left' },
+    { value: 'up' as const, label: 'Up' },
+    { value: 'down' as const, label: 'Down' },
+  ];
+
+  return (
+    &lt;div className=&quot;min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900&quot;&gt;
+      {/* Background Grid */}
+      &lt;div className=&quot;absolute inset-0&quot;&gt;
+        &lt;ShapeGrid
+          shape={currentShape}
+          direction={currentDirection}
+          speed={isPlaying ? speed : 0}
+          borderColor=&quot;#4c1d95&quot;
+          hoverFillColor=&quot;rgba(147, 51, 234, 0.3)&quot;
+          squareSize={60}
+          hoverTrailAmount={8}
+        /&gt;
+      &lt;/div&gt;
+
+      {/* Content Overlay */}
+      &lt;div className=&quot;relative z-10 min-h-screen flex flex-col&quot;&gt;
+        {/* Header */}
+        &lt;header className=&quot;p-6&quot;&gt;
+          &lt;nav className=&quot;max-w-7xl mx-auto flex items-center justify-between&quot;&gt;
+            &lt;div className=&quot;flex items-center space-x-4&quot;&gt;
+              &lt;div className=&quot;w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center&quot;&gt;
+                &lt;span className=&quot;text-white font-bold text-lg&quot;&gt;G&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;span className=&quot;text-white font-semibold text-xl&quot;&gt;GridMotion&lt;/span&gt;
+            &lt;/div&gt;
+            
+            &lt;div className=&quot;hidden md:flex items-center space-x-8&quot;&gt;
+              &lt;a href=&quot;#&quot; className=&quot;text-gray-300 hover:text-white transition-colors&quot;&gt;Features&lt;/a&gt;
+              &lt;a href=&quot;#&quot; className=&quot;text-gray-300 hover:text-white transition-colors&quot;&gt;Pricing&lt;/a&gt;
+              &lt;a href=&quot;#&quot; className=&quot;text-gray-300 hover:text-white transition-colors&quot;&gt;About&lt;/a&gt;
+              &lt;button className=&quot;bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors&quot;&gt;
+                Get Started
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/nav&gt;
+        &lt;/header&gt;
+
+        {/* Main Content */}
+        &lt;main className=&quot;flex-1 flex items-center justify-center p-6&quot;&gt;
+          &lt;div className=&quot;max-w-4xl mx-auto text-center&quot;&gt;
+            &lt;h1 className=&quot;text-5xl md:text-7xl font-bold text-white mb-6 leading-tight&quot;&gt;
+              Dynamic
+              &lt;span className=&quot;bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent&quot;&gt;
+                {' '}Grid{' '}
+              &lt;/span&gt;
+              Animations
+            &lt;/h1&gt;
+            
+            &lt;p className=&quot;text-</code></pre></div>
+            <div class="token-count">4916 input / 1024 output tokens</div>
+          </div>
+          <div class="condition-col">
+            <div class="condition-label" style="color:#22c55e">AI Descriptor</div>
+            <div class="score-bar"><div class="score-fill" style="width:100%;background:#22c55e"></div><span class="score-text">100%</span></div>
+            <div class="score-details">
+              Props: <span class="badge" style="background:#22c55e;color:#000">100%</span>
+              Import: <span class="badge badge-pass">PASS</span>
+              TS: <span class="badge badge-pass">PASS</span>
+            </div>
+            <div class="code-block"><pre><code>```jsx
+import ShapeGrid from './ShapeGrid';
+
+export default function Example() {
+  return (
+    &lt;div className=&quot;min-h-screen bg-gray-900 text-white&quot;&gt;
+      {/* Hero Section with ShapeGrid Background */}
+      &lt;section className=&quot;relative h-screen flex items-center justify-center overflow-hidden&quot;&gt;
+        {/* Background Grid */}
+        &lt;div className=&quot;absolute inset-0 opacity-30&quot;&gt;
+          &lt;ShapeGrid 
+            shape=&quot;hexagon&quot;
+            direction=&quot;diagonal&quot;
+            speed={0.8}
+            borderColor=&quot;#374151&quot;
+            hoverFillColor=&quot;#3b82f6&quot;
+            squareSize={60}
+            hoverTrailAmount={3}
+          /&gt;
+        &lt;/div&gt;
+
+        {/* Hero Content */}
+        &lt;div className=&quot;relative z-10 text-center max-w-4xl mx-auto px-6&quot;&gt;
+          &lt;h1 className=&quot;text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent&quot;&gt;
+            TechFlow
+          &lt;/h1&gt;
+          &lt;p className=&quot;text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto&quot;&gt;
+            Next-generation development platform powered by AI and designed for the future
+          &lt;/p&gt;
+          &lt;div className=&quot;flex flex-col sm:flex-row gap-4 justify-center&quot;&gt;
+            &lt;button className=&quot;px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-lg transition-colors&quot;&gt;
+              Get Started
+            &lt;/button&gt;
+            &lt;button className=&quot;px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg font-semibold text-lg transition-colors&quot;&gt;
+              Watch Demo
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        {/* Scroll Indicator */}
+        &lt;div className=&quot;absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce&quot;&gt;
+          &lt;div className=&quot;w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center&quot;&gt;
+            &lt;div className=&quot;w-1 h-3 bg-gray-400 rounded-full mt-2&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      {/* Features Section */}
+      &lt;section className=&quot;relative py-20 bg-gray-800&quot;&gt;
+        {/* Subtle background grid */}
+        &lt;div className=&quot;absolute inset-0 opacity-10&quot;&gt;
+          &lt;ShapeGrid 
+            shape=&quot;square&quot;
+            direction=&quot;right&quot;
+            speed={0.3}
+            borderColor=&quot;#4b5563&quot;
+            hoverFillColor=&quot;#10b981&quot;
+            squareSize={40}
+            hoverTrailAmount={0}
+          /&gt;
+        &lt;/div&gt;
+
+        &lt;div className=&quot;relative z-10 max-w-6xl mx-auto px-6&quot;&gt;
+          &lt;h2 className=&quot;text-4xl font-bold text-center mb-16&quot;&gt;Powerful Features&lt;/h2&gt;
+          
+          &lt;div className=&quot;grid md:grid-cols-3 gap-8&quot;&gt;
+            &lt;div className=&quot;p-8 bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-700&quot;&gt;
+              &lt;div className=&quot;w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-6&quot;&gt;
+                &lt;svg className=&quot;w-6 h-6&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; viewBox=&quot;0 0 24 24&quot;&gt;
+                  &lt;path strokeLinecap=&quot;round&quot; strokeLinejoin=&quot;round&quot; strokeWidth={2} d=&quot;M13 10V3L4 14h7v7l9-11h-7z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              &lt;h3 className=&quot;text-xl font-semibold mb-4&quot;&gt;Lightning Fast&lt;/h3&gt;
+              &lt;p className=&quot;text-gray-400&quot;&gt;Built with performance in mind, delivering results at unprecedented speed.&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;p-8 bg-</code></pre></div>
+            <div class="token-count">723 input / 1024 output tokens</div>
+          </div>
+        </div>
+      </div>
+  <div class="footer"><p>Generated by <a href="https://github.com/Sdunga1/ui-universe">uiUniverse</a> eval harness</p></div>
+</body></html>

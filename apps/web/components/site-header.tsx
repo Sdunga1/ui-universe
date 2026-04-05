@@ -10,10 +10,13 @@ export function SiteHeader() {
         </Link>
         <nav className="flex items-center gap-6 text-sm">
           <Link
-            href="/animations/fade-up"
+            href="/backgrounds/aurora"
             className="text-[var(--muted)] transition-colors hover:text-white"
           >
             Components
+          </Link>
+          <Link href="/evals" className="text-[var(--muted)] transition-colors hover:text-white">
+            Evals
           </Link>
           <a
             href="https://github.com/Sdunga1/ui-universe"

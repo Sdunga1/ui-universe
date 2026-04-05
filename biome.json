@@ -47,7 +47,9 @@
       "Resources",
       "pnpm-lock.yaml",
       "scripts/eval/fixtures/*.source.tsx",
-      "scripts/eval/results"
+      "scripts/eval/results",
+      ".tmp-visual-render",
+      "scripts/eval/visual/screenshots"
     ]
   }
 }

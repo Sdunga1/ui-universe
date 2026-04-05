@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
   BASE_STYLES,
@@ -10,6 +10,31 @@ import {
   modelSlug,
   scoreColor,
 } from "./report-utils";
+
+const SCREENSHOTS_DIR = resolve(process.cwd(), "scripts/eval/visual/screenshots");
+
+function getScreenshotBase64(component: string, prompt: string, condition: string): string | null {
+  const slug = component
+    .replace(/([A-Z])/g, "-$1")
+    .toLowerCase()
+    .replace(/^-/, "")
+    .replace(/-+/g, "");
+  const condSlug = condition.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
+  const promptSlug = prompt.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
+  // Try multiple naming patterns
+  const candidates = [
+    `${slug}-${promptSlug}-${condSlug}.png`,
+    `${component.toLowerCase()}-${promptSlug}-${condSlug}.png`,
+  ];
+  for (const name of candidates) {
+    const path = resolve(SCREENSHOTS_DIR, name);
+    if (existsSync(path)) {
+      const data = readFileSync(path);
+      return `data:image/png;base64,${data.toString("base64")}`;
+    }
+  }
+  return null;
+}
 
 const RESULTS_DIR = resolve(process.cwd(), "scripts/eval/results");
 const CONDITIONS = ["raw-source-only", "descriptor-only"];
@@ -238,6 +263,10 @@ function generateModelReport(report: ModelReport): void {
             .map((run: any) => {
               if (!run) return "";
               const code = extractCode(run.output);
+              const screenshot = getScreenshotBase64(run.component, run.prompt, run.condition);
+              const screenshotHtml = screenshot
+                ? `<div class="screenshot"><img src="${screenshot}" alt="Rendered ${run.component}" style="width:100%;border:1px solid #222;margin-bottom:0.75rem;"/></div>`
+                : `<div class="screenshot-placeholder" style="border:1px dashed #333;padding:1.5rem;text-align:center;color:#555;font-size:0.75rem;margin-bottom:0.75rem;">No visual render available</div>`;
               return `
           <div class="condition-col">
             <div class="condition-label" style="color:${CONDITION_COLORS[run.condition] ?? "#888"}">${run.condition === "raw-source-only" ? "Raw Source Code" : "AI Descriptor"}</div>
@@ -247,6 +276,7 @@ function generateModelReport(report: ModelReport): void {
               Import: <span class="badge ${run.scores.importCorrectness ? "badge-pass" : "badge-fail"}">${run.scores.importCorrectness ? "PASS" : "FAIL"}</span>
               TS: <span class="badge ${run.scores.typescriptValid ? "badge-pass" : "badge-fail"}">${run.scores.typescriptValid ? "PASS" : "FAIL"}</span>
             </div>
+            ${screenshotHtml}
             <div class="code-block"><pre><code>${esc(code)}</code></pre></div>
             <div class="token-count">${run.inputTokens} input / ${run.outputTokens} output tokens</div>
           </div>`;
