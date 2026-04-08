@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ComponentPreview } from "../../../../components/component-preview";
 import { getAllSlugs, getComponentBySlug } from "../../../../lib/registry";
@@ -11,6 +12,33 @@ interface PageProps {
 
 export async function generateStaticParams() {
   return getAllSlugs();
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { category, component: slug } = await params;
+  const descriptor = getComponentBySlug(category, slug);
+
+  if (!descriptor) return {};
+
+  const title = `${descriptor.name} — ${category.charAt(0).toUpperCase() + category.slice(1)} Component`;
+  const description =
+    descriptor.description.length > 155
+      ? `${descriptor.description.slice(0, 152)}...`
+      : descriptor.description;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${category}/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `/${category}/${slug}`,
+      type: "article",
+    },
+  };
 }
 
 export default async function ComponentPage({ params }: PageProps) {
