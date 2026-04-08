@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const SOURCES: [string, ...string[]] = ["/bg/astronaut.svg", "/bg/rover.svg", "/bg/saturn.svg"];
-const DURATION = 3; // seconds
+const MAX_VISIBLE = 6;
 
 interface FloatingObject {
   id: number;
@@ -13,91 +13,93 @@ interface FloatingObject {
   size: number;
   dx: number;
   dy: number;
+  duration: number;
 }
 
 interface Props {
   reducedMotion: boolean;
 }
 
+function createObject(id: number): FloatingObject {
+  const angle = Math.random() * Math.PI * 2;
+  const dist = 80 + Math.random() * 150;
+  const duration = 3 + Math.random() * 2; // 3-5 seconds
+  return {
+    id,
+    src: SOURCES[Math.floor(Math.random() * SOURCES.length)] ?? SOURCES[0],
+    x: 5 + Math.random() * 90,
+    y: 5 + Math.random() * 90,
+    size: 30 + Math.random() * 90,
+    dx: Math.cos(angle) * dist,
+    dy: Math.sin(angle) * dist,
+    duration,
+  };
+}
+
 export function SpaceObjectsBackground({ reducedMotion }: Props) {
   const [objects, setObjects] = useState<FloatingObject[]>([]);
   const idRef = useRef(0);
+  const countRef = useRef(0);
 
   useEffect(() => {
     if (reducedMotion) return;
 
-    const spawn = () => {
-      idRef.current += 1;
-
-      const angle = Math.random() * Math.PI * 2;
-      const dist = 50 + Math.random() * 100;
-
-      const src = SOURCES[Math.floor(Math.random() * SOURCES.length)] ?? SOURCES[0];
-      const obj: FloatingObject = {
-        id: idRef.current,
-        src,
-        x: 10 + Math.random() * 80,
-        y: 10 + Math.random() * 80,
-        size: 60 + Math.random() * 50,
-        dx: Math.cos(angle) * dist,
-        dy: Math.sin(angle) * dist,
-      };
-      setObjects((prev) => [...prev.slice(-7), obj]);
-    };
-
-    // Spawn multiple objects on independent random timers
     const timeouts: ReturnType<typeof setTimeout>[] = [];
-    const createSpawner = (initialDelay: number) => {
-      const scheduleNext = () => {
-        const t = setTimeout(
-          () => {
-            spawn();
-            scheduleNext();
-          },
-          2000 + Math.random() * 4000,
-        );
-        timeouts.push(t);
-      };
+
+    const spawn = () => {
+      if (countRef.current >= MAX_VISIBLE) return;
+      idRef.current += 1;
+      countRef.current += 1;
+      const obj = createObject(idRef.current);
+
+      setObjects((prev) => [...prev, obj]);
+
+      // Auto-remove after its duration ends
       const t = setTimeout(() => {
-        spawn();
-        scheduleNext();
-      }, initialDelay);
+        countRef.current -= 1;
+        setObjects((prev) => prev.filter((o) => o.id !== obj.id));
+      }, obj.duration * 1000);
       timeouts.push(t);
     };
 
-    // 3 independent spawners with staggered starts
-    createSpawner(500);
-    createSpawner(2000);
-    createSpawner(4000);
+    // Spawn objects at random intervals (1.5-3s apart)
+    const scheduleNext = () => {
+      const delay = 800 + Math.random() * 1200;
+      const t = setTimeout(() => {
+        spawn();
+        scheduleNext();
+      }, delay);
+      timeouts.push(t);
+    };
+
+    // Kick off with one immediately
+    spawn();
+    scheduleNext();
 
     return () => timeouts.forEach(clearTimeout);
   }, [reducedMotion]);
-
-  const removeObject = (id: number) => {
-    setObjects((prev) => prev.filter((o) => o.id !== id));
-  };
 
   if (reducedMotion) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
       {objects.map((obj) => (
-        <DriftingObject key={obj.id} obj={obj} onDone={() => removeObject(obj.id)} />
+        <DriftingObject key={obj.id} obj={obj} />
       ))}
     </div>
   );
 }
 
-function DriftingObject({ obj, onDone }: { obj: FloatingObject; onDone: () => void }) {
+function DriftingObject({ obj }: { obj: FloatingObject }) {
   const ref = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    // Start the drift after a frame so the transition picks it up
     requestAnimationFrame(() => {
-      el.style.transform = `translate(${obj.dx}px, ${obj.dy}px)`;
+      requestAnimationFrame(() => {
+        el.style.transform = `translate(${obj.dx}px, ${obj.dy}px)`;
+      });
     });
   }, [obj.dx, obj.dy]);
 
@@ -106,7 +108,6 @@ function DriftingObject({ obj, onDone }: { obj: FloatingObject; onDone: () => vo
       ref={ref}
       src={obj.src}
       alt=""
-      onAnimationEnd={onDone}
       style={{
         position: "absolute",
         left: `${obj.x}%`,
@@ -114,9 +115,9 @@ function DriftingObject({ obj, onDone }: { obj: FloatingObject; onDone: () => vo
         width: obj.size,
         height: obj.size,
         transform: "translate(0, 0)",
-        transition: `transform ${DURATION}s linear`,
+        transition: `transform ${obj.duration}s linear`,
         filter: "invert(1) sepia(0.3) saturate(0.5) brightness(0.5)",
-        animation: `spaceObjectFade ${DURATION}s ease-in-out forwards`,
+        animation: `spaceObjectFade ${obj.duration}s ease-in-out forwards`,
       }}
     />
   );

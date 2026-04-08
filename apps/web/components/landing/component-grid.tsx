@@ -25,7 +25,7 @@ export function ComponentGrid() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
           <h2 className="text-5xl font-azeret font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400">
-            50+ components that feel alive
+            25+ components that feel alive
           </h2>
           <p className="text-xl text-[var(--muted)] max-w-2xl mx-auto">
             Every component is designed with motion in mind. Hover to see them in action.

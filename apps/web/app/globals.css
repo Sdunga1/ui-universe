@@ -92,15 +92,33 @@ body {
   }
 }
 
+@keyframes sparkle-drift {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  10% {
+    opacity: 0.9;
+    transform: translate(calc(var(--dx, 15px) * 0.1), calc(var(--dy, -5px) * 0.1)) scale(1);
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 15px), var(--dy, -5px)) scale(0.1);
+  }
+}
+
 @keyframes spaceObjectFade {
   0% {
     opacity: 0;
   }
-  10% {
-    opacity: 0.12;
+  15% {
+    opacity: 0.22;
   }
-  75% {
-    opacity: 0.12;
+  70% {
+    opacity: 0.22;
   }
   100% {
     opacity: 0;

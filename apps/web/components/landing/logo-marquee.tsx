@@ -12,12 +12,12 @@ import {
 } from "./tech-icons";
 
 const techLogos = [
-  { name: "React", Icon: ReactIcon },
-  { name: "Next.js", Icon: NextDotJsIcon },
-  { name: "Tailwind CSS", Icon: TailwindCSSIcon },
   { name: "Claude", Icon: AnthropicIcon },
   { name: "Cursor", Icon: CursorIcon },
   { name: "Copilot", Icon: CopilotIcon },
+  { name: "React", Icon: ReactIcon },
+  { name: "Next.js", Icon: NextDotJsIcon },
+  { name: "Tailwind CSS", Icon: TailwindCSSIcon },
   { name: "Vercel", Icon: VercelIcon },
   { name: "Framer", Icon: FramerIcon },
 ];
@@ -32,7 +32,7 @@ export function LogoMarquee() {
 
       <div className="text-center mb-12">
         <p className="text-sm uppercase tracking-wider text-[var(--muted)] font-mono">
-          Works seamlessly with
+          Built for your stack. Understood by your AI.
         </p>
       </div>
 

@@ -1,8 +1,8 @@
-import { AIIntegration } from "../components/landing/ai-integration";
 import { AnimatedBackground } from "../components/landing/backgrounds/animated-background";
 import { CodeShowcase } from "../components/landing/code-showcase";
 import { ComponentGrid } from "../components/landing/component-grid";
 import { CTAFooter } from "../components/landing/cta-footer";
+import { EvalProof } from "../components/landing/eval-proof";
 import { FeatureCards } from "../components/landing/feature-cards";
 import { HeroSection } from "../components/landing/hero-section";
 import { HowItWorks } from "../components/landing/how-it-works";
@@ -19,9 +19,9 @@ export default function HomePage() {
       <LogoMarquee />
       <FeatureCards />
       <CodeShowcase />
-      <HowItWorks />
+      <EvalProof />
       <ComponentGrid />
-      <AIIntegration />
+      <HowItWorks />
       <CTAFooter />
     </div>
   );

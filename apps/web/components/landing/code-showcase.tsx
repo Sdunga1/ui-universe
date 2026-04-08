@@ -3,6 +3,36 @@
 import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 
+const descriptorRaw = `{
+  "name": "FadeUp",
+  "slug": "fade-up",
+  "category": "animations",
+  "description": "Fades content upward into view",
+  "props": {
+    "children": { "type": "ReactNode", "required": true },
+    "preset": { "type": "MotionPresetName", "default": "fadeUp" },
+    "delay": { "type": "number", "description": "Delay in ms" },
+    "triggerOnView": { "type": "boolean", "default": true }
+  },
+  "recommendedWith": ["StaggerGroup"],
+  "aiPromptHint": "Use FadeUp for upward reveal animations. Wrap multiple in StaggerGroup for sequenced entry."
+}`;
+
+const descriptorHtml = `{
+  <span class="text-cyan-400">"name"</span>: <span class="text-green-400">"FadeUp"</span>,
+  <span class="text-cyan-400">"slug"</span>: <span class="text-green-400">"fade-up"</span>,
+  <span class="text-cyan-400">"category"</span>: <span class="text-green-400">"animations"</span>,
+  <span class="text-cyan-400">"description"</span>: <span class="text-green-400">"Fades content upward into view"</span>,
+  <span class="text-cyan-400">"props"</span>: {
+    <span class="text-cyan-400">"children"</span>: { <span class="text-cyan-400">"type"</span>: <span class="text-green-400">"ReactNode"</span>, <span class="text-cyan-400">"required"</span>: <span class="text-purple-400">true</span> },
+    <span class="text-cyan-400">"preset"</span>: { <span class="text-cyan-400">"type"</span>: <span class="text-green-400">"MotionPresetName"</span>, <span class="text-cyan-400">"default"</span>: <span class="text-green-400">"fadeUp"</span> },
+    <span class="text-cyan-400">"delay"</span>: { <span class="text-cyan-400">"type"</span>: <span class="text-green-400">"number"</span>, <span class="text-cyan-400">"description"</span>: <span class="text-green-400">"Delay in ms"</span> },
+    <span class="text-cyan-400">"triggerOnView"</span>: { <span class="text-cyan-400">"type"</span>: <span class="text-green-400">"boolean"</span>, <span class="text-cyan-400">"default"</span>: <span class="text-purple-400">true</span> }
+  },
+  <span class="text-cyan-400">"recommendedWith"</span>: [<span class="text-green-400">"StaggerGroup"</span>],
+  <span class="text-cyan-400">"aiPromptHint"</span>: <span class="text-green-400">"Use FadeUp for upward reveal animations. Wrap multiple in StaggerGroup for sequenced entry."</span>
+}`;
+
 const codeRaw = `import { FadeUp, StaggerGroup } from "@ui-universe/ui";
 
 export function Hero() {
@@ -54,9 +84,10 @@ const codeHtml = `<span class="text-purple-400">import</span> { <span class="tex
 export function CodeShowcase() {
   const [copied, setCopied] = useState(false);
   const [animatePreview, setAnimatePreview] = useState(false);
+  const [activeTab, setActiveTab] = useState<"code" | "descriptor">("code");
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(codeRaw);
+    navigator.clipboard.writeText(activeTab === "code" ? codeRaw : descriptorRaw);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -90,7 +121,30 @@ export function CodeShowcase() {
                     <div className="w-3 h-3 bg-yellow-500/50" />
                     <div className="w-3 h-3 bg-green-500/50" />
                   </div>
-                  <span className="text-sm text-[var(--muted)] ml-4 font-mono">Hero.tsx</span>
+                  <div className="flex ml-4 gap-0">
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("code")}
+                      className={`px-3 py-1 text-sm font-mono transition-all duration-300 border border-[var(--border)] ${
+                        activeTab === "code"
+                          ? "bg-[var(--card)] text-white border-b-transparent"
+                          : "text-[var(--muted)] hover:text-white"
+                      }`}
+                    >
+                      Your Code
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("descriptor")}
+                      className={`px-3 py-1 text-sm font-mono transition-all duration-300 border border-[var(--border)] ${
+                        activeTab === "descriptor"
+                          ? "bg-[var(--card)] text-[var(--accent)] border-b-transparent"
+                          : "text-[var(--muted)] hover:text-[var(--accent)]"
+                      }`}
+                    >
+                      What AI Sees
+                    </button>
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -108,9 +162,18 @@ export function CodeShowcase() {
                 <pre
                   className="text-[var(--muted)]"
                   // biome-ignore lint/security/noDangerouslySetInnerHtml: static syntax-highlighted string, no user input
-                  dangerouslySetInnerHTML={{ __html: codeHtml }}
+                  dangerouslySetInnerHTML={{
+                    __html: activeTab === "code" ? codeHtml : descriptorHtml,
+                  }}
                 />
               </div>
+              {activeTab === "descriptor" && (
+                <div className="px-6 pb-4 text-xs text-[var(--muted)]">
+                  <span className="text-[var(--accent)]">~30 lines</span> vs 500+ lines of source --
+                  AI tools get the same quality with{" "}
+                  <span className="text-[var(--accent)]">6x less input</span>
+                </div>
+              )}
             </div>
           </div>
 

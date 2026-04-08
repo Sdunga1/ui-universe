@@ -13,14 +13,16 @@ const steps = [
     icon: Code,
     title: "Import & Use",
     command: 'import { FadeUp } from "@ui-universe/ui"',
-    description: "Import components, compose your page. TypeScript autocomplete guides you.",
+    description:
+      "Import components and compose your page. AI descriptors are included automatically — your AI tools already understand every prop.",
   },
   {
     number: "03",
     icon: Rocket,
     title: "Ship",
     command: "npm run build",
-    description: "Production-ready, optimized, accessible. Deploy with confidence.",
+    description:
+      "Tree-shakeable, TypeScript-first, accessible. Production-ready from the first build.",
   },
 ];
 

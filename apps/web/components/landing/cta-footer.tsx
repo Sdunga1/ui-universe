@@ -1,5 +1,23 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { UIUniverseWordmark } from "../ui-universe-wordmark";
+
+function TwitterIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      role="img"
+      aria-labelledby="x-footer-title"
+    >
+      <title id="x-footer-title">X (Twitter)</title>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -16,17 +34,17 @@ function GithubIcon({ className }: { className?: string }) {
   );
 }
 
-function TwitterIcon({ className }: { className?: string }) {
+function LinkedInIcon({ className }: { className?: string }) {
   return (
     <svg
       className={className}
       viewBox="0 0 24 24"
       fill="currentColor"
       role="img"
-      aria-labelledby="x-footer-title"
+      aria-labelledby="li-footer-title"
     >
-      <title id="x-footer-title">X (Twitter)</title>
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      <title id="li-footer-title">LinkedIn</title>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
     </svg>
   );
 }
@@ -71,16 +89,22 @@ export function CTAFooter() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12 border-t border-[var(--border)]">
             <div>
-              <div className="text-4xl font-azeret font-bold text-[var(--accent)] mb-2">50+</div>
+              <div className="text-4xl font-azeret font-bold text-[var(--accent)] mb-2">
+                <CountUp end={25} suffix="+" />
+              </div>
               <div className="text-sm text-[var(--muted)]">Components</div>
             </div>
             <div>
-              <div className="text-4xl font-azeret font-bold text-[var(--accent)] mb-2">100%</div>
+              <div className="text-4xl font-azeret font-bold text-[var(--accent)] mb-2">
+                <CountUp end={100} suffix="%" />
+              </div>
               <div className="text-sm text-[var(--muted)]">TypeScript</div>
             </div>
             <div>
-              <div className="text-4xl font-azeret font-bold text-[var(--accent)] mb-2">A11y</div>
-              <div className="text-sm text-[var(--muted)]">Accessible</div>
+              <div className="text-4xl font-azeret font-bold text-[var(--accent)] mb-2">
+                <CountUp end={5.5} decimals={1} suffix="x" />
+              </div>
+              <div className="text-sm text-[var(--muted)]">Token Savings</div>
             </div>
           </div>
         </div>
@@ -109,34 +133,13 @@ export function CTAFooter() {
                   </a>
                 </li>
                 <li>
-                  <a href="/" className="hover:text-[var(--accent)] transition-colors">
-                    Documentation
+                  <a href="/evals" className="hover:text-[var(--accent)] transition-colors">
+                    Eval Results
                   </a>
                 </li>
                 <li>
-                  <a href="/" className="hover:text-[var(--accent)] transition-colors">
-                    Templates
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-sm text-[var(--muted)]">
-                <li>
-                  <a href="/" className="hover:text-[var(--accent)] transition-colors">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="/" className="hover:text-[var(--accent)] transition-colors">
-                    Changelog
-                  </a>
-                </li>
-                <li>
-                  <a href="/" className="hover:text-[var(--accent)] transition-colors">
-                    Community
+                  <a href="/evals/compare" className="hover:text-[var(--accent)] transition-colors">
+                    Live Comparisons
                   </a>
                 </li>
               </ul>
@@ -154,13 +157,23 @@ export function CTAFooter() {
                   </a>
                 </li>
                 <li>
-                  <a href="/" className="hover:text-[var(--accent)] transition-colors">
+                  <a
+                    href="https://x.com/uiUniverse_dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[var(--accent)] transition-colors"
+                  >
                     Twitter / X
                   </a>
                 </li>
                 <li>
-                  <a href="/" className="hover:text-[var(--accent)] transition-colors">
-                    Discord
+                  <a
+                    href="https://linkedin.com/company/uiuniverse"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[var(--accent)] transition-colors"
+                  >
+                    LinkedIn
                   </a>
                 </li>
               </ul>
@@ -179,15 +192,76 @@ export function CTAFooter() {
                 <GithubIcon className="w-5 h-5" />
               </a>
               <a
-                href="/"
+                href="https://x.com/uiUniverse_dev"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-[var(--muted)] hover:text-[var(--accent)] transition-colors"
               >
                 <TwitterIcon className="w-5 h-5" />
+              </a>
+              <a
+                href="https://linkedin.com/company/uiuniverse"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--muted)] hover:text-[var(--accent)] transition-colors"
+              >
+                <LinkedInIcon className="w-5 h-5" />
               </a>
             </div>
           </div>
         </div>
       </footer>
     </>
+  );
+}
+
+function CountUp({
+  end,
+  suffix = "",
+  decimals = 0,
+  duration = 2000,
+}: {
+  end: number;
+  suffix?: string;
+  decimals?: number;
+  duration?: number;
+}) {
+  const [value, setValue] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const hasAnimated = useRef(false);
+
+  const animate = useCallback(() => {
+    if (hasAnimated.current) return;
+    hasAnimated.current = true;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - (1 - progress) ** 3;
+      setValue(eased * end);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [end, duration]);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) animate();
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [animate]);
+
+  return (
+    <span ref={ref}>
+      {value.toFixed(decimals)}
+      {suffix}
+    </span>
   );
 }
