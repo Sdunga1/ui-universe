@@ -1,0 +1,16 @@
+{
+  "name": "uiUniverse",
+  "short_name": "uiUniverse",
+  "description": "AI-native motion UI components for React & Next.js",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ee502c",
+  "background_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

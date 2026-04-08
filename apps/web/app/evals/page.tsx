@@ -4,9 +4,18 @@ import { SiteHeader } from "../../components/site-header";
 import { type EvalPageData, loadEvalData } from "../../lib/eval-data";
 
 export const metadata: Metadata = {
-  title: "AI Eval Results — uiUniverse",
+  title: "AI Eval Results",
   description:
-    "Multi-model eval proving AI descriptors deliver 6.5x fewer tokens with equal or better code generation quality.",
+    "Multi-model eval proving AI descriptors deliver 5.5x fewer tokens with equal or better code generation quality across Claude and Gemini.",
+  alternates: {
+    canonical: "/evals",
+  },
+  openGraph: {
+    title: "AI Eval Results — uiUniverse",
+    description:
+      "Multi-model eval proving AI descriptors deliver 5.5x fewer tokens with equal or better code generation quality.",
+    url: "/evals",
+  },
 };
 
 // ── Chart helpers ──

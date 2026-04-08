@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { AnimatedBackground } from "../components/landing/backgrounds/animated-background";
 import { CodeShowcase } from "../components/landing/code-showcase";
 import { ComponentGrid } from "../components/landing/component-grid";
@@ -8,6 +9,18 @@ import { HeroSection } from "../components/landing/hero-section";
 import { HowItWorks } from "../components/landing/how-it-works";
 import { LogoMarquee } from "../components/landing/logo-marquee";
 import { ScrollObserver } from "../components/landing/scroll-observer";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "uiUniverse — AI-Native Motion UI Components for React",
+    description:
+      "25+ production-ready motion components for React & Next.js. Ship premium landing pages in minutes with AI-native descriptors.",
+    url: "/",
+  },
+};
 
 export default function HomePage() {
   return (
