@@ -58,6 +58,7 @@ function startExhaustParticles(
   const ctx = canvas.getContext("2d");
   if (!ctx) return () => {};
 
+  const c = ctx; // non-null binding for closures
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const logicalW = 240;
   const logicalH = 350;
@@ -65,7 +66,7 @@ function startExhaustParticles(
   canvas.height = logicalH * dpr;
   canvas.style.width = `${logicalW}px`;
   canvas.style.height = `${logicalH}px`;
-  ctx.scale(dpr, dpr);
+  c.scale(dpr, dpr);
 
   const particles: Particle[] = [];
   let frameId = 0;
@@ -82,19 +83,20 @@ function startExhaustParticles(
         opacity: 0.9,
         life: 0,
         maxLife: Math.random() * 30 + 20,
-        color: FIRE_COLORS[Math.floor(Math.random() * FIRE_COLORS.length)],
+        color: FIRE_COLORS[Math.floor(Math.random() * FIRE_COLORS.length)] ?? "#ee502c",
       });
     }
   }
 
   function loop() {
-    ctx.clearRect(0, 0, logicalW, logicalH);
-    ctx.globalCompositeOperation = "lighter";
+    c.clearRect(0, 0, logicalW, logicalH);
+    c.globalCompositeOperation = "lighter";
 
     spawn();
 
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
+      if (!p) continue;
       p.x += p.vx;
       p.y += p.vy;
       p.life++;
@@ -106,15 +108,15 @@ function startExhaustParticles(
         continue;
       }
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = p.opacity;
-      ctx.fill();
+      c.beginPath();
+      c.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      c.fillStyle = p.color;
+      c.globalAlpha = p.opacity;
+      c.fill();
     }
 
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = "source-over";
+    c.globalAlpha = 1;
+    c.globalCompositeOperation = "source-over";
 
     if (runningRef.current || particles.length > 0) {
       frameId = requestAnimationFrame(loop);
