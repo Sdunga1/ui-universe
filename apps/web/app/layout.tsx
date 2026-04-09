@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { SiteHeader } from "../components/site-header";
 import { RocketLaunchIntro } from "../components/rocket-launch-intro";
+import { SiteHeader } from "../components/site-header";
 import "./globals.css";
 
 const SITE_URL = "https://uiuniverse.dev";
