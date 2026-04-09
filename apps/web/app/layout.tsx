@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { RocketLaunchIntro } from "../components/rocket-launch-intro";
 import { SiteHeader } from "../components/site-header";
 import "./globals.css";
 
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD structured data
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <RocketLaunchIntro />
         <SiteHeader />
         <div className="pt-16">{children}</div>
       </body>
